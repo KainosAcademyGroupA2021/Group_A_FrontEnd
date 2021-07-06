@@ -11,11 +11,11 @@ const RoleSpecifications = () => {
 
 
     const list = result.map((r) => {
-            const {id, name, link } = r
+            const { RoleName, RoleSpec } = r
             return (
-                <tr key={id}>
-                    <td>{name}</td>
-                    <td>{link}</td>
+                <tr >
+                    <td>{RoleName}</td>
+                    <td>{RoleSpec}</td>
                 </tr>
             )
         
@@ -25,7 +25,6 @@ const RoleSpecifications = () => {
         console.log('sumbmit from Role Specifications')
         e.preventDefault();
         const res = await axios.get(`http://localhost:5000/job-roles?name=${role}`)
-        console.log(res)
         setResult(res.data);
     }
 

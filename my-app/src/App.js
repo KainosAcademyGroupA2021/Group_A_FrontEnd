@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
 import Capability from "./Capability/Capability";
-import Role from "./Role/Role";
 import RoleCapabilityView from "./Role/RoleCapabilityView";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';

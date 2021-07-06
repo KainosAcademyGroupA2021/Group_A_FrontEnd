@@ -4,6 +4,7 @@ import Capability from "./Capability/Capability";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RoleSpecifications from "./Role/RoleSpecifications";
+import GetJobRoles from "./Role/GetJobRoles";
 
 const App = () => {
   return (
@@ -17,10 +18,13 @@ const App = () => {
             <NavBar />
             <Capability />
           </Route>
-        
           <Route exact path="/role/spcifications">
           <NavBar />
             <RoleSpecifications/>
+          </Route>
+          <Route exact path="/role/GetJobRoles">
+          <NavBar />
+            <GetJobRoles/>
           </Route>
         </Switch>
       </Router>

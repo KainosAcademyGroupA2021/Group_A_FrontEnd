@@ -1,0 +1,11 @@
+.searchBar {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    min-width: 30%;
+}
+
+.emp-table {
+    padding: 40px;
+    padding-top: 5px;
+}

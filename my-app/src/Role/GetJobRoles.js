@@ -9,8 +9,6 @@ const GetJobRoles = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState();
     const [list, setList] = useState();
-    const [capabilityID, setCapabilityID] = useState([]);
-    const [bandID, setBandID] = useState([]);
 
 
     useEffect(() => {

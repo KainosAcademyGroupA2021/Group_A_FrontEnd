@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - 15
 
+install:
+- cd my-app
+- npm install
+
 script:
 - cd my-app
 - npm test

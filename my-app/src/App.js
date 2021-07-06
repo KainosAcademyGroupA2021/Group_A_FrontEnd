@@ -1,9 +1,7 @@
 import NavBar from "./NavBar";
 import Capability from "./Capability/Capability";
-import RoleCapabilityView from "./Role/RoleCapabilityView";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RoleSpecifications from "./Role/RoleSpecifications";
 import GetJobRoles from "./Role/GetJobRoles";
 
 const App = () => {
@@ -18,17 +16,9 @@ const App = () => {
             <NavBar />
             <Capability />
           </Route>
-          <Route exact path="/role/spcifications">
-          <NavBar />
-            <RoleSpecifications/>
-          </Route>
           <Route exact path="/role/GetJobRoles">
           <NavBar />
             <GetJobRoles/>
-          </Route>
-          <Route exact path="/role-capability-view">
-            <NavBar />
-            <RoleCapabilityView/>
           </Route>
         </Switch>
       </Router>

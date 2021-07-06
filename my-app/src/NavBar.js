@@ -1,4 +1,4 @@
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const NavBar = () => {
     return (
@@ -9,10 +9,13 @@ const NavBar = () => {
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/capability">Capability</Nav.Link>
-                    <Nav.Link href="/role">Role</Nav.Link>
+                    <NavDropdown title="Role" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/role/spcifications">View job specification</NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
+        
     )
 }
 

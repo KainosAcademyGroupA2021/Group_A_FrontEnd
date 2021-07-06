@@ -1,8 +1,9 @@
 import NavBar from "./NavBar";
 import Capability from "./Capability/Capability";
-import Role from "./Role/Role";
+
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RoleSpecifications from "./Role/RoleSpecifications";
 
 const App = () => {
   return (
@@ -16,9 +17,10 @@ const App = () => {
             <NavBar />
             <Capability />
           </Route>
-          <Route exact path="/role">
-            <NavBar />
-            <Role/>
+        
+          <Route exact path="/role/spcifications">
+          <NavBar />
+            <RoleSpecifications/>
           </Route>
         </Switch>
       </Router>

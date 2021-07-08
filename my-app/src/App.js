@@ -3,27 +3,38 @@ import Capability from "./Capability/Capability";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetJobRoles from "./Role/GetJobRoles";
+import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
+
 
 const App = () => {
   return (
     <div>
       <Router>
-        <Switch >
+        <Switch>
+
           <Route exact path="/">
             <NavBar />
           </Route>
+
           <Route exact path="/capability">
             <NavBar />
             <Capability />
           </Route>
+
           <Route exact path="/role/GetJobRoles">
-          <NavBar />
-            <GetJobRoles/>
+            <NavBar />
+            <GetJobRoles />
           </Route>
+
+          <Route exact path="/band/getTrainingBand">
+            <NavBar />
+            <GetTrainingBand />
+          </Route>
+
           <Route exact path="/band/GetBandCompetencies">
-          <NavBar />
-            <Band/>
+            <NavBar />
+            <Band />
           </Route>
         </Switch>
       </Router>

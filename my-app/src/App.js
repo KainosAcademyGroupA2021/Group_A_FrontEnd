@@ -4,6 +4,8 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetJobRoles from "./Role/GetJobRoles";
 import GetTrainingBand from "./Band/GetTrainingBand";
+import Band from "./Band/GetBandCompetencies";
+
 
 const App = () => {
   return (
@@ -24,6 +26,9 @@ const App = () => {
           <Route exact path="/band/getTrainingBand">
           <NavBar />
             <GetTrainingBand/>
+          <Route exact path="/band/GetBandCompetencies">
+          <NavBar />
+            <Band/>
           </Route>
         </Switch>
       </Router>

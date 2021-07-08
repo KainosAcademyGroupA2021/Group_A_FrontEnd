@@ -11,24 +11,30 @@ const App = () => {
   return (
     <div>
       <Router>
-        <Switch >
+        <Switch>
+
           <Route exact path="/">
             <NavBar />
           </Route>
+
           <Route exact path="/capability">
             <NavBar />
             <Capability />
           </Route>
+
           <Route exact path="/role/GetJobRoles">
-          <NavBar />
-            <GetJobRoles/>
+            <NavBar />
+            <GetJobRoles />
           </Route>
+
           <Route exact path="/band/getTrainingBand">
-          <NavBar />
-            <GetTrainingBand/>
+            <NavBar />
+            <GetTrainingBand />
+          </Route>
+
           <Route exact path="/band/GetBandCompetencies">
-          <NavBar />
-            <Band/>
+            <NavBar />
+            <Band />
           </Route>
         </Switch>
       </Router>

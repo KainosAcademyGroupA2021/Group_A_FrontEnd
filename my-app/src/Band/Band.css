@@ -1,0 +1,26 @@
+
+.insert-form {
+    width: 500px;
+    margin: auto;
+}
+
+.searchBar {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    min-width: 30%;
+
+    
+}
+
+
+.emp-table {
+    padding: 40px;
+
+}
+.table {
+    table-layout: fixed;
+}
+.td {
+    width: 10px;
+}

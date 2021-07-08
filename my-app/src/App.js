@@ -3,9 +3,9 @@ import Capability from "./Capability/Capability";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetJobRoles from "./Role/GetJobRoles";
+import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
-
 
 const App = () => {
   return (
@@ -16,10 +16,10 @@ const App = () => {
           <Route exact path="/">
             <NavBar />
           </Route>
-
-          <Route exact path="/capability">
+    
+          <Route exact path="/Capability/CapabilityPerJobFamily">
             <NavBar />
-            <Capability />
+            <CapabilityPerJobFamily />
           </Route>
 
           <Route exact path="/role/GetJobRoles">

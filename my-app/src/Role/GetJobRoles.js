@@ -28,7 +28,7 @@ const GetJobRoles = () => {
                 <tr >
                     <td>{RoleID}</td>
                     <td>{RoleName}</td>
-                    <td>{RoleSpec}</td>
+                    <td><a href ={RoleSpec}>Link to job spec</a></td>
                     <td>{CapabilityName}</td>
                     <td>{BandName}</td>
                 </tr>

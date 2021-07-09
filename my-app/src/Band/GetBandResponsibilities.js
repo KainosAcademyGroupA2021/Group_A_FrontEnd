@@ -21,8 +21,8 @@ const GetBandResponsibilities = () => {
             fetchResults();
         } else {
             let tempList = results.filter((r) => {
-                const { BandID} = r
-                return ( BandID == searchTerm || searchTerm === "");
+                const { BandID, BandName} = r
+                return ( BandName.includes(searchTerm) || BandID == searchTerm || searchTerm === "");
             }).map((r) => {
                 const { BandID, BandName, BandLevel, Responsibilities} = r
             return (
@@ -45,7 +45,7 @@ const GetBandResponsibilities = () => {
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for a band ID" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    <Form.Control type="search" placeholder="Search for a Band ID or Name" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </FormLabel>
             <div className="emp-table">
                 <Table >

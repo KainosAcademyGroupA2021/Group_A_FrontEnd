@@ -24,10 +24,9 @@ const GetTrainingBand = () => {
             console.log(bandLev)
             return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) ||searchTerm === "");
         }).map((r) => {
-            const { BandID, BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
+            const { BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
             return (
                 <tr >
-                    <td>{BandID}</td>
                     <td>{BandLevel}</td>
                     <td>{TrainingType}</td>
                     <td>{BandName}</td>
@@ -53,8 +52,7 @@ const GetTrainingBand = () => {
                 <Table >
                     <thead>
                         <tr>
-                            <th>BandID</th>
-                            <th>Minimum BandLevel</th>
+                            <th>Band Level</th>
                             <th>Training Type</th>
                             <th>Band Name</th>
                             <th>Training Name</th>

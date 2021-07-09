@@ -15,8 +15,10 @@ const NavBar = () => {
                         <NavDropdown.Item href="/role/GetJobRoles">Job Views Roles</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Band" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/Band/GetBandResponsibilities">View Band Responsibilities</NavDropdown.Item>
                         <NavDropdown.Item href="/band/getTrainingBand">View Training</NavDropdown.Item>
                         <NavDropdown.Item href="/band/GetBandCompetencies">Band Competencies</NavDropdown.Item>
+
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>

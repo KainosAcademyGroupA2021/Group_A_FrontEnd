@@ -88,10 +88,12 @@ const AddRole = () => {
           })
           .then(function (response) {
             console.log(response);
+            window.location.href = '/role/GetJobRoles'
           })
           .catch(function (error) {
             console.log(error);
           });
+          e.preventDefault();
     }
 
     return (

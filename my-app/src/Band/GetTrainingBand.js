@@ -13,6 +13,7 @@ const GetTrainingBand = () => {
         if (!results) {
             async function fetchResults() {
                 const res = await axios.get(`http://localhost:5000/getTrainingByBand`);
+                console.log(res);
                 setResults(res.data);
             }
             fetchResults();
@@ -20,6 +21,7 @@ const GetTrainingBand = () => {
         let tempList = results.filter((r) => {
             const { BandName, TrainingType, TrainingName, BandLevel } = r
             const bandLev = String(BandLevel)
+            console.log(bandLev)
             return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) ||searchTerm === "");
         }).map((r) => {
             const { BandID, BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
@@ -56,7 +58,7 @@ const GetTrainingBand = () => {
                             <th>Training Type</th>
                             <th>Band Name</th>
                             <th>Training Name</th>
-                            <th>Training </th>
+                            <th>Training Link </th>
                         </tr>
                     </thead>
                     <tbody>

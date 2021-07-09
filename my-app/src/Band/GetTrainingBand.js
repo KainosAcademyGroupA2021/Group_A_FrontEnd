@@ -32,7 +32,7 @@ const GetTrainingBand = () => {
                     <td>{TrainingType}</td>
                     <td>{BandName}</td>
                     <td>{TrainingName}</td>
-                    <td><a href = {TrainingLink}>Link to trainig</a></td>
+                    <td><a href = {TrainingLink}>Link to training</a></td>
                 </tr>
             )
 

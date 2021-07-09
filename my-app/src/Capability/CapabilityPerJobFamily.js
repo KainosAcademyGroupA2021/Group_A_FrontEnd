@@ -6,7 +6,6 @@ import './Capability.css'
 import { Table } from "react-bootstrap";
 
 const CapabilityPerJobFamily = () => {
-  const [CapabilityID, setCapabilityID] = useState();
   const [CapabilityName, setCapabilityName] = useState([]);
   const [JobFamilyName, setJobFamilyName] = useState([]);
 
@@ -14,9 +13,8 @@ const CapabilityPerJobFamily = () => {
           const { CapabilityID, CapabilityName, JobFamilyName} = r
           return (
               <tr >
-                  <td>{CapabilityID}</td>
-                  <td>{CapabilityName}</td>
                   <td>{JobFamilyName}</td>
+                  <td>{CapabilityName}</td>
               </tr>
           )
 
@@ -32,9 +30,8 @@ getCapabilityAndJobFamily();
                 <Table >
                     <thead>
                         <tr>
-                            <th>Capability ID</th>
-                            <th>Capability Name</th>
                             <th>Job Family Name</th>
+                            <th>Capability Name</th>
                         </tr>
                     </thead>
                     <tbody>

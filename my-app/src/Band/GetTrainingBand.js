@@ -18,17 +18,19 @@ const GetTrainingBand = () => {
             fetchResults();
         } else {
         let tempList = results.filter((r) => {
-            const { BandName, TrainingType, TrainingName } = r
-            return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || TrainingName.includes(searchTerm) || searchTerm === "");
+            const { BandName, TrainingType, TrainingName, BandLevel } = r
+            const bandLev = String(BandLevel)
+            return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) ||searchTerm === "");
         }).map((r) => {
-            const { BandID, TrainingType, BandName, TrainingName, TrainingLink } = r
+            const { BandID, BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
             return (
                 <tr >
                     <td>{BandID}</td>
+                    <td>{BandLevel}</td>
                     <td>{TrainingType}</td>
                     <td>{BandName}</td>
                     <td>{TrainingName}</td>
-                    <td>{TrainingLink}</td>
+                    <td><a href = {TrainingLink}>Link to trainig</a></td>
                 </tr>
             )
 
@@ -50,6 +52,7 @@ const GetTrainingBand = () => {
                     <thead>
                         <tr>
                             <th>BandID</th>
+                            <th>Minimum BandLevel</th>
                             <th>Training Type</th>
                             <th>Band Name</th>
                             <th>Training Name</th>

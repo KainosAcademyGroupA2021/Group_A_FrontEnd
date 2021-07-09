@@ -11,6 +11,7 @@ const NavBar = () => {
                     <Nav.Link href="/capability">Capability</Nav.Link>
                     <NavDropdown title="Role" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/role/GetJobRoles">Job Views Roles</NavDropdown.Item>
+                        <NavDropdown.Item href="/role/addRole">Add a role</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Band" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/band/getTrainingBand">View Training</NavDropdown.Item>

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import GetJobRoles from "./Role/GetJobRoles";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
+import AddRole from "./Role/AddRole";
 
 
 const App = () => {
@@ -36,6 +37,12 @@ const App = () => {
             <NavBar />
             <Band />
           </Route>
+
+          <Route exact path="/role/addRole">
+            <NavBar />
+            <AddRole />
+          </Route>
+
         </Switch>
       </Router>
     </div>

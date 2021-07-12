@@ -104,6 +104,12 @@ const AddBand = () => {
         competencyID === "" ? setCompetencyValidationMessage("You must select a competency") : setCompetencyValidationMessage("");
         responsibilities === "" ? setResponsibilityValidationMessage("You must enter a responsibility") : setResponsibilityValidationMessage("");
 
+        if (selectedTrainingItems[selectedTrainingItems.length-1] === -1) {
+            let tempSelectedItems = [...selectedTrainingItems]
+            tempSelectedItems.pop()
+            setSelectedTrainingItems(tempSelectedItems)
+        }
+
         if (bandName === "" || bandLevel === "" ||  !/^-?[\d.]+(?:e-?\d+)?$/.test(bandLevel) || competencyID === "" || responsibilities === "") {
             e.preventDefault();
             console.log("error")

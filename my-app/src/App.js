@@ -7,6 +7,7 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
+import AddJobFamily from "./Capability/AddJobFamily"
 
 
 const App = () => {
@@ -37,17 +38,24 @@ const App = () => {
             <NavBar />
             <Band />
           </Route>
-    
+
           <Route exact path="/role/addRole">
             <NavBar />
             <AddRole />
           </Route>
-    
+
           <Route exact path="/Band/GetBandResponsibilities">
           <NavBar />
             <GetBandResponsibilities/>
           </Route>
-    
+
+          <Route exact path="/Capability/AddJobFamily">
+          <NavBar />
+            <AddJobFamily/>
+          </Route>
+
+
+
         </Switch>
       </Router>
     </div>

@@ -2,7 +2,7 @@
   "id": "476e0f41-8791-40d2-8878-768acdf69a5e",
   "version": "2.0",
   "name": "GroupA-Frontend",
-  "url": "http://localhost:3001",
+  "url": "http://localhost:3000",
   "tests": [{
     "id": "5d4c6109-1788-4011-ba6b-1b81222d404a",
     "name": "Add a role",

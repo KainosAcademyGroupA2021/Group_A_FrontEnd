@@ -1,6 +1,6 @@
 anguage: node_js
 node_js:
-  - 10
+  - 14
 
 install:
   - # start your web application and listen on `localhost`

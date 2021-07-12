@@ -7,8 +7,8 @@ node_js:
 install:
   - # start your web application and listen on `localhost`
   - cd my-app
-  - npm install -g chromedriver
-  - npm install -g selenium-side-runner
+  - yarn add chromedriver
+  - yarn add selenium-side-runner
   - npm install
 
 script:

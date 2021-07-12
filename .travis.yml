@@ -1,10 +1,15 @@
+addons:
+  sauce_connect: true
 language: node_js
 node_js:
   - 15
 
-install:
-- cd my-app
-- npm install
+before_install:
+  - # start your web application and listen on `localhost`
+  - cd my-app
+  - npm install
+  - npm start
+  - selenium-side-runner --server https://oauth-joehdownard-f5034:f1392015-d209-426c-8e64-c8502f94102b@ondemand.eu-central-1.saucelabs.com:443/wd/hub -c "browserName=chrome" ./SeleniumTests/GroupA-Frontend.side
 
 script:
 - npm test

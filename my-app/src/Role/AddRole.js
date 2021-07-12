@@ -16,6 +16,7 @@ const AddRole = () => {
 
     const [roleName, setRoleName] = useState("");
     const [roleSpecLink, setRoleSpecLink] = useState("");
+    const [roleSummary, setRoleSummary] = useState("");
     const [selectedJobFamilyID, setSelectedJobFamilyID] = useState("");
     const [bandID, setBandID] = useState("");
 
@@ -23,6 +24,7 @@ const AddRole = () => {
 
     const [roleNameValidationMessage, setRoleNameValidationMessage] = useState("");
     const [roleSpecLinkValidationMessage, setRoleSpecLinkValidationMessage] = useState("");
+    const [roleSummaryValidationMessage, setRoleSummaryValidationMessage] = useState("");
     const [jobFamilyValidationMessage, setJobFamilyValidationMessage] = useState("");
     const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
 
@@ -71,30 +73,31 @@ const AddRole = () => {
 
         roleName === "" ? setRoleNameValidationMessage("You must enter a name!") : setRoleNameValidationMessage("");
         roleSpecLink === "" ? setRoleSpecLinkValidationMessage("You must enter a link!") : setRoleSpecLinkValidationMessage("");
+        roleSummary === "" ? setRoleSummaryValidationMessage("You must enter a role specification summary!") : setRoleSummaryValidationMessage("");
         selectedJobFamilyID === "" ? setJobFamilyValidationMessage("You must select a job family!") : setJobFamilyValidationMessage("");
         bandID === "" ? setBandLevelValidationMessage("You must enter a valid number as the band level!") : setBandLevelValidationMessage("");
 
-        if (roleName === "" || roleSpecLink === "" || selectedJobFamilyID === "" || bandID === "") {
+        if (roleName === "" || roleSpecLink === "" || selectedJobFamilyID === "" || bandID === "" || roleSummary === "") {
             e.preventDefault();
             e.stopPropagation();
         } else {
-        setValidated("true");
-
-        axios.post('http://localhost:5000/addRole', {
-            RoleName: roleName,
-            RoleSpec: roleSpecLink,
-            JobFamilyID: selectedJobFamilyID,
-            BandID: bandID
-          })
-          .then(function (response) {
-            console.log(response);
-            window.location.href = '/role/GetJobRoles'
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-          e.preventDefault();
+            axios.post('http://localhost:5000/addRole', {
+                RoleName: roleName,
+                RoleSpec: roleSpecLink,
+                RoleSpecSummary: roleSummary,
+                JobFamilyID: selectedJobFamilyID,
+                BandID: bandID
+            })
+                .then(function (response) {
+                    console.log(response);
+                    window.location.href = '/role/GetJobRoles'
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            e.preventDefault();
         }
+        setValidated("true");
     }
 
     return (
@@ -112,6 +115,12 @@ const AddRole = () => {
                     <Form.Label>Role Specification Link</Form.Label>
                     <Form.Control isInvalid={roleSpecLinkValidationMessage !== ""} type="roleSpecLink" placeholder="Enter the specification link for the role" value={roleSpecLink} onChange={(e) => setRoleSpecLink(e.target.value)} />
                     <Form.Control.Feedback type="invalid">{roleSpecLinkValidationMessage}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="formRoleSpecLink">
+                    <Form.Label>Role Specification Summary</Form.Label>
+                    <Form.Control as="textarea" rows={3} isInvalid={roleSummaryValidationMessage !== ""} type="roleSpecSummary" placeholder="Enter the specification summary for the role" value={roleSummary} onChange={(e) => setRoleSummary(e.target.value)} />
+                    <Form.Control.Feedback type="invalid">{roleSummaryValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -170,7 +179,7 @@ const AddRole = () => {
                         {bandItems}
                     </Form.Control>
                     <Form.Control.Feedback type="invalid">
-                    {bandLevelValidationMessage}
+                        {bandLevelValidationMessage}
                     </Form.Control.Feedback>
                 </Form.Group>
 

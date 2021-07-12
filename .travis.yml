@@ -13,4 +13,4 @@ install:
 
 script:
 - npm test
-- npm start & selenium-side-runner -c \"goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome\" ./SeleniumTests/GroupA-Frontend.side;
+- npm start & selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;

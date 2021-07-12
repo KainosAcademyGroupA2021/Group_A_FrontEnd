@@ -23,14 +23,16 @@ const GetJobRoles = () => {
                 const { RoleID, RoleName, CapabilityName, BandName} = r
                 return (RoleName.includes(searchTerm) || CapabilityName.includes(searchTerm) || BandName.includes(searchTerm) || RoleID == searchTerm || searchTerm === "");
             }).map((r) => {
-                const { RoleID, RoleName, RoleSpec, CapabilityName, BandName} = r
+                const { RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel} = r
             return (
                 <tr >
                     <td>{RoleID}</td>
                     <td>{RoleName}</td>
                     <td><a href ={RoleSpec}>Link to job spec</a></td>
+                    <td>{RoleSpecSummary}</td>
                     <td>{CapabilityName}</td>
                     <td>{BandName}</td>
+                    <td>{BandLevel}</td>
                 </tr>
             )
 
@@ -54,8 +56,10 @@ const GetJobRoles = () => {
                             <th>Role ID</th>
                             <th>Role Name</th>
                             <th>Role Spec</th>
+                            <th>Role Spec Summary</th>
                             <th>Capability Name</th>
                             <th>Band Name</th>
+                            <th>Band Level</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -13,22 +13,25 @@ const GetTrainingBand = () => {
         if (!results) {
             async function fetchResults() {
                 const res = await axios.get(`http://localhost:5000/getTrainingByBand`);
+                console.log(res);
                 setResults(res.data);
             }
             fetchResults();
         } else {
         let tempList = results.filter((r) => {
-            const { BandName, TrainingType, TrainingName } = r
-            return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || TrainingName.includes(searchTerm) || searchTerm === "");
+            const { BandName, TrainingType, TrainingName, BandLevel } = r
+            const bandLev = String(BandLevel)
+            console.log(bandLev)
+            return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) ||searchTerm === "");
         }).map((r) => {
-            const { BandID, TrainingType, BandName, TrainingName, TrainingLink } = r
+            const { BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
             return (
                 <tr >
-                    <td>{BandID}</td>
+                    <td>{BandLevel}</td>
                     <td>{TrainingType}</td>
                     <td>{BandName}</td>
                     <td>{TrainingName}</td>
-                    <td>{TrainingLink}</td>
+                    <td><a href = {TrainingLink}>Link to training</a></td>
                 </tr>
             )
 
@@ -49,11 +52,11 @@ const GetTrainingBand = () => {
                 <Table >
                     <thead>
                         <tr>
-                            <th>BandID</th>
+                            <th>Band Level</th>
                             <th>Training Type</th>
                             <th>Band Name</th>
                             <th>Training Name</th>
-                            <th>Training </th>
+                            <th>Training Link </th>
                         </tr>
                     </thead>
                     <tbody>

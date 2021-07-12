@@ -20,6 +20,7 @@ const NavBar = () => {
                         <NavDropdown.Item href="/Band/GetBandResponsibilities">View Band Responsibilities</NavDropdown.Item>
                         <NavDropdown.Item href="/band/getTrainingBand">View Training</NavDropdown.Item>
                         <NavDropdown.Item href="/band/GetBandCompetencies">Band Competencies</NavDropdown.Item>
+                        <NavDropdown.Item href="/band/addBand">Add a band</NavDropdown.Item>
 
                     </NavDropdown>
                 </Nav>

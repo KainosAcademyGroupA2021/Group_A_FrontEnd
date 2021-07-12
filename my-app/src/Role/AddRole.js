@@ -77,7 +77,7 @@ const AddRole = () => {
         if (roleName === "" || roleSpecLink === "" || selectedJobFamilyID === "" || bandID === "") {
             e.preventDefault();
             e.stopPropagation();
-        }
+        } else {
         setValidated("true");
 
         axios.post('http://localhost:5000/addRole', {
@@ -88,10 +88,13 @@ const AddRole = () => {
           })
           .then(function (response) {
             console.log(response);
+            window.location.href = '/role/GetJobRoles'
           })
           .catch(function (error) {
             console.log(error);
           });
+          e.preventDefault();
+        }
     }
 
     return (

@@ -17,6 +17,12 @@
 
 }
 
+.role-band-form{
+    width: 800px;
+    margin: auto;
+    padding-top: 60px;
+}
+
 .emp-table {
     padding: 40px;
 
@@ -28,3 +34,12 @@
     width: 10px;
 }
 
+
+.AddBandContainer{
+    padding: 40px;
+}
+
+.indentedField {
+    margin-left: 20px;
+    margin-top: 20px;
+}

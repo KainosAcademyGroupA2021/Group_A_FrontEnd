@@ -17,3 +17,18 @@
 .addJobFamilyContainer{
     padding: 40px;
 }
+.AddCapabilityContainer{
+    padding: 40px;
+}
+
+.linkButton {
+    color: #FFF;
+  }
+
+.linkButton:hover {
+     color: #FFF;
+     text-decoration-line: none;
+  }
+  .emp-table {
+      overflow-wrap: break-word;
+  }

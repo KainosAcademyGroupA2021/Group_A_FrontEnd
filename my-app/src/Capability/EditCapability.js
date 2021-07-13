@@ -45,13 +45,6 @@ const EditCapability = () => {
             setCapabilityLeadsItems(tempItems);
         }
 
-        /*if (capabilityLeadsItems) {
-            if (!loadedPreviousData) {
-                const { CapabilityID, CapabilityName, CapabilityLeadID } = previousData;
-                document.getElementById("capabilityLead").value = CapabilityLeadID;
-                setLoadedPreviousData(true);
-            }
-        }*/
     }, [capabilityLeads, previousData, selectedCapabilityLeadID]);
 
     const handleSubmit = (e) => {

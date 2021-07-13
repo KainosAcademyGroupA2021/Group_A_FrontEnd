@@ -2,6 +2,7 @@ import { Form, Button, FormLabel } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import './Role.css'
+import { Link } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
 
@@ -21,7 +22,7 @@ const AdminRoleView = () => {
         } else {
             let tempList = results.filter((r) => {
                 const { RoleID, RoleName, CapabilityName, BandName} = r
-                return (RoleName.includes(searchTerm) || CapabilityName.includes(searchTerm) || BandName.includes(searchTerm) || RoleID == searchTerm || searchTerm === "");
+                return (RoleName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || BandName.toLowerCase().includes(searchTerm.toLowerCase()) || RoleID == searchTerm || searchTerm === "");
             }).map((r) => {
                 const { RoleID, RoleName, CapabilityName, BandName} = r
             return (
@@ -67,10 +68,14 @@ const AdminRoleView = () => {
 const AdminButtons = (props) => {
     return (
         <div>
-        <Button variant="warning" className="mr-3">Edit</Button>
+        <Button variant="warning" className="mr-3"><Link className="linkButton" to={"/role/editRole/"+props.roleID}>Edit</Link></Button>
         <Button variant="danger" onClick={() => handleDeleteRole(props.roleID)}>Delete</Button>
         </div>
     );
+}
+
+const handleEditRole = (id) => {
+
 }
 
 const handleDeleteRole = (id) => {

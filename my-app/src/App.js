@@ -10,6 +10,8 @@ import AddRole from "./Role/AddRole";
 import AddJobFamily from "./Capability/AddJobFamily";
 import AddCapability from "./Capability/AddCapability";
 import AddBand from "./Band/AddBand";
+import EditCapability from "./Capability/EditCapability";
+import GetCapability from "./Capability/GetCapability";
 import CapabilityLead from "./Capability/CapabilityLead";
 
 
@@ -29,6 +31,14 @@ const App = () => {
           <Route exact path="/Capability/AddCapability">
             <NavBar />
             <AddCapability />
+          </Route>
+          <Route exact path="/Capability/GetCapability">
+            <NavBar />
+            <GetCapability />
+          </Route>
+          <Route exact path="/Capability/EditCapability/:id">
+            <NavBar />
+            <EditCapability />
           </Route>
           <Route exact path="/role/GetJobRoles">
             <NavBar />

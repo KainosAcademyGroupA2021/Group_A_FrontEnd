@@ -46,7 +46,7 @@ const GetJobRoles = () => {
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for a role id or role name" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    <Form.Control type="search" placeholder="Search for role, capability or band name" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </FormLabel>
             <div className="emp-table">
                 <Table >

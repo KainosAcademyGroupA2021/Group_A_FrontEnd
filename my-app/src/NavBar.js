@@ -1,12 +1,20 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import "./NavBar.css"
+import Logo from './Images/thumbnail.png'
 
 const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">Kainos </Navbar.Brand>
+            <Navbar.Brand href="#home">
+                <img
+                src = {Logo}
+                width = "240"
+                height = "70"
+                />
+            </Navbar.Brand>    
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+                <Nav className="navbar">
                     <Nav.Link href="/">Home</Nav.Link>
                     <NavDropdown title="Capability" id="basic-nav-dropdown-capability">
                         <NavDropdown.Item href="/Capability/CapabilityPerJobFamily">Capability Relation With Job Family</NavDropdown.Item>

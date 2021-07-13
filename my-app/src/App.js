@@ -9,6 +9,8 @@ import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
 import AddCapability from "./Capability/AddCapability"
 import AddBand from "./Band/AddBand";
+import EditCapability from "./Capability/EditCapability";
+import GetCapability from "./Capability/GetCapability";
 
 
 const App = () => {
@@ -27,6 +29,14 @@ const App = () => {
           <Route exact path="/Capability/AddCapability">
             <NavBar />
             <AddCapability />
+          </Route>
+          <Route exact path="/Capability/GetCapability">
+            <NavBar />
+            <GetCapability />
+          </Route>
+          <Route exact path="/Capability/EditCapability">
+            <NavBar />
+            <EditCapability />
           </Route>
           <Route exact path="/role/GetJobRoles">
             <NavBar />

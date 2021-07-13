@@ -3,7 +3,9 @@ import { Form, Button } from "react-bootstrap";
 import './Capability.css';
 import axios from 'axios';
 
-const AddCapability = () => {
+const EditCapability = (id) => {
+    //console.log($route.params.id);
+    //console.log(this.CapabilityID);
     const [capabilityLeads, setCapabilityLeads] = useState();
 
     const [capabilityLeadsItems, setCapabilityLeadsItems] = useState();
@@ -77,7 +79,6 @@ const AddCapability = () => {
                     <Form.Control
                         as="select"
                         type="select"
-                        isInvalid={capabilityLeadValidationMessage !== ""}
                         name="capabilityLeads"
                         onChange={e => {
                             setSelectedCapabilityLeadID(e.target.value);
@@ -86,7 +87,6 @@ const AddCapability = () => {
                         <option value="" >Select capability lead</option>
                         {capabilityLeadsItems}
                     </Form.Control>
-                    <Form.Control.Feedback type="invalid">{capabilityLeadValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
                 <br />
@@ -101,4 +101,4 @@ const AddCapability = () => {
 
 }
 
-export default AddCapability;
+export default EditCapability;

@@ -13,6 +13,8 @@ import AddBand from "./Band/AddBand";
 import AdminRoleView from "./Role/AdminRoleView";
 import EditRole from "./Role/EditRole";
 import { Nav, Navbar } from "react-bootstrap";
+import EditCapability from "./Capability/EditCapability";
+import GetCapability from "./Capability/GetCapability";
 import CapabilityLead from "./Capability/CapabilityLead";
 
 
@@ -32,6 +34,14 @@ const App = () => {
           <Route exact path="/Capability/AddCapability">
             <NavBar />
             <AddCapability />
+          </Route>
+          <Route exact path="/Capability/GetCapability">
+            <NavBar />
+            <GetCapability />
+          </Route>
+          <Route exact path="/Capability/EditCapability/:id">
+            <NavBar />
+            <EditCapability />
           </Route>
           <Route exact path="/role/GetJobRoles">
             <NavBar />

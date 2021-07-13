@@ -20,15 +20,15 @@ const GetJobRoles = () => {
             fetchResults();
         } else {
             let tempList = results.filter((r) => {
-                const { RoleID, RoleName, CapabilityName, BandName} = r
-                return (RoleName.includes(searchTerm) || CapabilityName.includes(searchTerm) || BandName.includes(searchTerm) || RoleID == searchTerm || searchTerm === "");
+                const { RoleName, CapabilityName, BandName} = r
+                return (RoleName.includes(searchTerm) || CapabilityName.includes(searchTerm) || BandName.includes(searchTerm) || searchTerm === "");
             }).map((r) => {
-                const { RoleID, RoleName, RoleSpec, CapabilityName, BandName, BandLevel} = r
+                const { RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel} = r
             return (
                 <tr >
-                    <td>{RoleID}</td>
                     <td>{RoleName}</td>
                     <td><a href ={RoleSpec}>Link to job spec</a></td>
+                    <td>{RoleSpecSummary}</td>
                     <td>{CapabilityName}</td>
                     <td>{BandName}</td>
                     <td>{BandLevel}</td>
@@ -46,15 +46,15 @@ const GetJobRoles = () => {
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for a role id or role name" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    <Form.Control type="search" placeholder="Search for role, capability or band name" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </FormLabel>
             <div className="emp-table">
                 <Table >
                     <thead>
                         <tr>
-                            <th>Role ID</th>
                             <th>Role Name</th>
                             <th>Role Spec</th>
+                            <th>Role Spec Summary</th>
                             <th>Capability Name</th>
                             <th>Band Name</th>
                             <th>Band Level</th>

@@ -8,9 +8,11 @@ import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
 //import GlobalStyle from "./GlobalStyles";
-
 import Footer from "./Footer";
-
+import AddJobFamily from "./Capability/AddJobFamily";
+import AddCapability from "./Capability/AddCapability";
+import AddBand from "./Band/AddBand";
+import CapabilityLead from "./Capability/CapabilityLead";
 
 
 const App = () => {
@@ -26,7 +28,10 @@ const App = () => {
             <NavBar />
             <CapabilityPerJobFamily />
           </Route>
-
+          <Route exact path="/Capability/AddCapability">
+            <NavBar />
+            <AddCapability />
+          </Route>
           <Route exact path="/role/GetJobRoles">
             <NavBar />
             <GetJobRoles />
@@ -41,17 +46,31 @@ const App = () => {
             <NavBar />
             <Band />
           </Route>
-    
+
           <Route exact path="/role/addRole">
             <NavBar />
             <AddRole />
           </Route>
-    
+
           <Route exact path="/Band/GetBandResponsibilities">
           <NavBar />
             <GetBandResponsibilities/>
           </Route>
-    
+
+          <Route exact path="/Capability/AddJobFamily">
+          <NavBar />
+            <AddJobFamily/>
+          </Route>
+
+          <Route exact path="/Band/addBand">
+          <NavBar />
+            <AddBand/>
+          </Route>
+
+           <Route exact path="/Capability/CapabilityLead">
+           <NavBar />
+           <CapabilityLead />
+           </Route>
         </Switch>
       </Router>
 

@@ -1,0 +1,978 @@
+{
+  "id": "476e0f41-8791-40d2-8878-768acdf69a5e",
+  "version": "2.0",
+  "name": "GroupA-Frontend",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "5d4c6109-1788-4011-ba6b-1b81222d404a",
+    "name": "Add a role",
+    "commands": [{
+      "id": "a470aecf-928a-4331-8c86-e29c90cc4e6c",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "54bef058-5345-40e7-88fc-f65b675e0548",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0c42a0a0-ad70-4a15-bde7-9b4963952fca",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic-nav-dropdown",
+      "targets": [
+        ["id=basic-nav-dropdown", "id"],
+        ["linkText=Role", "linkText"],
+        ["css=.nav-item:nth-child(3) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Role')]", "xpath:link"],
+        ["xpath=//a[@id='basic-nav-dropdown']", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Role')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "51b81729-79a9-4b7c-8a87-693493569036",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Add a role",
+      "targets": [
+        ["linkText=Add a role", "linkText"],
+        ["css=.dropdown-item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Add a role')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/role/addRole')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Add a role')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0c66bda-5cb2-4d07-a7d3-52801c62fcd6",
+      "comment": "",
+      "command": "click",
+      "target": "id=formAddRole",
+      "targets": [
+        ["id=formAddRole", "id"],
+        ["css=#formAddRole", "css:finder"],
+        ["xpath=//input[@id='formAddRole']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d665fe0-d6b0-426d-95d7-6ae42ed610ff",
+      "comment": "",
+      "command": "type",
+      "target": "id=formAddRole",
+      "targets": [
+        ["id=formAddRole", "id"],
+        ["css=#formAddRole", "css:finder"],
+        ["xpath=//input[@id='formAddRole']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestRole"
+    }, {
+      "id": "9fbb1bf9-42d7-44ef-8fe1-bd6a7c777ee7",
+      "comment": "",
+      "command": "click",
+      "target": "id=formRoleSpecLink",
+      "targets": [
+        ["id=formRoleSpecLink", "id"],
+        ["css=#formRoleSpecLink", "css:finder"],
+        ["xpath=//input[@id='formRoleSpecLink']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "77f194b0-7f7f-4dba-8a1f-13b8e645b6ed",
+      "comment": "",
+      "command": "type",
+      "target": "id=formRoleSpecLink",
+      "targets": [
+        ["id=formRoleSpecLink", "id"],
+        ["css=#formRoleSpecLink", "css:finder"],
+        ["xpath=//input[@id='formRoleSpecLink']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "TESTLINK"
+    }, {
+      "id": "06f90d28-df54-4618-b2cb-7c20b22e47bc",
+      "comment": "",
+      "command": "click",
+      "target": "name=capability",
+      "targets": [
+        ["name=capability", "name"],
+        ["css=.form-group:nth-child(3) > .form-control", "css:finder"],
+        ["xpath=//select[@name='capability']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[3]/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"],
+        ["xpath=//select[contains(.,'Select capability')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "05e53710-997c-47fa-b08b-ae447d0acaa6",
+      "comment": "",
+      "command": "click",
+      "target": "name=jobfamily",
+      "targets": [
+        ["name=jobfamily", "name"],
+        ["css=.form-group:nth-child(4) > .form-control", "css:finder"],
+        ["xpath=//select[@name='jobfamily']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[4]/select", "xpath:idRelative"],
+        ["xpath=//div[4]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Select a capability first')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d6766d6c-2028-4e68-b986-5414f19c56e3",
+      "comment": "",
+      "command": "click",
+      "target": "name=bandLevel",
+      "targets": [
+        ["name=bandLevel", "name"],
+        ["css=.form-group:nth-child(5) > .form-control", "css:finder"],
+        ["xpath=//select[@name='bandLevel']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[5]/select", "xpath:idRelative"],
+        ["xpath=//div[5]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Select a band level')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "59a7cb49-2b92-4b11-a5f7-c64da3027e5b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "44c68541-9bdb-4d8f-9224-880d15487da6",
+    "name": "Add a band",
+    "commands": [{
+      "id": "3274921e-060c-47f2-bf55-25b31a977b7d",
+      "comment": "",
+      "command": "open",
+      "target": "/Band/GetBandResponsibilities",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5e069fcd-422f-4fc2-8a8c-43aa25f26f15",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1aadc91c-ce77-4483-99d9-d9e700d3027f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(4) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b42d0c85-3a7e-4aa7-bd5d-88d335ecc63d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Add a band",
+      "targets": [
+        ["linkText=Add a band", "linkText"],
+        ["css=.dropdown-item:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Add a band')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/div/a[4]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/addBand')]", "xpath:href"],
+        ["xpath=//a[4]", "xpath:position"],
+        ["xpath=//a[contains(.,'Add a band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7c9ffa51-bc16-4529-a54e-5493d5da3a04",
+      "comment": "",
+      "command": "click",
+      "target": "id=formAddBandName",
+      "targets": [
+        ["id=formAddBandName", "id"],
+        ["css=#formAddBandName", "css:finder"],
+        ["xpath=//input[@id='formAddBandName']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f7bbccda-363c-4fde-9225-90d02bcb1466",
+      "comment": "",
+      "command": "type",
+      "target": "id=formAddBandName",
+      "targets": [
+        ["id=formAddBandName", "id"],
+        ["css=#formAddBandName", "css:finder"],
+        ["xpath=//input[@id='formAddBandName']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Test Band"
+    }, {
+      "id": "fddd2691-7fbc-4393-8a35-f0501e321274",
+      "comment": "",
+      "command": "click",
+      "target": "id=formAddBandLevel",
+      "targets": [
+        ["id=formAddBandLevel", "id"],
+        ["css=#formAddBandLevel", "css:finder"],
+        ["xpath=//input[@id='formAddBandLevel']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "935e14cf-e2c2-4afb-91ec-1e75ed3f8c1c",
+      "comment": "",
+      "command": "type",
+      "target": "id=formAddBandLevel",
+      "targets": [
+        ["id=formAddBandLevel", "id"],
+        ["css=#formAddBandLevel", "css:finder"],
+        ["xpath=//input[@id='formAddBandLevel']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "10"
+    }, {
+      "id": "342cb886-a58f-4445-9240-5ddf7da658e4",
+      "comment": "",
+      "command": "click",
+      "target": "name=competency",
+      "targets": [
+        ["name=competency", "name"],
+        ["css=.form-group:nth-child(3) > .form-control", "css:finder"],
+        ["xpath=//select[@name='competency']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[3]/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"],
+        ["xpath=//select[contains(.,'Select the competency')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a09b2512-4cae-41df-95e8-9a34465b41bf",
+      "comment": "",
+      "command": "click",
+      "target": "id=formResponsibilities",
+      "targets": [
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//input[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2040ff22-a98f-4d35-9673-179f00edc2e8",
+      "comment": "",
+      "command": "type",
+      "target": "id=formResponsibilities",
+      "targets": [
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//input[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "BIG RESPONSIBILITY"
+    }, {
+      "id": "1342b7ba-c9f8-42f7-8eb0-048f09dfa7ea",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(5)",
+      "targets": [
+        ["css=.btn:nth-child(5)", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add a training')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5cd9bdca-a202-4bb5-a7ac-89e43f99bbd5",
+      "comment": "",
+      "command": "click",
+      "target": "name=training",
+      "targets": [
+        ["name=training", "name"],
+        ["css=.form-group:nth-child(5) > .form-control", "css:finder"],
+        ["xpath=//select[@name='training']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[5]/select", "xpath:idRelative"],
+        ["xpath=//div[5]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Select training')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "36a9bf32-5207-4c51-82f2-4857e746eae3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(10)",
+      "targets": [
+        ["css=.btn:nth-child(10)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "cb5956d8-ca8f-4ed2-9d46-0de558438f8c",
+    "name": "View job roles and search",
+    "commands": [{
+      "id": "99024608-98e2-4a0d-99ae-3731d192c47b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3c6d0c7c-581f-420e-bd01-c9ec4346f5cf",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58903064-7d76-439c-b1e1-524d2f780082",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic-nav-dropdown",
+      "targets": [
+        ["id=basic-nav-dropdown", "id"],
+        ["linkText=Role", "linkText"],
+        ["css=.nav-item:nth-child(3) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Role')]", "xpath:link"],
+        ["xpath=//a[@id='basic-nav-dropdown']", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Role')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "809f24d8-8839-448c-885e-3c3e6dd4dc63",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=basic-nav-dropdown",
+      "targets": [
+        ["id=basic-nav-dropdown", "id"],
+        ["linkText=Role", "linkText"],
+        ["css=.nav-item:nth-child(3) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Role')]", "xpath:link"],
+        ["xpath=//a[@id='basic-nav-dropdown']", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Role')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc8f91bc-bff1-482d-bd42-d7f2411cd91a",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=basic-nav-dropdown",
+      "targets": [
+        ["id=basic-nav-dropdown", "id"],
+        ["linkText=Role", "linkText"],
+        ["css=.show > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Role')]", "xpath:link"],
+        ["xpath=//a[@id='basic-nav-dropdown']", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Role')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "02e56801-9d35-49eb-831d-ee33a2afdeee",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Job Views Roles",
+      "targets": [
+        ["linkText=Job Views Roles", "linkText"],
+        ["css=.dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Job Views Roles')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/role/GetJobRoles')]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Job Views Roles')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "847a459a-38b9-46d2-9eed-2e810a04135a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ee274566-9365-41ec-95ee-d0d31032e913",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Software"
+    }, {
+      "id": "9a5c3b06-bf0a-4709-a196-762c628d964a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "b4a92e63-f05c-4f2d-b9ec-ed8fe35ec960",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0983e721-4cc2-4144-8caf-cb9f1843ae88",
+      "comment": "",
+      "command": "click",
+      "target": "css=#root > div > div",
+      "targets": [
+        ["css=#root > div > div", "css:finder"],
+        ["xpath=//div[@id='root']/div/div", "xpath:idRelative"],
+        ["xpath=//body/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "34eece88-bab1-44bc-b594-0598a4be1740",
+    "name": "View trainings by band and search",
+    "commands": [{
+      "id": "bf47442b-3efa-4cf6-b0bc-9120ff4feb0b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c5fba40e-45f1-41be-9762-9aa40f83cc00",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81808ec4-2c53-47e5-8301-be7f015345f7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(4) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f860fa23-053d-47a0-9edc-d68b4430e456",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Training",
+      "targets": [
+        ["linkText=View Training", "linkText"],
+        ["css=.dropdown-item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'View Training')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/getTrainingBand')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'View Training')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ad769f2-b2f3-4aac-8058-f6f39411c902",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "89108309-14a5-4816-ab6f-63b9cc554b8c",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "CEO"
+    }, {
+      "id": "11130899-a1b5-4144-832e-3093a5c7fca8",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "c56d8f3e-2604-460c-92a0-c1cb74aedb3a",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Trainee"
+    }, {
+      "id": "290d587b-36bc-49d2-903b-d4bf92bee93c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "ff0e9f31-f4cb-414b-b405-f102790cb354",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchBar",
+      "targets": [
+        ["css=.searchBar", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d872459-41b7-4de9-9c52-7b711d9c689c",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Managing"
+    }, {
+      "id": "6631c201-ea2e-4fe9-9a84-bd7679c85c2c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }]
+  }, {
+    "id": "62fd2f0b-65fb-4b1f-8e7f-4ad0e5c1fe1d",
+    "name": "View competencies by band and search",
+    "commands": [{
+      "id": "c95579d4-0bae-4246-9f05-25d8919a54cc",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "18767646-fff0-484c-bf64-5fb99aede10a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d96f0031-6fcc-4377-975f-32938fb93d94",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(4) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c022fafc-8f67-4861-86b4-aa9ad6956973",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(4) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ab6ace60-0382-4d6c-9bb4-52c694008580",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.show > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4585efff-e8a9-423b-862d-5ef0bbe6039a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band Competencies",
+      "targets": [
+        ["linkText=Band Competencies", "linkText"],
+        ["css=.dropdown-item:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Band Competencies')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/div/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/GetBandCompetencies')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Band Competencies')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "31816f9f-ce34-43f9-b7b6-c2c06cc3bd82",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c07edf49-95bb-4bd3-9b24-b3077ac57df6",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Trainee"
+    }, {
+      "id": "6c4931cd-aac8-4ce6-a35d-c8d726bb3265",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "dedb3760-47b2-4e1d-8040-1af2fea919ef",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "CEO"
+    }, {
+      "id": "b81adf5f-8e70-4af6-b6d0-a6b2464421ce",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "33186c2d-8e46-406e-bfa4-bb2b943fe1ae",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Assoc"
+    }, {
+      "id": "e65d03db-e845-4d66-929a-6ef317ee6adb",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "aec4229f-9a93-480a-8532-d2a79d70224c",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "a04b2440-bc3a-4bae-acc4-f79f8dd5e6ed",
+    "name": "View responsibilities by band and search",
+    "commands": [{
+      "id": "12562c1e-4a7a-4917-b9d8-d95f526ecc34",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "64211577-befb-4384-909a-acaeb50637a4",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "06daa85e-56c6-4b11-b93a-aa5edf3e15f1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(4) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "25319b1a-8459-4eca-8a33-d2cce6707d30",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Band Responsibilities",
+      "targets": [
+        ["linkText=View Band Responsibilities", "linkText"],
+        ["css=.dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'View Band Responsibilities')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[3]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Band/GetBandResponsibilities')]", "xpath:href"],
+        ["xpath=//div[3]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View Band Responsibilities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7064354f-c4cd-48b3-8355-23ebf590f525",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "33076376-2a91-4341-942c-ece0a621cd4a",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "CEO"
+    }, {
+      "id": "c37772bf-c180-4bde-adc0-46b409cfa0dd",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "2a20d6b8-2091-4271-aefa-622eca2d1cc4",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Trainee"
+    }, {
+      "id": "5fa18af1-e691-4b14-aa69-26f8d6b30d08",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.form-control",
+      "targets": [
+        ["css=.form-control", "css:finder"],
+        ["xpath=//input[@type='search']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/label/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }]
+  }, {
+    "id": "3f8ecb31-162d-4c91-8ff9-7a2f01d8fb01",
+    "name": "View capability relation with job family",
+    "commands": [{
+      "id": "e0a5fc50-99be-4fc4-90b3-b1b62b9376d1",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f13bcd4-24d9-47d9-8558-cf68a37ba2e7",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x753",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31f72eb0-31c1-45e4-b99f-47cb94907a99",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic-nav-dropdown-capability",
+      "targets": [
+        ["id=basic-nav-dropdown-capability", "id"],
+        ["linkText=Capability", "linkText"],
+        ["css=#basic-nav-dropdown-capability", "css:finder"],
+        ["xpath=//a[contains(text(),'Capability')]", "xpath:link"],
+        ["xpath=//a[@id='basic-nav-dropdown-capability']", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Capability')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdecacd4-7ac8-431c-b491-3316f5f8f46e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Capability Relation With Job Family",
+      "targets": [
+        ["linkText=Capability Relation With Job Family", "linkText"],
+        ["css=.dropdown-item", "css:finder"],
+        ["xpath=//a[contains(text(),'Capability Relation With Job Family')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Capability/CapabilityPerJobFamily')]", "xpath:href"],
+        ["xpath=//div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Capability Relation With Job Family')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "e6e8faa2-1a36-4188-a8b7-9acf88bdac13",
+    "name": "UI Tests",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["44c68541-9bdb-4d8f-9224-880d15487da6", "3f8ecb31-162d-4c91-8ff9-7a2f01d8fb01", "62fd2f0b-65fb-4b1f-8e7f-4ad0e5c1fe1d", "cb5956d8-ca8f-4ed2-9d46-0de558438f8c", "a04b2440-bc3a-4bae-acc4-f79f8dd5e6ed", "34eece88-bab1-44bc-b594-0598a4be1740", "5d4c6109-1788-4011-ba6b-1b81222d404a"]
+  }],
+  "urls": ["http://localhost:3001/"],
+  "plugins": []
+}

@@ -10,8 +10,10 @@ const NavBar = () => {
                     <Nav.Link href="/">Home</Nav.Link>
                     <NavDropdown title="Capability" id="basic-nav-dropdown-capability">
                         <NavDropdown.Item href="/Capability/CapabilityPerJobFamily">Capability Relation With Job Family</NavDropdown.Item>
+                        <NavDropdown.Item href="/Capability/AddJobFamily">Add Job Family</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/AddCapability">Add Capability</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/GetCapability">Edit Capability</NavDropdown.Item>
+                        <NavDropdown.Item href="/Capability/CapabilityLead">View Capability Leads</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Role" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/role/GetJobRoles">Job Views Roles</NavDropdown.Item>

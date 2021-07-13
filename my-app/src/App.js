@@ -7,9 +7,10 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
-import AddJobFamily from "./Capability/AddJobFamily"
-import AddCapability from "./Capability/AddCapability"
+import AddJobFamily from "./Capability/AddJobFamily";
+import AddCapability from "./Capability/AddCapability";
 import AddBand from "./Band/AddBand";
+import CapabilityLead from "./Capability/CapabilityLead";
 
 
 const App = () => {
@@ -64,6 +65,10 @@ const App = () => {
             <AddBand/>
           </Route>
 
+           <Route exact path="/Capability/CapabilityLead">
+           <NavBar />
+           <CapabilityLead />
+           </Route>
         </Switch>
       </Router>
     </div>

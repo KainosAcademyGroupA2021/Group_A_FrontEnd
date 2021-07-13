@@ -157,6 +157,7 @@ const EditRole = () => {
                         type="select"
                         name="capability"
                         id="capability"
+                        defaultValue={selectedCapabilityID}
                         onChange={e => {
                             setSelectedCapabilityID(e.target.value);
                         }}
@@ -175,6 +176,7 @@ const EditRole = () => {
                         type="select"
                         name="jobfamily"
                         id="jobfamily"
+                        defaultValue={selectedJobFamilyID}
                         isInvalid={jobFamilyValidationMessage !== ""}
                         onChange={e => {
                             setSelectedJobFamilyID(e.target.value);

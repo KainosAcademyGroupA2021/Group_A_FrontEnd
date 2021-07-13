@@ -110,11 +110,11 @@ const EditBand = () => {
         setTrainingSelectorItems(tempSelectorItems)
     }
 
-    const handleTrainingSelection = (selectorID, trainingID) => {
-        console.log(selectorID)
-        console.log(trainingID)
-        let tempSelectedItems = [...selectedTrainingItems, trainingID]
-        setSelectedTrainingItems(tempSelectedItems)
+
+    const [count, setCount] = useState(0);
+    const handleTrainingSelection = () => {
+      setCount(count + 1)
+      console.log(count)
     }
 
     const handleSubmit = (e) => {

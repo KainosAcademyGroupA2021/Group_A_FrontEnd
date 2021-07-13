@@ -2,6 +2,7 @@ import { Form, Button, FormLabel } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import './Capability.css'
+import { Link } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
 import EditCapability from "./EditCapability";
@@ -32,8 +33,7 @@ const GetCapability = () => {
                 <tr >
                     <td>{CapabilityName}</td>
                     <td>{CapabilityLeadID}</td>
-                    <td><a class="btn btn-info" onClick={editCapability(CapabilityID)} role="button">
-                        Edit Capability</a></td>
+                    <td><Button variant="primary"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
                 </tr>
             )
 
@@ -45,9 +45,9 @@ const GetCapability = () => {
    
     
 
-    function editCapability(id) {
+    function editCapability() {
         //var id = this.CapabilityID;
-        window.location.href = "/Capability/EditCapability" + id;
+        //window.location.href = "/Capability/EditCapability";
     }
 
     return (

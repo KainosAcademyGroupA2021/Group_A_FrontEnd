@@ -34,7 +34,7 @@ const App = () => {
             <NavBar />
             <GetCapability />
           </Route>
-          <Route exact path="/Capability/EditCapability">
+          <Route exact path="/Capability/EditCapability/:id">
             <NavBar />
             <EditCapability />
           </Route>

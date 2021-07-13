@@ -2,68 +2,86 @@ import { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import './Capability.css';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
-const EditCapability = (id) => {
-    //console.log($route.params.id);
-    //console.log(this.CapabilityID);
+const EditCapability = () => {
+    let { id } = useParams();
     const [capabilityLeads, setCapabilityLeads] = useState();
+
+    const [previousData, setPreviousData] = useState();
+    const [loadedPreviousData, setLoadedPreviousData] = useState(false);
 
     const [capabilityLeadsItems, setCapabilityLeadsItems] = useState();
 
     const [selectedCapabilityLeadID, setSelectedCapabilityLeadID] = useState("");
 
     const [capabilityName, setCapabilityName] = useState("");
-    //const [selectedCapabilityLeadID, setSelectedCapabilityLeadID] = useState("");
+
     const [validated, setValidated] = useState("false");
 
     const [capabilityNameValidationMessage, setCapabilityNameValidationMessage] = useState("");
     const [capabilityLeadValidationMessage, setCapabilityLeadValidationMessage] = useState("");
 
     useEffect(() => {
-        if (!capabilityLeads) {
+        if (!(capabilityLeads && previousData)) {
             async function fetchResults() {
                 setCapabilityLeads((await axios.get(`http://localhost:5000/getCapabilityLeads`)).data);
+                setPreviousData((await axios.get('http://localhost:5000/getCapabilityByID/' + id)).data[0]);
             }
             fetchResults();
-        } else {
-            let tempItems = capabilityLeads.map((capabilityLeads) => {
-                const { CapabilityLeadName, CapabilityLeadID } = capabilityLeads;
+        } else if (capabilityLeads && previousData) {
+            if (!loadedPreviousData) {
+                const { CapabilityID, CapabilityName, CapabilityLeadID } = previousData;
+                setCapabilityName(CapabilityName);
+                setSelectedCapabilityLeadID(CapabilityLeadID);
+            }
+
+            let tempItems = capabilityLeads.map((capabilityLead) => {
+                const { CapabilityLeadName, CapabilityLeadID } = capabilityLead;
                 return (
                     <option key={CapabilityLeadID} value={CapabilityLeadID}>{CapabilityLeadName}</option>
                 );
             });
             setCapabilityLeadsItems(tempItems);
-
         }
-    }, [capabilityLeads, selectedCapabilityLeadID, validated]);
+
+        /*if (capabilityLeadsItems) {
+            if (!loadedPreviousData) {
+                const { CapabilityID, CapabilityName, CapabilityLeadID } = previousData;
+                document.getElementById("capabilityLead").value = CapabilityLeadID;
+                setLoadedPreviousData(true);
+            }
+        }*/
+    }, [capabilityLeads, previousData, selectedCapabilityLeadID]);
 
     const handleSubmit = (e) => {
 
         capabilityName === "" ? setCapabilityNameValidationMessage("You must enter a name!") : setCapabilityNameValidationMessage("");
         selectedCapabilityLeadID === "" ? setCapabilityLeadValidationMessage("You must select a capability lead!") : setCapabilityLeadValidationMessage("");
 
-
         if (capabilityName === "" || selectedCapabilityLeadID === "") {
             e.preventDefault();
             e.stopPropagation();
+        }else {
+            axios.put('http://localhost:5000/editCapability/' + id, {
+                CapabilityName: capabilityName,
+            CapabilityLeadID: selectedCapabilityLeadID
+            })
+                .then(function (response) {
+                    console.log(response);
+                    window.location.href = '/Capability/GetCapability'
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            e.preventDefault();
         }
         setValidated("true");
-
-        axios.post('http://localhost:5000/addCapability', {
-            CapabilityName: capabilityName,
-            CapabilityLeadID: selectedCapabilityLeadID
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
     }
 
     return (
-        <div className="AddCapabilityContainer">
-            <h1>Add a capability</h1>
+        <div className="EditCapabilityContainer">
+            <h1>Edit Capability</h1>
             <br />
             <Form onSubmit={handleSubmit} validiated={validated}>
                 <Form.Group controlId="formAddCapability">
@@ -79,6 +97,8 @@ const EditCapability = (id) => {
                     <Form.Control
                         as="select"
                         type="select"
+                        value={selectedCapabilityLeadID}
+                        isInvalid={capabilityLeadValidationMessage !== ""}
                         name="capabilityLeads"
                         onChange={e => {
                             setSelectedCapabilityLeadID(e.target.value);
@@ -87,11 +107,12 @@ const EditCapability = (id) => {
                         <option value="" >Select capability lead</option>
                         {capabilityLeadsItems}
                     </Form.Control>
+                    <Form.Control.Feedback type="invalid">{capabilityLeadValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
                 <br />
                 <Button variant="primary" type="submit">
-                    Submit
+                    Update
                 </Button>
             </Form>
         </div>

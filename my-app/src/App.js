@@ -7,6 +7,7 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
+import AddJobFamily from "./Capability/AddJobFamily"
 import AddCapability from "./Capability/AddCapability"
 import AddBand from "./Band/AddBand";
 import AdminRoleView from "./Role/AdminRoleView";
@@ -51,6 +52,7 @@ const App = () => {
             <AddRole />
           </Route>
 
+
           <Route exact path="/role/adminRoleView">
             <NavBar />
             <AdminRoleView />
@@ -60,10 +62,15 @@ const App = () => {
             <NavBar />
             <EditRole />
           </Route>
-
+    
           <Route exact path="/Band/GetBandResponsibilities">
             <NavBar />
             <GetBandResponsibilities />
+          </Route>
+
+          <Route exact path="/Capability/AddJobFamily">
+          <NavBar />
+            <AddJobFamily/>
           </Route>
 
           <Route exact path="/Band/addBand">

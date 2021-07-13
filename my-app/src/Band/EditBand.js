@@ -1,0 +1,247 @@
+import { useState, useEffect } from 'react';
+import { Form, Button } from "react-bootstrap";
+import './Band.css';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+const EditBand = () => {
+    let { id } = useParams();
+    const [competencyData, setCompetencyData] = useState();
+    const [trainingData, setTrainingData] = useState();
+    const [previousBandData, setPreviousBandData] = useState();
+    const [previousTrainingIDData, setPreviousTrainingIDData] = useState();
+    const [loadedPreviousBandData, setLoadedPreviousBandData] = useState(false);
+    const [loadedPreviousTrainingData, setLoadedPreviousTrainingData] = useState(false);
+
+    const [competencyItems, setCompetencyItems] = useState();
+    const [trainingItems, setTrainingItems] = useState();
+
+    const [bandName, setBandName] = useState("");
+    const [bandLevel, setBandLevel] = useState("");
+    const [competencyID, setCompetencyID] = useState("");
+    const [responsibilities, setResponsibilities] = useState("");
+
+    const [validated, setValidated] = useState("false");
+
+    const [bandNameValidationMessage, setBandNameValidationMessage] = useState("");
+    const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
+    const [competencyValidationMessage, setCompetencyValidationMessage] = useState("");
+    const [responsibilitiesValidationMessage, setResponsibilityValidationMessage] = useState("");
+
+    const [trainingSelectorItems, setTrainingSelectorItems] = useState([]);
+    const [selectedTrainingItems, setSelectedTrainingItems] = useState([]);
+
+    useEffect(() => {
+        if (!(competencyData && trainingData && previousBandData && previousTrainingIDData)) {
+            async function fetchResults() {
+                setCompetencyData((await axios.get(`http://localhost:5000/getCompetencies`)).data);
+                setTrainingData((await axios.get(`http://localhost:5000/getTrainings`)).data);
+                setPreviousBandData((await axios.get(`http://localhost:5000/getBand/` + id)).data[0]);
+                setPreviousTrainingIDData((await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data);
+            }
+            fetchResults();
+        } else if (!loadedPreviousBandData) {
+            const { BandName, BandLevel, Responsibilities, CompetencyID } = previousBandData;
+            setBandName(BandName);
+            setBandLevel(BandLevel);
+            setResponsibilities(Responsibilities)
+            setCompetencyID(CompetencyID)
+
+            let tempItems = previousTrainingIDData.map((item) => {
+                return item.TrainingID;
+            })
+            console.log(tempItems)
+            setSelectedTrainingItems(tempItems);
+            setLoadedPreviousBandData(true);
+        } else if (!(competencyItems && trainingItems)) {
+
+            setCompetencyItems(competencyData.map((competency) => {
+                const { CompetenciesID, CompetenciesName } = competency;
+                return (
+                    <option key={CompetenciesID} value={CompetenciesID}>{CompetenciesName}</option>
+                );
+            }));
+
+            let tempTrainingItems = trainingData.map((training) => {
+                const { TrainingID, TrainingName } = training;
+                return (
+                    <option disabled={selectedTrainingItems.includes(TrainingID)} key={TrainingID} value={TrainingID}>{TrainingName}</option>
+                );
+            });
+            setTrainingItems(tempTrainingItems);
+        } else if (!loadedPreviousTrainingData) {
+            let tempSelectorItems = previousTrainingIDData.map((item, index) => {
+                return (
+                    <TrainingSelector index={index} key={index} defaultValue={item.TrainingID} onChange={handleTrainingSelection} trainingItems={trainingItems}/>
+                )
+            });
+            setTrainingSelectorItems(tempSelectorItems);
+            setLoadedPreviousTrainingData(true);
+        }
+
+        if (trainingItems) {
+            console.log(selectedTrainingItems)
+            let tempTrainingItems = trainingData.map((training) => {
+                const { TrainingID, TrainingName } = training;
+                return (
+                    <option disabled={selectedTrainingItems.includes(TrainingID)} key={TrainingID} value={TrainingID}>{TrainingName}</option>
+                );
+            });
+            setTrainingItems(tempTrainingItems);
+        }
+    }, [competencyData, selectedTrainingItems, competencyItems]);
+
+
+    const addTrainingDropdown = () => {
+        if (selectedTrainingItems[selectedTrainingItems.length - 1] != -1) {
+        } else {
+
+        }
+    }
+
+    const deleteTrainingDropdown = () => {
+        let tempSelectedItems = [...selectedTrainingItems]
+        tempSelectedItems.pop()
+        console.log("test")
+        setSelectedTrainingItems(tempSelectedItems)
+
+        let tempSelectorItems = [...trainingSelectorItems]
+        tempSelectorItems.pop();
+        setTrainingSelectorItems(tempSelectorItems)
+    }
+
+    const handleTrainingSelection = (selectorID, trainingID) => {
+        console.log(selectorID)
+        console.log(trainingID)
+        let tempSelectedItems = [...selectedTrainingItems, trainingID]
+        setSelectedTrainingItems(tempSelectedItems)
+    }
+
+    const handleSubmit = (e) => {
+        console.log(selectedTrainingItems)
+        bandName === "" ? setBandNameValidationMessage("You must enter a name!") : setBandNameValidationMessage("");
+        bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(bandLevel) ? setBandLevelValidationMessage("You must enter a valid band level!") : setBandLevelValidationMessage("");
+        competencyID === "" ? setCompetencyValidationMessage("You must select a competency") : setCompetencyValidationMessage("");
+        responsibilities === "" ? setResponsibilityValidationMessage("You must enter a responsibility") : setResponsibilityValidationMessage("");
+
+        if (selectedTrainingItems[selectedTrainingItems.length - 1] === -1) {
+            let tempSelectedItems = [...selectedTrainingItems]
+            tempSelectedItems.pop()
+            setSelectedTrainingItems(tempSelectedItems)
+        }
+
+        if (bandName === "" || bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(bandLevel) || competencyID === "" || responsibilities === "") {
+            e.preventDefault();
+            console.log("error")
+        } else {
+            console.log("sent thing")
+            axios.put('http://localhost:5000/editBand', {
+                BandName: bandName,
+                BandLevel: bandLevel,
+                CompetencyID: competencyID,
+                Responsibilities: responsibilities,
+                TrainingsList: selectedTrainingItems
+            })
+                .then(function (response) {
+                    console.log(response);
+                    window.location.href = '/Band/GetBandResponsibilities';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        e.preventDefault();
+        setValidated("true");
+    }
+
+    return (
+        <div className="AddBandContainer">
+            <h1>Edit a band</h1>
+            <br />
+            <Form onSubmit={handleSubmit} validiated={validated}>
+                <Form.Group controlId="formAddBandName">
+                    <Form.Label>Band Name</Form.Label>
+                    <Form.Control isInvalid={bandNameValidationMessage !== ""} type="bandName" placeholder="Enter band name" value={bandName} onChange={(e) => setBandName(e.target.value)} />
+                    <Form.Control.Feedback type="invalid">{bandNameValidationMessage}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="formAddBandLevel">
+                    <Form.Label>Band Level</Form.Label>
+                    <Form.Control isInvalid={bandLevelValidationMessage !== ""} type="bandLevel" placeholder="Enter the band level" value={bandLevel} onChange={(e) => setBandLevel(e.target.value)} />
+                    <Form.Control.Feedback type="invalid">{bandLevelValidationMessage}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>
+                        Competency
+            </Form.Label>
+                    <Form.Control
+                        as="select"
+                        type="select"
+                        name="competency"
+                        isInvalid={competencyValidationMessage !== ""}
+                        onChange={e => {
+                            console.log(e.target.value)
+                            setCompetencyID(e.target.value);
+                        }}
+                    >
+                        <option value="" >Select the competency</option>
+                        {competencyItems}
+                    </Form.Control>
+                    <Form.Control.Feedback type="invalid">
+                        {competencyValidationMessage}
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="formResponsibilities">
+                    <Form.Label>Responsibilities</Form.Label>
+                    <Form.Control isInvalid={responsibilitiesValidationMessage !== ""} type="responsibilities" placeholder="Enter the responsibilities for this band" value={responsibilities} onChange={(e) => setResponsibilities(e.target.value)} />
+                    <Form.Control.Feedback type="invalid">{responsibilitiesValidationMessage}</Form.Control.Feedback>
+                </Form.Group>
+
+
+                {trainingSelectorItems}
+                <Button variant="primary" disabled={selectedTrainingItems[selectedTrainingItems.length - 1] == -1} onClick={() => addTrainingDropdown()} >
+                    Add a training
+                </Button>
+                {trainingSelectorItems.length > 0 ?
+                    <Button variant="danger" className="ml-3" onClick={() => deleteTrainingDropdown()} >
+                        Delete a training
+                </Button> : ""}
+                <br />
+
+
+
+                <br />
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+        </div>
+    )
+}
+
+const TrainingSelector = (props) => {
+    const [selectorID, setSelectorID] = useState(props.index);
+
+    return (
+        <Form.Group>
+            <Form.Label>
+                Training {props.index + 1}
+            </Form.Label>
+            <Form.Control
+                as="select"
+                type="select"
+                name="training"
+                defaultValue={props.defaultValue ? props.defaultValue : ""}
+                onChange={e => {
+                    props.onChange(selectorID, parseInt(e.target.value))
+                }}
+            >
+                <option value="" >Select training</option>
+                {props.trainingItems}
+            </Form.Control>
+        </Form.Group>)
+}
+
+export default EditBand;

@@ -127,7 +127,7 @@ const EditRole = () => {
 
     return (
         <div className="AddRoleContainer">
-            <h1>Add a role</h1>
+            <h1>Edit a role</h1>
             <br />
             <Form onSubmit={handleSubmit} validiated={validated}>
                 <Form.Group controlId="formAddRole">

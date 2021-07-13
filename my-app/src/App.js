@@ -12,6 +12,8 @@ import AddCapability from "./Capability/AddCapability"
 import AddBand from "./Band/AddBand";
 import AdminRoleView from "./Role/AdminRoleView";
 import EditRole from "./Role/EditRole";
+import AdminBandView from "./Band/AdminBandView";
+import EditBand from "./Band/EditBand";
 import { Nav, Navbar } from "react-bootstrap";
 
 
@@ -76,6 +78,16 @@ const App = () => {
           <Route exact path="/Band/addBand">
             <NavBar />
             <AddBand />
+          </Route>
+
+          <Route path="/band/editBand/:id">
+            <NavBar />
+            <EditBand />
+          </Route>
+
+          <Route exact path="/Band/adminBandView">
+            <NavBar />
+            <AdminBandView />
           </Route>
 
         </Switch>

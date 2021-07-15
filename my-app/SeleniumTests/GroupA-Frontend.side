@@ -164,21 +164,21 @@
     "id": "44c68541-9bdb-4d8f-9224-880d15487da6",
     "name": "Add a band",
     "commands": [{
-      "id": "920ab671-fdc6-461d-bb29-74f591bd2ada",
+      "id": "3fc43a03-846c-4ff0-bfc4-63b76fb5ef67",
       "comment": "",
       "command": "open",
       "target": "/",
       "targets": [],
       "value": ""
     }, {
-      "id": "65ff98f9-b439-488c-84f2-6130759b1ee4",
+      "id": "002c81da-56d9-4c7a-9700-d7016e0b1081",
       "comment": "",
       "command": "setWindowSize",
       "target": "1200x753",
       "targets": [],
       "value": ""
     }, {
-      "id": "8e03090e-f892-4881-b734-7e2bb4597595",
+      "id": "375cc184-05ca-4f6d-b860-2157c698d5d2",
       "comment": "",
       "command": "click",
       "target": "linkText=Band",
@@ -194,7 +194,7 @@
       ],
       "value": ""
     }, {
-      "id": "c48be3a6-7e48-4d6c-9f23-5bb9a235717b",
+      "id": "69d28d05-79ff-4a62-94a3-aed2a1ed08f9",
       "comment": "",
       "command": "click",
       "target": "linkText=Add a band",
@@ -209,7 +209,7 @@
       ],
       "value": ""
     }, {
-      "id": "c975aa1d-f8d6-47b5-8dc3-f2a89057816d",
+      "id": "1760280a-cba3-4050-aa1e-f2660b51ff54",
       "comment": "",
       "command": "click",
       "target": "id=formAddBandName",
@@ -222,7 +222,7 @@
       ],
       "value": ""
     }, {
-      "id": "5cad8490-9b22-4e2d-96a7-fcdb2cd041d6",
+      "id": "8025f440-0a97-4890-92a5-2e0b3b30e21f",
       "comment": "",
       "command": "type",
       "target": "id=formAddBandName",
@@ -235,7 +235,7 @@
       ],
       "value": "Test Band"
     }, {
-      "id": "8265a0b9-b8df-4db0-a6fa-6f2b9c22d1da",
+      "id": "febdf883-dd11-4cc8-929c-30dc33efc2c6",
       "comment": "",
       "command": "click",
       "target": "id=formAddBandLevel",
@@ -248,7 +248,7 @@
       ],
       "value": ""
     }, {
-      "id": "bab1aaad-47a7-4103-868a-4b65b1c4623e",
+      "id": "7c6b8d89-2709-49e7-866f-70102a22399e",
       "comment": "",
       "command": "type",
       "target": "id=formAddBandLevel",
@@ -259,20 +259,33 @@
         ["xpath=//div[@id='root']/div/div/form/div[2]/input", "xpath:idRelative"],
         ["xpath=//div[2]/input", "xpath:position"]
       ],
-      "value": "10"
+      "value": "33"
     }, {
-      "id": "697dceee-c011-4d01-97cc-906abc11bf73",
+      "id": "eb2f7839-b4f9-4da3-8ee8-1e0be232797d",
       "comment": "",
       "command": "click",
-      "target": "css=.btn:nth-child(8)",
+      "target": "id=formResponsibilities",
       "targets": [
-        ["css=.btn:nth-child(8)", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/div/form/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "aefd0ce5-e334-46aa-a952-f3e6856a8745",
+      "comment": "",
+      "command": "type",
+      "target": "id=formResponsibilities",
+      "targets": [
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "test"
     }]
   }, {
     "id": "cb5956d8-ca8f-4ed2-9d46-0de558438f8c",

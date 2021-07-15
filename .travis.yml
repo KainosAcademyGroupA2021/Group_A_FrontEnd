@@ -15,7 +15,6 @@ install:
 before_script:
   - npm run build
   - serve -s build -p 3000 &
-  - sleep 5 
 
 script:
 - npm test

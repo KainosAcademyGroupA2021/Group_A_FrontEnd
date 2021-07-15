@@ -1,5 +1,5 @@
-import NavBar from "./NavBar";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import NavBar from "./shared/NavBar";
+import { Switch, Route, Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetJobRoles from "./Role/GetJobRoles";
 import GetBandResponsibilities from "./Band/GetBandResponsibilities";
@@ -12,87 +12,84 @@ import AddCapability from "./Capability/AddCapability";
 import AddBand from "./Band/AddBand";
 import AdminRoleView from "./Role/AdminRoleView";
 import EditRole from "./Role/EditRole";
-import { Nav, Navbar } from "react-bootstrap";
 import EditCapability from "./Capability/EditCapability";
 import GetCapability from "./Capability/GetCapability";
 import CapabilityLead from "./Capability/CapabilityLead";
+import { createBrowserHistory } from 'history';
+import { useAuth0 } from '@auth0/auth0-react';
+import ProtectedRoute from "./shared/ProtectedRoute";
 
+const history = createBrowserHistory();
 
 const App = () => {
+  const { isLoading } = useAuth0();
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <div>
-      <Router>
+      <Router history={history}>
+      <NavBar />
         <Switch>
-
           <Route exact path="/">
-            <NavBar />
           </Route>
           <Route exact path="/Capability/CapabilityPerJobFamily">
-            <NavBar />
             <CapabilityPerJobFamily />
           </Route>
           <Route exact path="/Capability/AddCapability">
-            <NavBar />
             <AddCapability />
           </Route>
-          <Route exact path="/Capability/GetCapability">
-            <NavBar />
-            <GetCapability />
+          <Route exact path="/Capability/GetCapability" component={GetCapability}>
+           
           </Route>
           <Route exact path="/Capability/EditCapability/:id">
-            <NavBar />
+      
             <EditCapability />
           </Route>
-          <Route exact path="/role/GetJobRoles">
-            <NavBar />
-            <GetJobRoles />
-          </Route>
 
-          <Route exact path="/band/getTrainingBand">
-            <NavBar />
-            <GetTrainingBand />
-          </Route>
+          <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} >
+          </ProtectedRoute>
 
-          <Route exact path="/band/GetBandCompetencies">
-            <NavBar />
-            <Band />
+          <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand}>
+          </ProtectedRoute>
+
+          <Route exact path="/band/GetBandCompetencies" component={Band}>
+      
           </Route>
 
           <Route exact path="/role/addRole">
-            <NavBar />
+          
             <AddRole />
           </Route>
 
 
           <Route exact path="/role/adminRoleView">
-            <NavBar />
+          
             <AdminRoleView />
           </Route>
 
           <Route path="/role/editRole/:id">
-            <NavBar />
+      
             <EditRole />
           </Route>
-    
+
           <Route exact path="/Band/GetBandResponsibilities">
-            <NavBar />
+          
             <GetBandResponsibilities />
           </Route>
 
           <Route exact path="/Capability/AddJobFamily">
-          <NavBar />
-            <AddJobFamily/>
+        
+            <AddJobFamily />
           </Route>
 
           <Route exact path="/Band/addBand">
-            <NavBar />
+        
             <AddBand />
           </Route>
 
-           <Route exact path="/Capability/CapabilityLead">
-           <NavBar />
-           <CapabilityLead />
-           </Route>
+          <Route exact path="/Capability/CapabilityLead" component={CapabilityLead}>
+          </Route>
         </Switch>
       </Router>
     </div>

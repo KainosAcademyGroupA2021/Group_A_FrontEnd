@@ -1,4 +1,3 @@
-import { Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import axios from "axios";
 import './Capability.css'
@@ -7,7 +6,6 @@ import { Table } from "react-bootstrap";
 
 const CapabilityPerJobFamily = () => {
   const [CapabilityName, setCapabilityName] = useState([]);
-  const [JobFamilyName, setJobFamilyName] = useState([]);
 
   const list = CapabilityName.map((r) => {
           const { CapabilityID, CapabilityName, JobFamilyName} = r

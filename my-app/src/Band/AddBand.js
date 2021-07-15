@@ -60,7 +60,7 @@ const AddBand = () => {
 
 
     const addTrainingDropdown = () => {
-        if (selectedTrainingItems[selectedTrainingItems.length-1] != -1) {
+        if (selectedTrainingItems[selectedTrainingItems.length-1] !== -1) {
         setTrainingSelectorItems(trainingSelectorItems => [...trainingSelectorItems, <Form.Group key={trainingSelectorItems.length}>
             <Form.Label>
                 Training

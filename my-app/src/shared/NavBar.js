@@ -1,4 +1,7 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import LoginButton from "../Buttons/LoginButton";
+import LogoutButton from "../Buttons/LogoutButton";
+
 
 const NavBar = () => {
     return (
@@ -25,8 +28,11 @@ const NavBar = () => {
                         <NavDropdown.Item href="/band/getTrainingBand">View Training</NavDropdown.Item>
                         <NavDropdown.Item href="/band/GetBandCompetencies">Band Competencies</NavDropdown.Item>
                         <NavDropdown.Item href="/band/addBand">Add a band</NavDropdown.Item>
-
                     </NavDropdown>
+                    <div className="auth-buttons">
+                    <LoginButton/>
+                    <LogoutButton/>
+                    </div>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

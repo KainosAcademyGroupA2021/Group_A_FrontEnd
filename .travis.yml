@@ -14,4 +14,4 @@ install:
 
 script:
 - npm test
-- npm start & sleep 10 & selenium-side-runner -c "chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
+- npm start &  selenium-side-runner -c "chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;

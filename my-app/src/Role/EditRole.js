@@ -127,7 +127,7 @@ const EditRole = () => {
 
     return (
         <div className="AddRoleContainer">
-            <h1>Add a role</h1>
+            <h1>Edit a role</h1>
             <br />
             <Form onSubmit={handleSubmit} validiated={validated}>
                 <Form.Group controlId="formAddRole">
@@ -157,6 +157,7 @@ const EditRole = () => {
                         type="select"
                         name="capability"
                         id="capability"
+                        defaultValue={selectedCapabilityID}
                         onChange={e => {
                             setSelectedCapabilityID(e.target.value);
                         }}
@@ -175,6 +176,7 @@ const EditRole = () => {
                         type="select"
                         name="jobfamily"
                         id="jobfamily"
+                        defaultValue={selectedJobFamilyID}
                         isInvalid={jobFamilyValidationMessage !== ""}
                         onChange={e => {
                             setSelectedJobFamilyID(e.target.value);

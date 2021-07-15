@@ -1,9 +1,11 @@
 import { useState, useEffect, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Button } from "react-bootstrap";
 import './Band.css';
 import axios from 'axios';
 
-const AddBand = () => {
+const EditBand = () => {
+    let { id } = useParams();
 
     const BAND_NAME_ERROR_MESSAGE = "Enter a band name!";
     const BAND_LEVEL_ERROR_MESSAGE = "Enter a valid band level! (Ensure it is not taken)";
@@ -12,6 +14,7 @@ const AddBand = () => {
     const initialState = {
         competencyData: [],
         trainingData: [],
+        previousData: {},
         loadedData: false,
         bandName: "",
         bandLevel: "",
@@ -27,12 +30,31 @@ const AddBand = () => {
     }
 
     function reducer(state, action) {
-        console.log(action.type)
         switch (action.type) {
             case 'LOAD_COMPETENCY_DATA':
                 return { ...state, competencyData: action.data };
             case 'LOAD_TRAINING_DATA':
                 return { ...state, trainingData: action.data };
+            case 'LOAD_PREVIOUS_BAND_DATA':
+                return { ...state, bandName: action.data.BandName, bandLevel: action.data.BandLevel, responsibilityText: action.data.Responsibilities }
+            case 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA':
+                let previousSelectedTraining = action.data.map((item) => {
+                    return item.TrainingID;
+                });
+                let previousTrainingSelectorDropdowns = action.data.map((item, i) => {
+                    return i;
+                });
+                console.log(action.data)
+                return { ...state, selectedTrainings: previousSelectedTraining, trainingSelectorDropdowns: previousTrainingSelectorDropdowns };
+            case 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA':
+                let previousSelectedCompetencies = action.data.map((item) => {
+                    return item.CompetenciesID;
+                });
+                let previousCompetencySelectorDropdowns = action.data.map((item, i) => {
+                    return i;
+                });
+                console.log(action.data)
+                return { ...state, selectedCompetencies: previousSelectedCompetencies, competencySelectorDropdowns: previousCompetencySelectorDropdowns };
             case 'TOGGLE_LOADED_DATA':
                 return { ...state, loadedData: !state.loadedData };
             case 'SET_BAND_NAME':
@@ -78,6 +100,9 @@ const AddBand = () => {
             async function fetchData() {
                 dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`http://localhost:5000/getCompetencies`)).data });
                 dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getTrainings`)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_BAND_DATA', data: (await axios.get(`http://localhost:5000/getBand/` + id)).data[0] });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedCompetenciesIDsWithBand/` + id)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data });
                 dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
             fetchData();
@@ -105,7 +130,7 @@ const AddBand = () => {
             e.preventDefault();
             console.log("error")
         } else {
-            axios.post('http://localhost:5000/addBand', {
+            axios.put('http://localhost:5000/editBand/'+id, {
                 BandName: state.bandName,
                 BandLevel: state.bandLevel,
                 Responsibilities: state.responsibilityText,
@@ -125,7 +150,7 @@ const AddBand = () => {
 
     return (
         <div className="AddBandContainer">
-            <h1>Add a band</h1>
+            <h1>Edit a band</h1>
             <br />
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formAddBandName">
@@ -199,7 +224,7 @@ const TrainingSelector = ({ index, state, dispatch, defaultValue }) => {
                 as="select"
                 type="select"
                 name="training"
-                defaultValue={defaultValue ? defaultValue : ""}
+                value={state.selectedTrainings[index]}
                 onChange={e => {
                     dispatch({ type: 'SELECT_TRAINING', selectorID: index, trainingID: e.target.value })
                 }}
@@ -210,7 +235,7 @@ const TrainingSelector = ({ index, state, dispatch, defaultValue }) => {
         </Form.Group>)
 }
 
-const CompetencySelector = ({ index, state, dispatch }) => {
+const CompetencySelector = ({ index, state, dispatch, defaultValue }) => {
     const [competencyItems, setCompetencyItems] = useState();
 
     useEffect(() => {
@@ -230,7 +255,6 @@ const CompetencySelector = ({ index, state, dispatch }) => {
                 as="select"
                 type="select"
                 name="competency"
-                name="training"
                 value={state.selectedCompetencies[index]}
                 onChange={e => {
                     dispatch({ type: 'SELECT_COMPETENCY', selectorID: index, competenciesID: e.target.value })
@@ -242,4 +266,4 @@ const CompetencySelector = ({ index, state, dispatch }) => {
         </Form.Group>)
 }
 
-export default AddBand;
+export default EditBand;

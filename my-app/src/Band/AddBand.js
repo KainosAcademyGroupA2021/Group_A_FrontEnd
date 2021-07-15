@@ -6,18 +6,21 @@ import axios from 'axios';
 const AddBand = () => {
 
     const BAND_NAME_ERROR_MESSAGE = "Enter a band name!";
-    const BAND_LEVEL_ERROR_MESSAGE = "Enter a valid band level! (Ensure it is not taken)";
-    const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities";
+    const BAND_LEVEL_TAKEN_ERROR_MESSAGE = "This band level is taken!";
+    const BAND_LEVEL_EMPTY_ERROR_MESSAGE = "Enter a band level!";
+    const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities of the band";
 
     const initialState = {
         competencyData: [],
         trainingData: [],
+        takenBandLevels: [],
         loadedData: false,
         bandName: "",
         bandLevel: "",
         responsibilityText: "",
         bandNameError: false,
         bandLevelError: false,
+        bandLevelTakenError: false,
         competencyError: false,
         responsibilityError: false,
         competencySelectorDropdowns: [],
@@ -33,12 +36,24 @@ const AddBand = () => {
                 return { ...state, competencyData: action.data };
             case 'LOAD_TRAINING_DATA':
                 return { ...state, trainingData: action.data };
+            case 'LOAD_TAKEN_BAND_LEVELS':
+                let takenBandLevels = action.data.map((item) => {
+                    return item.BandLevel;
+                });
+                return { ...state, takenBandLevels: takenBandLevels};
             case 'TOGGLE_LOADED_DATA':
                 return { ...state, loadedData: !state.loadedData };
             case 'SET_BAND_NAME':
                 return { ...state, bandName: action.data };
             case 'SET_BAND_LEVEL':
-                return { ...state, bandLevel: action.data };
+                if (/^\d+$/.test(action.data) || action.data === "") {
+                    if (state.takenBandLevels.includes(parseInt(action.data))) { 
+                        return { ...state, bandLevel: action.data, bandLevelTakenError: true}
+                    } else {
+                    return { ...state, bandLevel: action.data, bandLevelTakenError: false };
+                    }
+                }
+                    return state;
             case 'SET_RESPONSIBILITY_TEXT':
                 return { ...state, responsibilityText: action.data };
             case 'SET_BAND_NAME_ERROR_FLAG':
@@ -78,6 +93,7 @@ const AddBand = () => {
             async function fetchData() {
                 dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`http://localhost:5000/getCompetencies`)).data });
                 dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getTrainings`)).data });
+                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`http://localhost:5000/getTakenBandLevels`)).data });
                 dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
             fetchData();
@@ -98,7 +114,7 @@ const AddBand = () => {
 
         dispatch({ type: "SET_BAND_NAME_ERROR_FLAG", data: (state.bandName === "") })
         dispatch({ type: "SET_BAND_LEVEL_ERROR_FLAG", data: (state.bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(state.bandLevel)) })
-        dispatch({ type: "SET_COMPETENCY_ERROR_FLAG", data: (state.responsibilityText === "") })
+        dispatch({ type: "SET_RESPONSIBILITY_ERROR_FLAG", data: (state.responsibilityText === "") })
 
 
         if (state.bandName === "" || state.bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(state.bandLevel) || state.competencyID === "" || state.responsibilityText === "") {
@@ -136,8 +152,8 @@ const AddBand = () => {
 
                 <Form.Group controlId="formAddBandLevel">
                     <Form.Label>Band Level</Form.Label>
-                    <Form.Control isInvalid={state.bandLevelError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
-                    <Form.Control.Feedback type="invalid">{BAND_LEVEL_ERROR_MESSAGE}</Form.Control.Feedback>
+                    <Form.Control isInvalid={state.bandLevelError || state.bandLevelTakenError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
+                    <Form.Control.Feedback type="invalid">{state.bandLevelTakenError ? BAND_LEVEL_TAKEN_ERROR_MESSAGE : BAND_LEVEL_EMPTY_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formResponsibilities">

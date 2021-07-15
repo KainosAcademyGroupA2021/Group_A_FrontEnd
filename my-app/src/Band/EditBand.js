@@ -8,12 +8,14 @@ const EditBand = () => {
     let { id } = useParams();
 
     const BAND_NAME_ERROR_MESSAGE = "Enter a band name!";
-    const BAND_LEVEL_ERROR_MESSAGE = "Enter a valid band level! (Ensure it is not taken)";
-    const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities";
+    const BAND_LEVEL_TAKEN_ERROR_MESSAGE = "This band level is taken!";
+    const BAND_LEVEL_EMPTY_ERROR_MESSAGE = "Enter a band level!";
+    const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities of the";
 
     const initialState = {
         competencyData: [],
         trainingData: [],
+        takenBandLevels: [],
         previousData: {},
         loadedData: false,
         bandName: "",
@@ -21,6 +23,7 @@ const EditBand = () => {
         responsibilityText: "",
         bandNameError: false,
         bandLevelError: false,
+        bandLevelTakenError: false,
         competencyError: false,
         responsibilityError: false,
         competencySelectorDropdowns: [],
@@ -30,13 +33,21 @@ const EditBand = () => {
     }
 
     function reducer(state, action) {
+        console.log(action.type);
         switch (action.type) {
             case 'LOAD_COMPETENCY_DATA':
                 return { ...state, competencyData: action.data };
             case 'LOAD_TRAINING_DATA':
                 return { ...state, trainingData: action.data };
+            case 'LOAD_TAKEN_BAND_LEVELS':
+                let takenBandLevels = action.data.filter((item) => {
+                    return item.BandLevel !== state.bandLevel;
+                }).map((item) => {
+                    return item.BandLevel;
+                });
+                return { ...state, takenBandLevels: takenBandLevels };
             case 'LOAD_PREVIOUS_BAND_DATA':
-                return { ...state, bandName: action.data.BandName, bandLevel: action.data.BandLevel, responsibilityText: action.data.Responsibilities }
+                return { ...state, bandName: action.data.BandName, bandLevel: action.data.BandLevel, responsibilityText: action.data.Responsibilities };
             case 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA':
                 let previousSelectedTraining = action.data.map((item) => {
                     return item.TrainingID;
@@ -60,7 +71,14 @@ const EditBand = () => {
             case 'SET_BAND_NAME':
                 return { ...state, bandName: action.data };
             case 'SET_BAND_LEVEL':
-                return { ...state, bandLevel: action.data };
+                if (/^\d+$/.test(action.data) || action.data === "") {
+                    if (state.takenBandLevels.includes(parseInt(action.data))) {
+                        return { ...state, bandLevel: action.data, bandLevelTakenError: true }
+                    } else {
+                        return { ...state, bandLevel: action.data, bandLevelTakenError: false };
+                    }
+                }
+                return state;
             case 'SET_RESPONSIBILITY_TEXT':
                 return { ...state, responsibilityText: action.data };
             case 'SET_BAND_NAME_ERROR_FLAG':
@@ -72,9 +90,9 @@ const EditBand = () => {
             case 'SET_COMPETENCY_ERROR_FLAG':
                 return { ...state, competencyError: action.data };
             case 'ADD_COMPETENCY_SELECTOR':
-                return { ...state, competencySelectorDropdowns: [...state.competencySelectorDropdowns, state.competencySelectorDropdowns.length] }
+                return { ...state, competencySelectorDropdowns: [...state.competencySelectorDropdowns, state.competencySelectorDropdowns.length] };
             case 'ADD_TRAINING_SELECTOR':
-                return { ...state, trainingSelectorDropdowns: [...state.trainingSelectorDropdowns, state.trainingSelectorDropdowns.length] }
+                return { ...state, trainingSelectorDropdowns: [...state.trainingSelectorDropdowns, state.trainingSelectorDropdowns.length] };
             case 'DELETE_COMPETENCY_SELECTOR':
                 return { ...state, competencySelectorDropdowns: [...state.competencySelectorDropdowns.slice(0, -1)], selectedCompetencies: [...state.selectedCompetencies.slice(0, -1)] };
             case 'DELETE_TRAINING_SELECTOR':
@@ -103,6 +121,7 @@ const EditBand = () => {
                 dispatch({ type: 'LOAD_PREVIOUS_BAND_DATA', data: (await axios.get(`http://localhost:5000/getBand/` + id)).data[0] });
                 dispatch({ type: 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedCompetenciesIDsWithBand/` + id)).data });
                 dispatch({ type: 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data });
+                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`http://localhost:5000/getTakenBandLevels`)).data });
                 dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
             fetchData();
@@ -130,7 +149,7 @@ const EditBand = () => {
             e.preventDefault();
             console.log("error")
         } else {
-            axios.put('http://localhost:5000/editBand/'+id, {
+            axios.put('http://localhost:5000/editBand/' + id, {
                 BandName: state.bandName,
                 BandLevel: state.bandLevel,
                 Responsibilities: state.responsibilityText,
@@ -161,8 +180,8 @@ const EditBand = () => {
 
                 <Form.Group controlId="formAddBandLevel">
                     <Form.Label>Band Level</Form.Label>
-                    <Form.Control isInvalid={state.bandLevelError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
-                    <Form.Control.Feedback type="invalid">{BAND_LEVEL_ERROR_MESSAGE}</Form.Control.Feedback>
+                    <Form.Control isInvalid={state.bandLevelError || state.bandLevelTakenError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
+                    <Form.Control.Feedback type="invalid">{state.bandLevelTakenError ? BAND_LEVEL_TAKEN_ERROR_MESSAGE : BAND_LEVEL_EMPTY_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formResponsibilities">

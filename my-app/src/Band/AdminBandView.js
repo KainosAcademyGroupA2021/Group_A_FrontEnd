@@ -82,7 +82,11 @@ const handleDeleteBand = (id) => {
           })
           .then(function (response) {
             console.log(response);
-            window.location.reload()
+            if (response.data !== "success") {
+                alert("Unable to delete this band. Ensure all roles under this band have been deleted first.")
+            } else {
+                window.location.reload()
+            }
           })
           .catch(function (error) {
             console.log(error);

@@ -7,6 +7,7 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
+import Home from "./Home/Home";
 //import GlobalStyle from "./GlobalStyles";
 
 import Footer from "./Footer";
@@ -19,8 +20,9 @@ const App = () => {
       <Router>
         <Switch>
 
-          <Route exact path="/">
+          <Route exact path="/Home/Home">
             <NavBar />
+            <Home />
           </Route>
           <Route exact path="/Capability/CapabilityPerJobFamily">
             <NavBar />

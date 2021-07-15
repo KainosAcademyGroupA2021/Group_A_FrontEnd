@@ -13,4 +13,6 @@ install:
 
 script:
 - npm test
-- npm start & google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:3000 & selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
+- npm start
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:3000 
+- selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;

@@ -21,12 +21,12 @@ const AdminBandView = () => {
             fetchResults();
         } else {
             let tempList = results.filter((r) => {
-                const { BandID, BandName, BandLevel, Responsibilities} = r
-                return (BandName.toLowerCase().includes(searchTerm.toLowerCase()) || BandLevel == searchTerm || searchTerm === "");
+                const { BandName, BandLevel } = r
+                return (BandName.toLowerCase().includes(searchTerm.toLowerCase()) || BandLevel === searchTerm || searchTerm === "");
             }).map((r) => {
                 const { BandID, BandName, BandLevel } = r
             return (
-                <tr >
+                <tr key={BandID}>
                     <td>{BandName}</td>
                     <td>{BandLevel}</td>
                     <td><AdminButtons bandID={BandID}/></td>

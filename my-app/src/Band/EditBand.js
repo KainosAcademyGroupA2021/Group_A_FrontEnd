@@ -1,146 +1,141 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Button } from "react-bootstrap";
 import './Band.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 const EditBand = () => {
     let { id } = useParams();
-    const [competencyData, setCompetencyData] = useState();
-    const [trainingData, setTrainingData] = useState();
-    const [previousBandData, setPreviousBandData] = useState();
-    const [previousTrainingIDData, setPreviousTrainingIDData] = useState();
-    const [loadedPreviousBandData, setLoadedPreviousBandData] = useState(false);
-    const [loadedPreviousTrainingData, setLoadedPreviousTrainingData] = useState(false);
 
-    const [competencyItems, setCompetencyItems] = useState();
-    const [trainingItems, setTrainingItems] = useState();
+    const BAND_NAME_ERROR_MESSAGE = "Enter a band name!";
+    const BAND_LEVEL_ERROR_MESSAGE = "Enter a valid band level! (Ensure it is not taken)";
+    const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities";
 
-    const [bandName, setBandName] = useState("");
-    const [bandLevel, setBandLevel] = useState("");
-    const [competencyID, setCompetencyID] = useState("");
-    const [responsibilities, setResponsibilities] = useState("");
+    const initialState = {
+        competencyData: [],
+        trainingData: [],
+        previousData: {},
+        loadedData: false,
+        bandName: "",
+        bandLevel: "",
+        responsibilityText: "",
+        bandNameError: false,
+        bandLevelError: false,
+        competencyError: false,
+        responsibilityError: false,
+        competencySelectorDropdowns: [],
+        trainingSelectorDropdowns: [],
+        selectedCompetencies: [],
+        selectedTrainings: []
+    }
 
-    const [validated, setValidated] = useState("false");
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'LOAD_COMPETENCY_DATA':
+                return { ...state, competencyData: action.data };
+            case 'LOAD_TRAINING_DATA':
+                return { ...state, trainingData: action.data };
+            case 'LOAD_PREVIOUS_BAND_DATA':
+                return { ...state, bandName: action.data.BandName, bandLevel: action.data.BandLevel, responsibilityText: action.data.Responsibilities }
+            case 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA':
+                let previousSelectedTraining = action.data.map((item) => {
+                    return item.TrainingID;
+                });
+                let previousTrainingSelectorDropdowns = action.data.map((item, i) => {
+                    return i;
+                });
+                console.log(action.data)
+                return { ...state, selectedTrainings: previousSelectedTraining, trainingSelectorDropdowns: previousTrainingSelectorDropdowns };
+            case 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA':
+                let previousSelectedCompetencies = action.data.map((item) => {
+                    return item.CompetenciesID;
+                });
+                let previousCompetencySelectorDropdowns = action.data.map((item, i) => {
+                    return i;
+                });
+                console.log(action.data)
+                return { ...state, selectedCompetencies: previousSelectedCompetencies, competencySelectorDropdowns: previousCompetencySelectorDropdowns };
+            case 'TOGGLE_LOADED_DATA':
+                return { ...state, loadedData: !state.loadedData };
+            case 'SET_BAND_NAME':
+                return { ...state, bandName: action.data };
+            case 'SET_BAND_LEVEL':
+                return { ...state, bandLevel: action.data };
+            case 'SET_RESPONSIBILITY_TEXT':
+                return { ...state, responsibilityText: action.data };
+            case 'SET_BAND_NAME_ERROR_FLAG':
+                return { ...state, bandNameError: action.data };
+            case 'SET_BAND_LEVEL_ERROR_FLAG':
+                return { ...state, bandLevelError: action.data };
+            case 'SET_RESPONSIBILITY_ERROR_FLAG':
+                return { ...state, responsibilityError: action.data };
+            case 'SET_COMPETENCY_ERROR_FLAG':
+                return { ...state, competencyError: action.data };
+            case 'ADD_COMPETENCY_SELECTOR':
+                return { ...state, competencySelectorDropdowns: [...state.competencySelectorDropdowns, state.competencySelectorDropdowns.length] }
+            case 'ADD_TRAINING_SELECTOR':
+                return { ...state, trainingSelectorDropdowns: [...state.trainingSelectorDropdowns, state.trainingSelectorDropdowns.length] }
+            case 'DELETE_COMPETENCY_SELECTOR':
+                return { ...state, competencySelectorDropdowns: [...state.competencySelectorDropdowns.slice(0, -1)], selectedCompetencies: [...state.selectedCompetencies.slice(0, -1)] };
+            case 'DELETE_TRAINING_SELECTOR':
+                return { ...state, trainingSelectorDropdowns: [...state.trainingSelectorDropdowns.slice(0, -1)], selectedTrainings: [...state.selectedTrainings.slice(0, -1)] };
+            case 'SELECT_COMPETENCY':
+                let tempSelectedCompetencies = [...state.selectedCompetencies];
+                tempSelectedCompetencies[action.selectorID] = parseInt(action.competenciesID);
+                return { ...state, selectedCompetencies: tempSelectedCompetencies };
+            case 'SELECT_TRAINING':
+                let tempSelectedTraining = [...state.selectedTrainings];
+                tempSelectedTraining[action.selectorID] = parseInt(action.trainingID);
+                return { ...state, selectedTrainings: tempSelectedTraining };
+            default:
+                console.log("DISPATCH TYPE " + action.type + " NOT FOUND")
+                throw new Error();
+        }
+    }
 
-    const [bandNameValidationMessage, setBandNameValidationMessage] = useState("");
-    const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
-    const [competencyValidationMessage, setCompetencyValidationMessage] = useState("");
-    const [responsibilitiesValidationMessage, setResponsibilityValidationMessage] = useState("");
-
-    const [trainingSelectorItems, setTrainingSelectorItems] = useState([]);
-    const [selectedTrainingItems, setSelectedTrainingItems] = useState([]);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
-        if (!(competencyData && trainingData && previousBandData && previousTrainingIDData)) {
-            async function fetchResults() {
-                setCompetencyData((await axios.get(`http://localhost:5000/getCompetencies`)).data);
-                setTrainingData((await axios.get(`http://localhost:5000/getTrainings`)).data);
-                setPreviousBandData((await axios.get(`http://localhost:5000/getBand/` + id)).data[0]);
-                setPreviousTrainingIDData((await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data);
+        if (!state.loadedData) {
+            async function fetchData() {
+                dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`http://localhost:5000/getCompetencies`)).data });
+                dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getTrainings`)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_BAND_DATA', data: (await axios.get(`http://localhost:5000/getBand/` + id)).data[0] });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedCompetenciesIDsWithBand/` + id)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data });
+                dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
-            fetchResults();
-        } else if (!loadedPreviousBandData) {
-            const { BandName, BandLevel, Responsibilities, CompetencyID } = previousBandData;
-            setBandName(BandName);
-            setBandLevel(BandLevel);
-            setResponsibilities(Responsibilities)
-            setCompetencyID(CompetencyID)
-
-            let tempItems = previousTrainingIDData.map((item) => {
-                return item.TrainingID;
-            })
-            console.log(tempItems)
-            setSelectedTrainingItems(tempItems);
-            setLoadedPreviousBandData(true);
-        } else if (!(competencyItems && trainingItems)) {
-
-            setCompetencyItems(competencyData.map((competency) => {
-                const { CompetenciesID, CompetenciesName } = competency;
-                return (
-                    <option key={CompetenciesID} value={CompetenciesID}>{CompetenciesName}</option>
-                );
-            }));
-
-            let tempTrainingItems = trainingData.map((training) => {
-                const { TrainingID, TrainingName } = training;
-                return (
-                    <option disabled={selectedTrainingItems.includes(TrainingID)} key={TrainingID} value={TrainingID}>{TrainingName}</option>
-                );
-            });
-            setTrainingItems(tempTrainingItems);
-        } else if (!loadedPreviousTrainingData) {
-            let tempSelectorItems = previousTrainingIDData.map((item, index) => {
-                return (
-                    <TrainingSelector index={index} key={index} defaultValue={item.TrainingID} onChange={handleTrainingSelection} trainingItems={trainingItems}/>
-                )
-            });
-            setTrainingSelectorItems(tempSelectorItems);
-            setLoadedPreviousTrainingData(true);
+            fetchData();
         }
-
-        if (trainingItems) {
-            console.log(selectedTrainingItems)
-            let tempTrainingItems = trainingData.map((training) => {
-                const { TrainingID, TrainingName } = training;
-                return (
-                    <option disabled={selectedTrainingItems.includes(TrainingID)} key={TrainingID} value={TrainingID}>{TrainingName}</option>
-                );
-            });
-            setTrainingItems(tempTrainingItems);
-        }
-    }, [competencyData, selectedTrainingItems, competencyItems]);
+    }, [state.loadedData]);
 
 
     const addTrainingDropdown = () => {
-        if (selectedTrainingItems[selectedTrainingItems.length - 1] != -1) {
-        } else {
-
-        }
+        dispatch({ type: 'ADD_TRAINING_SELECTOR', data: <TrainingSelector key={state.trainingSelectorDropdowns.length} index={state.trainingSelectorDropdowns.length} state={state} dispatch={dispatch} /> })
     }
 
-    const deleteTrainingDropdown = () => {
-        let tempSelectedItems = [...selectedTrainingItems]
-        tempSelectedItems.pop()
-        console.log("test")
-        setSelectedTrainingItems(tempSelectedItems)
-
-        let tempSelectorItems = [...trainingSelectorItems]
-        tempSelectorItems.pop();
-        setTrainingSelectorItems(tempSelectorItems)
-    }
-
-
-    const [count, setCount] = useState(0);
-    const handleTrainingSelection = () => {
-      setCount(count + 1)
-      console.log(count)
+    const addCompetencyDropdown = () => {
+        dispatch({ type: 'ADD_COMPETENCY_SELECTOR', data: <CompetencySelector key={state.competencySelectorDropdowns.length} index={state.competencySelectorDropdowns.length} state={state} dispatch={dispatch} /> })
     }
 
     const handleSubmit = (e) => {
-        console.log(selectedTrainingItems)
-        bandName === "" ? setBandNameValidationMessage("You must enter a name!") : setBandNameValidationMessage("");
-        bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(bandLevel) ? setBandLevelValidationMessage("You must enter a valid band level!") : setBandLevelValidationMessage("");
-        competencyID === "" ? setCompetencyValidationMessage("You must select a competency") : setCompetencyValidationMessage("");
-        responsibilities === "" ? setResponsibilityValidationMessage("You must enter a responsibility") : setResponsibilityValidationMessage("");
+        console.log(state)
 
-        if (selectedTrainingItems[selectedTrainingItems.length - 1] === -1) {
-            let tempSelectedItems = [...selectedTrainingItems]
-            tempSelectedItems.pop()
-            setSelectedTrainingItems(tempSelectedItems)
-        }
+        dispatch({ type: "SET_BAND_NAME_ERROR_FLAG", data: (state.bandName === "") })
+        dispatch({ type: "SET_BAND_LEVEL_ERROR_FLAG", data: (state.bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(state.bandLevel)) })
+        dispatch({ type: "SET_COMPETENCY_ERROR_FLAG", data: (state.responsibilityText === "") })
 
-        if (bandName === "" || bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(bandLevel) || competencyID === "" || responsibilities === "") {
+
+        if (state.bandName === "" || state.bandLevel === "" || !/^-?[\d.]+(?:e-?\d+)?$/.test(state.bandLevel) || state.competencyID === "" || state.responsibilityText === "") {
             e.preventDefault();
             console.log("error")
         } else {
-            console.log("sent thing")
-            axios.put('http://localhost:5000/editBand', {
-                BandName: bandName,
-                BandLevel: bandLevel,
-                CompetencyID: competencyID,
-                Responsibilities: responsibilities,
-                TrainingsList: selectedTrainingItems
+            axios.put('http://localhost:5000/editBand/'+id, {
+                BandName: state.bandName,
+                BandLevel: state.bandLevel,
+                Responsibilities: state.responsibilityText,
+                CompetenciesList: state.selectedCompetencies,
+                TrainingsList: state.selectedTrainings
             })
                 .then(function (response) {
                     console.log(response);
@@ -151,66 +146,55 @@ const EditBand = () => {
                 });
         }
         e.preventDefault();
-        setValidated("true");
     }
 
     return (
         <div className="AddBandContainer">
             <h1>Edit a band</h1>
             <br />
-            <Form onSubmit={handleSubmit} validiated={validated}>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formAddBandName">
                     <Form.Label>Band Name</Form.Label>
-                    <Form.Control isInvalid={bandNameValidationMessage !== ""} type="bandName" placeholder="Enter band name" value={bandName} onChange={(e) => setBandName(e.target.value)} />
-                    <Form.Control.Feedback type="invalid">{bandNameValidationMessage}</Form.Control.Feedback>
+                    <Form.Control isInvalid={state.bandNameError} type="bandName" placeholder="Enter band name" value={state.bandName} onChange={(e) => dispatch({ type: 'SET_BAND_NAME', data: e.target.value })} />
+                    <Form.Control.Feedback type="invalid">{BAND_NAME_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formAddBandLevel">
                     <Form.Label>Band Level</Form.Label>
-                    <Form.Control isInvalid={bandLevelValidationMessage !== ""} type="bandLevel" placeholder="Enter the band level" value={bandLevel} onChange={(e) => setBandLevel(e.target.value)} />
-                    <Form.Control.Feedback type="invalid">{bandLevelValidationMessage}</Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>
-                        Competency
-            </Form.Label>
-                    <Form.Control
-                        as="select"
-                        type="select"
-                        name="competency"
-                        isInvalid={competencyValidationMessage !== ""}
-                        onChange={e => {
-                            console.log(e.target.value)
-                            setCompetencyID(e.target.value);
-                        }}
-                    >
-                        <option value="" >Select the competency</option>
-                        {competencyItems}
-                    </Form.Control>
-                    <Form.Control.Feedback type="invalid">
-                        {competencyValidationMessage}
-                    </Form.Control.Feedback>
+                    <Form.Control isInvalid={state.bandLevelError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
+                    <Form.Control.Feedback type="invalid">{BAND_LEVEL_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formResponsibilities">
                     <Form.Label>Responsibilities</Form.Label>
-                    <Form.Control isInvalid={responsibilitiesValidationMessage !== ""} type="responsibilities" placeholder="Enter the responsibilities for this band" value={responsibilities} onChange={(e) => setResponsibilities(e.target.value)} />
-                    <Form.Control.Feedback type="invalid">{responsibilitiesValidationMessage}</Form.Control.Feedback>
+                    <Form.Control as="textarea" rows={3} isInvalid={state.responsibilityError} type="responsibilities" placeholder="Enter the responsibilities for this band" value={state.responsibilityText} onChange={(e) => dispatch({ type: 'SET_RESPONSIBILITY_TEXT', data: e.target.value })} />
+                    <Form.Control.Feedback type="invalid">{RESPONSIBILITIES_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 
+                {state.competencySelectorDropdowns.map((id) => {
+                    return (<CompetencySelector key={id} index={id} state={state} dispatch={dispatch} />)
+                })}
+                <Button variant="primary" disabled={state.competencySelectorDropdowns.length > state.selectedCompetencies.length} onClick={() => addCompetencyDropdown()} >
+                    Add a competency
+                </Button>
+                {state.competencySelectorDropdowns.length > 0 ?
+                    <Button variant="danger" className="ml-3" onClick={() => dispatch({ type: 'DELETE_COMPETENCY_SELECTOR' })} >
+                        Delete a competency
+                </Button> : ""}
+                <br />
+                <br />
 
-                {trainingSelectorItems}
-                <Button variant="primary" disabled={selectedTrainingItems[selectedTrainingItems.length - 1] == -1} onClick={() => addTrainingDropdown()} >
+                {state.trainingSelectorDropdowns.map((id) => {
+                    return (<TrainingSelector key={id} index={id} state={state} dispatch={dispatch} />)
+                })}
+                <Button variant="primary" disabled={state.trainingSelectorDropdowns.length > state.selectedTrainings.length} onClick={() => addTrainingDropdown()} >
                     Add a training
                 </Button>
-                {trainingSelectorItems.length > 0 ?
-                    <Button variant="danger" className="ml-3" onClick={() => deleteTrainingDropdown()} >
+                {state.trainingSelectorDropdowns.length > 0 ?
+                    <Button variant="danger" className="ml-3" onClick={() => dispatch({ type: 'DELETE_TRAINING_SELECTOR' })} >
                         Delete a training
                 </Button> : ""}
                 <br />
-
-
 
                 <br />
                 <Button variant="primary" type="submit">
@@ -221,25 +205,63 @@ const EditBand = () => {
     )
 }
 
-const TrainingSelector = (props) => {
-    const [selectorID, setSelectorID] = useState(props.index);
+const TrainingSelector = ({ index, state, dispatch, defaultValue }) => {
+    const [trainingItems, setTrainingItems] = useState();
+
+    useEffect(() => {
+        let tempItems = state.trainingData.map((item) => {
+            return <option disabled={state.selectedTrainings.includes(item.TrainingID)} key={item.TrainingID} value={item.TrainingID}>{item.TrainingName}</option>
+        });
+        setTrainingItems(tempItems);
+    }, [state.selectedTrainings])
 
     return (
         <Form.Group>
             <Form.Label>
-                Training {props.index + 1}
+                Training {index + 1}
             </Form.Label>
             <Form.Control
                 as="select"
                 type="select"
                 name="training"
-                defaultValue={props.defaultValue ? props.defaultValue : ""}
+                value={state.selectedTrainings[index]}
                 onChange={e => {
-                    props.onChange(selectorID, parseInt(e.target.value))
+                    dispatch({ type: 'SELECT_TRAINING', selectorID: index, trainingID: e.target.value })
                 }}
-            >
+            >?.
                 <option value="" >Select training</option>
-                {props.trainingItems}
+                {trainingItems}
+            </Form.Control>
+        </Form.Group>)
+}
+
+const CompetencySelector = ({ index, state, dispatch, defaultValue }) => {
+    const [competencyItems, setCompetencyItems] = useState();
+
+    useEffect(() => {
+        console.log(state.competencyData)
+        let tempItems = state.competencyData.map((item) => {
+            return <option disabled={state.selectedCompetencies.includes(item.CompetenciesID)} key={item.CompetenciesID} value={item.CompetenciesID}>{item.CompetenciesName}</option>
+        });
+        setCompetencyItems(tempItems);
+    }, [state.selectedCompetencies])
+
+    return (
+        <Form.Group>
+            <Form.Label>
+                Competency {index + 1}
+            </Form.Label>
+            <Form.Control
+                as="select"
+                type="select"
+                name="competency"
+                value={state.selectedCompetencies[index]}
+                onChange={e => {
+                    dispatch({ type: 'SELECT_COMPETENCY', selectorID: index, competenciesID: e.target.value })
+                }}
+            >?.
+                <option value="" >Select competency</option>
+                {competencyItems}
             </Form.Control>
         </Form.Group>)
 }

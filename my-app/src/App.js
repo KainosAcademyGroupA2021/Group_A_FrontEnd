@@ -7,6 +7,8 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
+//import GlobalStyle from "./GlobalStyles";
+import Footer from "./Footer";
 import AddJobFamily from "./Capability/AddJobFamily";
 import AddCapability from "./Capability/AddCapability";
 import AddBand from "./Band/AddBand";
@@ -20,7 +22,7 @@ import CapabilityLead from "./Capability/CapabilityLead";
 
 const App = () => {
   return (
-    <div>
+    <div className = "example">
       <Router>
         <Switch>
 
@@ -95,7 +97,20 @@ const App = () => {
            </Route>
         </Switch>
       </Router>
+
+      <Footer />
+
+
+      
+ 
+
     </div>
+
+  
+
+
+
+    
   );
 }
 

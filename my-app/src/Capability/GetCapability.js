@@ -1,11 +1,13 @@
 import { Form, Button, FormLabel } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import axios from "axios";
-import './Role.css'
+import './Capability.css'
+import { Link } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
+import EditCapability from "./EditCapability";
 
-const GetJobRoles = () => {
+const GetCapability = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState();
     const [list, setList] = useState();
@@ -14,24 +16,24 @@ const GetJobRoles = () => {
     useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getJobRoles`);
+                const res = await axios.get(`http://localhost:5000/getCapabilities`);
                 setResults(res.data);
             }
             fetchResults();
         } else {
+            
             let tempList = results.filter((r) => {
-                const { RoleName, CapabilityName, BandName} = r
-                return (RoleName.includes(searchTerm) || CapabilityName.includes(searchTerm) || BandName.includes(searchTerm) || searchTerm === "");
+                const { CapabilityID, CapabilityName, CapabilityLeadID} = r
+                
+                return (CapabilityName.includes(searchTerm) || searchTerm === "");
             }).map((r) => {
-                const { RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel} = r
+                
+                const { CapabilityID, CapabilityName, CapabilityLeadID} = r
             return (
                 <tr >
-                    <td>{RoleName}</td>
-                    <td><a href ={RoleSpec}>Link to job spec</a></td>
-                    <td>{RoleSpecSummary}</td>
                     <td>{CapabilityName}</td>
-                    <td>{BandName}</td>
-                    <td>{BandLevel}</td>
+                    <td>{CapabilityLeadID}</td>
+                    <td><Button variant="primary"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
                 </tr>
             )
 
@@ -40,24 +42,28 @@ const GetJobRoles = () => {
         }
     }, [results, searchTerm]);
 
+   
+    
+
+    function editCapability() {
+        //var id = this.CapabilityID;
+        //window.location.href = "/Capability/EditCapability";
+    }
+
     return (
         <div>
             <FormLabel
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for role, capability or band name" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    <Form.Control type="search" placeholder="Search for a capability" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </FormLabel>
             <div className="emp-table">
                 <Table >
                     <thead>
                         <tr>
-                            <th>Role Name</th>
-                            <th>Role Spec</th>
-                            <th>Role Spec Summary</th>
                             <th>Capability Name</th>
-                            <th>Band Name</th>
-                            <th>Band Level</th>
+                            <th>Capability Lead ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,4 +75,4 @@ const GetJobRoles = () => {
     )
 }
 
-export default GetJobRoles;
+export default GetCapability;

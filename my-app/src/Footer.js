@@ -12,7 +12,7 @@ import {
 const Footer = () => {
 
   return (
-    <Box >
+    <Box style={{marginTop: "40px"}}>
       <h1 style={{ color: "white", 
                    textAlign: "Left", 
                    marginTop: "-50px" }}>
@@ -22,9 +22,10 @@ const Footer = () => {
         <Row>
           <Column>
             <Heading>Navigation</Heading>
-            <FooterLink href="#">Product Feature</FooterLink>
-            <FooterLink href="#">Product Feature</FooterLink>
-            <FooterLink href="#">Product Feature</FooterLink>
+            <FooterLink href="#">Capability</FooterLink>
+            <FooterLink href="#">Band</FooterLink>
+            <FooterLink href="#">Role</FooterLink>
+            <FooterLink href="#">Job</FooterLink>
           </Column>
           <Column>
             <Heading>About us</Heading>

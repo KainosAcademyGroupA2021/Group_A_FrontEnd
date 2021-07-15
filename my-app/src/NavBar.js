@@ -15,7 +15,7 @@ const NavBar = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navbar">
-                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link href="/Home/Home">Home</Nav.Link>
                     <NavDropdown title="Capability" id="basic-nav-dropdown-capability">
                         <NavDropdown.Item href="/Capability/CapabilityPerJobFamily">Capability Relation With Job Family</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/AddJobFamily">Add Job Family</NavDropdown.Item>

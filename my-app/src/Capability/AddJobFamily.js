@@ -49,7 +49,7 @@ const AddJobFamily = () => {
         })
         .then(function (response) {
           console.log(response);
-          window.location.href = '/Capability/AddJobFamily'
+          window.location.href = '/Capability/CapabilityPerJobFamily'
         })
         .catch(function (error) {
           console.log(error);

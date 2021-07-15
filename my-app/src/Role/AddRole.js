@@ -107,7 +107,7 @@ const AddRole = () => {
             <Form onSubmit={handleSubmit} validiated={validated}>
                 <Form.Group controlId="formAddRole">
                     <Form.Label>Role Name</Form.Label>
-                    <Form.Control isInvalid={roleNameValidationMessage !== ""} type="roleName" placeholder="Enter role name" value={roleName} onChange={(e) => setRoleName(e.target.value)} />
+                    <Form.Control isInvalid={roleNameValidationMessage !== ""} type="roleName" placeholder="Enter role name" value={roleName} onChange={(e) => { if (e.target.value.length < 128)  setRoleName(e.target.value)  }} />
                     <Form.Control.Feedback type="invalid">{roleNameValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
@@ -119,7 +119,7 @@ const AddRole = () => {
 
                 <Form.Group controlId="formRoleSpecLink">
                     <Form.Label>Role Specification Summary</Form.Label>
-                    <Form.Control as="textarea" rows={3} isInvalid={roleSummaryValidationMessage !== ""} type="roleSpecSummary" placeholder="Enter the specification summary for the role" value={roleSummary} onChange={(e) => setRoleSummary(e.target.value)} />
+                    <Form.Control as="textarea" rows={2} isInvalid={roleSummaryValidationMessage !== ""} type="roleSpecSummary" placeholder="Enter the specification summary for the role" value={roleSummary} onChange={(e) => { if (e.target.value.length < 255) setRoleSummary(e.target.value)}} />
                     <Form.Control.Feedback type="invalid">{roleSummaryValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 

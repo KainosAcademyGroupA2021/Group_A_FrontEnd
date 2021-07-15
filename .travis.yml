@@ -10,8 +10,7 @@ install:
   - npm install -g add selenium-side-runner
   - npm install -g chromedriver
   - npm install
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 script:
 - npm test
-- npm start & selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
+- npm start & google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:3000 & selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;

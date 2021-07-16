@@ -17,9 +17,10 @@ import jobImg from "../Images/job.png";
 
 const Home = () => {
   return (
-    <Container fluid style={{ width: "100%"}}>
+    
+    <Container fluid style={{ width: "100%", allignItems:"center"}}>
 
-      <Container fluid style={{marginTop: "10px", marginLeft: "150px",width: "100%"}}>
+      {/* <Container fluid style={{marginTop: "10px", marginLeft: "150px",width: "100%"}}> */}
         <Row>
           <Col style={{marginTop: "10px"}}>
             <Card style={{ width: "18rem" }}>
@@ -61,9 +62,9 @@ const Home = () => {
 
         </Row>
 
-      </Container>
+        {/* </Container> */}
     </Container>
-
+    
     
   );
 };

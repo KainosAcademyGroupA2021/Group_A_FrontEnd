@@ -1,4 +1,3 @@
-import { Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import axios from "axios";
 import './Capability.css'
@@ -6,11 +5,6 @@ import './Capability.css'
 import { Table } from "react-bootstrap";
 
 const CapabilityLead = () => {
-  const [CapabilityLeadID, setCapabilityLeadID] = useState();
-  const [CapabilityLeadName, setCapabilityLeadName] = useState([]);
-  const [CapabilityLeadPhoto, setCapabilityLeadPhoto] = useState([]);
-  const [CapabilityLeadMessage, setCapabilityLeadMessage] = useState([]);
-  const [CapabilityID, setCapabilityID] = useState();
   const [CapabilityName, setCapabilityName] = useState([]);
 
 

@@ -1,7 +1,8 @@
-import { Form, Button, FormLabel } from "react-bootstrap"
+import { Form, FormLabel } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import './Band.css'
+import ErrorPage from "../shared/ErrorPage";
 
 import { Table } from "react-bootstrap";
 
@@ -14,7 +15,7 @@ const GetBandResponsibilities = () => {
  useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getBandResponsibilities`);
+                const res = await axios.get(`https://my.api:5000/getBandResponsibilities`);
                 console.log(res);
                 setResults(res.data);
             }

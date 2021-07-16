@@ -1,6 +1,7 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import "./NavBar.css"
-import Logo from './Images/thumbnail.png'
+import LoginButton from "../Buttons/LoginButton";
+import LogoutButton from "../Buttons/LogoutButton";
+import Logo from '../Images/thumbnail.png'
 
 const NavBar = () => {
     return (
@@ -15,7 +16,7 @@ const NavBar = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navbar">
-                    <Nav.Link href="/Home/Home">Home</Nav.Link>
+                    <Nav.Link href="/">Home</Nav.Link>
                     <NavDropdown title="Capability" id="basic-nav-dropdown-capability">
                         <NavDropdown.Item href="/Capability/CapabilityPerJobFamily">Capability Relation With Job Family</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/AddJobFamily">Add Job Family</NavDropdown.Item>
@@ -34,8 +35,11 @@ const NavBar = () => {
                         <NavDropdown.Item href="/band/GetBandCompetencies">Band Competencies</NavDropdown.Item>
                         <NavDropdown.Item href="/band/addBand">Add a band</NavDropdown.Item>
                         <NavDropdown.Item href="/band/adminBandView">Admin Band View</NavDropdown.Item>
-
                     </NavDropdown>
+                    <div className="auth-buttons">
+                    <LoginButton/>
+                    <LogoutButton/>
+                    </div>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

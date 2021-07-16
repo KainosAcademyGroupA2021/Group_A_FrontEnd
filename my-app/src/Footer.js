@@ -15,7 +15,8 @@ const Footer = () => {
     <Box style={{marginTop: "40px"}}>
       <h1 style={{ color: "white", 
                    textAlign: "Left", 
-                   marginTop: "-50px" }}>
+                   marginTop: "-50px",
+                    }}>
         Kainos
       </h1>
       <Container>

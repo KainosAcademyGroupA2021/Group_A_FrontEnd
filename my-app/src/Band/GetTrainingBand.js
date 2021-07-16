@@ -1,71 +1,89 @@
-import { Form,  FormLabel, Table } from "react-bootstrap"
+import { Form, FormLabel, Table } from "react-bootstrap"
 import { useState, useEffect } from "react"
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 import "./Band.css";
+import ErrorPage from "../shared/ErrorPage";
+import EmpTable from "../shared/EmpTable"
+
 
 const GetTrainingBand = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState();
     const [list, setList] = useState();
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [error, setError] = useState();
+    const columns = ["Band Level", "Training Type", "Band Name", "Training Name", "Training Link"]
 
-   
-    useEffect(() => {
-        if (!results) {
-            async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getTrainingByBand`);
-                console.log(res);
-                setResults(res.data);
-            }
-            fetchResults();
-        } else {
-        let tempList = results.filter((r) => {
-            const { BandName, TrainingType, TrainingName, BandLevel } = r
-            const bandLev = String(BandLevel)
-            console.log(bandLev)
-            return ( BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) ||searchTerm === "");
-        }).map((r) => {
-            const { BandLevel,  BandName, TrainingType, TrainingName, TrainingLink } = r
-            return (
-                <tr >
-                    <td>{BandLevel}</td>
-                    <td>{TrainingType}</td>
-                    <td>{BandName}</td>
-                    <td>{TrainingName}</td>
-                    <td><a href = {TrainingLink}>Link to training</a></td>
-                </tr>
-            )
+    try {
+        useEffect(() => {
+            if (!results) {
+                const fetchResults = async () => {
+                    const options = {
+                        audience: 'http://my.api:50001',
+                        scope: 'read:secured'
+                    }
+                    const token = await getAccessTokenSilently(options);
+                    console.log(token)
 
-        })
-        setList(tempList);
-    }
-    }, [searchTerm, results]);
 
-    return (
-        <div>
-            <FormLabel
-                label="Search Term"
-                className="searchBar"
-            >
-                <Form.Control type="search" placeholder="Search for Band or Training " onChange={(e) => setSearchTerm(e.target.value)} />
-            </FormLabel>
-            <div className="emp-table">
-                <Table >
-                    <thead>
-                        <tr>
-                            <th>Band Level</th>
-                            <th>Training Type</th>
-                            <th>Band Name</th>
-                            <th>Training Name</th>
-                            <th>Training Link </th>
+                    try {
+                        const options = {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        }
+                        const res = await axios.get(`https://my.api:50001/getTrainingByBand`, options);
+                        console.log(res);
+                        setResults(res.data);
+                    } catch (error) {
+                        if (error.response.status === 403 || error.response.status === 401) {
+                            setError(error.response.status);
+                        }
+
+                    }
+                }
+                fetchResults();
+            } else {
+                let tempList = results.filter((r) => {
+                    const { BandName, TrainingType, TrainingName, BandLevel} = r
+                    const bandLev = String(BandLevel)
+                    return (BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) || searchTerm === "");
+                }).map((r) => {
+                    const {  BandLevel, BandName, TrainingType, TrainingName, TrainingLink } = r
+                    return (
+                        <tr >
+                            <td>{BandLevel}</td>
+                            <td>{TrainingType}</td>
+                            <td>{BandName}</td>
+                            <td>{TrainingName}</td>
+                            <td><a href={TrainingLink}>Link to training</a></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {list}
-                    </tbody>
-                </Table>
-            </div>
-        </div>
+                    )
+
+                })
+                setList(tempList);
+            }
+        }, [searchTerm, results]);
+    } catch (e) {
+        console.log(e)
+    }
+
+
+    let data = null;
+    const renderData = async () => {
+        if (error) {
+            data = <ErrorPage error={error} />
+        } else {
+            data = <EmpTable list={list}  setSearchTerm={setSearchTerm}  columns={columns} />
+
+        }
+    }
+    renderData();
+    return (
+        <div>{data}</div>
     )
+    
 }
 
 

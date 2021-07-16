@@ -77,7 +77,7 @@ const handleDeleteBand = (id) => {
     let confirmed =  window.confirm("Are you sure you want to delete this band?");
     if (confirmed) {
         console.log("Deleting band with id: " + id);
-        axios.post('http://localhost:5000/deleteBand', {
+        axios.post('https://my.api:50001/deleteBand', {
             BandID: id
           })
           .then(function (response) {

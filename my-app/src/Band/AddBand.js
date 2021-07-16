@@ -102,30 +102,6 @@ const AddBand = () => {
 
 
     const addTrainingDropdown = () => {
-        if (selectedTrainingItems[selectedTrainingItems.length-1] !== -1) {
-        setTrainingSelectorItems(trainingSelectorItems => [...trainingSelectorItems, <Form.Group key={trainingSelectorItems.length}>
-            <Form.Label>
-                Training
-            </Form.Label>
-            <Form.Control
-                as="select"
-                type="select"
-                name="training"
-                onChange={e => {
-                    let tempSelectedItems = [...selectedTrainingItems]
-                    tempSelectedItems.pop()
-                    setSelectedTrainingItems(tempSelectedItems)
-                    setSelectedTrainingItems([...selectedTrainingItems, parseInt(e.target.value)])
-                }}
-            >
-                <option value="" >Select training</option>
-                {trainingItems}
-            </Form.Control>
-        </Form.Group>])
-        setSelectedTrainingItems([...selectedTrainingItems, -1])
-            } else {
-
-            }
         dispatch({ type: 'ADD_TRAINING_SELECTOR', data: <TrainingSelector key={state.trainingSelectorDropdowns.length} index={state.trainingSelectorDropdowns.length} state={state} dispatch={dispatch} /> })
     }
 

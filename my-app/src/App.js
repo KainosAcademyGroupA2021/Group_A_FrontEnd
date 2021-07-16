@@ -7,11 +7,17 @@ import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
+import Home from "./Home/Home";
+//import GlobalStyle from "./GlobalStyles";
+import Footer from "./Footer";
 import AddJobFamily from "./Capability/AddJobFamily";
 import AddCapability from "./Capability/AddCapability";
 import AddBand from "./Band/AddBand";
 import AdminRoleView from "./Role/AdminRoleView";
 import EditRole from "./Role/EditRole";
+import AdminBandView from "./Band/AdminBandView";
+import EditBand from "./Band/EditBand";
+import { Nav, Navbar } from "react-bootstrap";
 import EditCapability from "./Capability/EditCapability";
 import GetCapability from "./Capability/GetCapability";
 import CapabilityLead from "./Capability/CapabilityLead";
@@ -27,72 +33,76 @@ const App = () => {
     return <h1>Loading...</h1>;
   }
   return (
-    <div>
-      <Router history={history}>
+    <Router history={history}>
       <NavBar />
-        <Switch>
-          <Route exact path="/">
-          </Route>
-          <Route exact path="/Capability/CapabilityPerJobFamily">
-            <CapabilityPerJobFamily />
-          </Route>
-          <Route exact path="/Capability/AddCapability">
-            <AddCapability />
-          </Route>
-          <Route exact path="/Capability/GetCapability" component={GetCapability}>
-           
-          </Route>
-          <Route exact path="/Capability/EditCapability/:id">
-      
-            <EditCapability />
-          </Route>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/Capability/CapabilityPerJobFamily">
+          <CapabilityPerJobFamily />
+        </Route>
+        <Route exact path="/Capability/AddCapability">
+          <AddCapability />
+        </Route>
+        <Route exact path="/Capability/GetCapability" component={GetCapability}>
 
-          <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} >
-          </ProtectedRoute>
+        </Route>
+        <Route exact path="/Capability/EditCapability/:id">
 
-          <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand}>
-          </ProtectedRoute>
+          <EditCapability />
+        </Route>
 
-          <Route exact path="/band/GetBandCompetencies" component={Band}>
-      
-          </Route>
+        <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
+        <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
+        <Route exact path="/band/GetBandCompetencies" component={Band}>
+        </Route>
+        <Route exact path="/role/addRole">
+          <AddRole />
+        </Route>
+        <Route exact path="/role/adminRoleView">
+          <AdminRoleView />
+        </Route>
 
-          <Route exact path="/role/addRole">
-          
-            <AddRole />
-          </Route>
+        <Route path="/role/editRole/:id">
 
+          <EditRole />
+        </Route>
 
-          <Route exact path="/role/adminRoleView">
-          
-            <AdminRoleView />
-          </Route>
+        <Route exact path="/Band/GetBandResponsibilities">
 
-          <Route path="/role/editRole/:id">
-      
-            <EditRole />
-          </Route>
+          <GetBandResponsibilities />
+        </Route>
 
-          <Route exact path="/Band/GetBandResponsibilities">
-          
-            <GetBandResponsibilities />
-          </Route>
+        <Route exact path="/Capability/AddJobFamily">
 
-          <Route exact path="/Capability/AddJobFamily">
-        
-            <AddJobFamily />
-          </Route>
+          <AddJobFamily />
+        </Route>
 
-          <Route exact path="/Band/addBand">
-        
-            <AddBand />
-          </Route>
+        <Route exact path="/Band/addBand">
 
-          <Route exact path="/Capability/CapabilityLead" component={CapabilityLead}>
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+          <AddBand />
+        </Route>
+
+        <Route path="/band/editBand/:id">
+          <NavBar />
+          <EditBand />
+        </Route>
+
+        <Route exact path="/Band/adminBandView">
+          <NavBar />
+          <AdminBandView />
+        </Route>
+
+        <Route exact path="/Capability/CapabilityLead">
+          <NavBar />
+          <CapabilityLead />
+        </Route>
+
+      </Switch>
+      <Footer />
+    </Router>
+
   );
 }
 

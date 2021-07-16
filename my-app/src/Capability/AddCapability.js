@@ -37,15 +37,17 @@ const AddCapability = () => {
 
     const handleSubmit = (e) => {
 
+        //console.log(capabilityName.length);
         capabilityName === "" ? setCapabilityNameValidationMessage("You must enter a name!") : setCapabilityNameValidationMessage("");
+        capabilityName.length > 200 ? setCapabilityNameValidationMessage("Name exceeds limit!") : setCapabilityNameValidationMessage("");
         selectedCapabilityLeadID === "" ? setCapabilityLeadValidationMessage("You must select a capability lead!") : setCapabilityLeadValidationMessage("");
 
 
         if (capabilityName === "" || selectedCapabilityLeadID === "") {
             e.preventDefault();
             e.stopPropagation();
-        }
-        setValidated("true");
+        }else{
+        
 
         axios.post('http://localhost:50001/addCapability', {
             CapabilityName: capabilityName,
@@ -53,10 +55,14 @@ const AddCapability = () => {
           })
           .then(function (response) {
             console.log(response);
+            window.location.href = '/Capability/GetCapability'
           })
           .catch(function (error) {
             console.log(error);
           });
+          e.preventDefault();
+        }
+        setValidated("true");
     }
 
     return (

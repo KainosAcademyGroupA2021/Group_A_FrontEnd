@@ -20,7 +20,7 @@ const AdminRoleView = () => {
             const fetchResults = async () => {
                 const options = {
                     audience: 'http://my.api:50001',
-                    scope: 'read:secured'
+                    scope: 'read:secured write:secured'
                 }
                 const token = await getAccessTokenSilently(options);
                 console.log(token)

@@ -8,6 +8,9 @@ import GetTrainingBand from "./Band/GetTrainingBand";
 import Band from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
 import Home from "./Home/Home";
+import BandMain from "./Band/Band";
+import Role from "./Role/Role";
+import Capability from "./Capability/Capability";
 //import GlobalStyle from "./GlobalStyles";
 
 import Footer from "./Footer";
@@ -24,6 +27,23 @@ const App = () => {
             <NavBar />
             <Home />
           </Route>
+
+          <Route exact path="/Band/Band">
+            <NavBar />
+            <BandMain />
+          </Route>
+
+
+          <Route exact path="/Role/Role">
+            <NavBar />
+            <Role />
+          </Route>
+          
+          <Route exact path="/Capability/Capability">
+            <NavBar />
+            <Capability />
+          </Route>
+
           <Route exact path="/Capability/CapabilityPerJobFamily">
             <NavBar />
             <CapabilityPerJobFamily />

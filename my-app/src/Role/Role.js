@@ -10,7 +10,7 @@ import {
     Image,
   } from "react-bootstrap";
   
-  const Capability = () => {
+  const Role = () => {
     return (
       <Container>
         <Col style={{ marginTop: "10px" }}>
@@ -20,7 +20,7 @@ import {
                 variant="outline-primary"
                 size="lg"
                 style={{ width: "15rem" }}>
-                Capability
+                Role
               </Button>
             </Card.Body>
           </Card>
@@ -29,4 +29,4 @@ import {
     );
   };
   
-  export default Capability;
+  export default Role;

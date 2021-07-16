@@ -5,7 +5,7 @@ import Logo from './Images/thumbnail.png'
 const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/Home/Home">
                 <img
                 src = {Logo}
                 width = "240"

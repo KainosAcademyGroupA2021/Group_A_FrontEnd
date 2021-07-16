@@ -24,10 +24,8 @@ const Home = () => {
           <Col style={{marginTop: "10px"}}>
             <Card style={{ width: "18rem" }}>
               <Card.Img as={Image} src={capabilityImg} fluid={true} alt="Card image" />
-              <Card.Body>
-               
-                <Button variant="outline-primary" size="lg" style={{width: "15rem"}}>Capability</Button>
-             
+              <Card.Body>              
+                <Button href="/Capability/Capability" variant="outline-primary" size="lg" style={{width: "15rem"}}>Capability</Button>           
               </Card.Body>
             </Card>
           </Col>
@@ -36,7 +34,7 @@ const Home = () => {
             <Card style={{ width: "18rem" }}>
             <Card.Img as={Image} src={bandImg} fluid={true} alt="Card image" />
               <Card.Body>
-                <Button variant="outline-primary" size="lg" style={{width: "15rem"}}>Band</Button>
+                <Button href="/Band/Band" variant="outline-primary" size="lg" style={{width: "15rem"}}>Band</Button>
               </Card.Body>
             </Card>
           </Col>
@@ -45,7 +43,7 @@ const Home = () => {
             <Card style={{ width: "18rem" }}>
             <Card.Img as={Image} src={roleImg} fluid={true} alt="Card image" />
               <Card.Body>
-                <Button variant="outline-primary" size="lg" style={{width: "15rem"}}>Role</Button>
+                <Button href="/Role/Role" variant="outline-primary" size="lg" style={{width: "15rem"}}>Role</Button>
               </Card.Body>
             </Card>
           </Col>

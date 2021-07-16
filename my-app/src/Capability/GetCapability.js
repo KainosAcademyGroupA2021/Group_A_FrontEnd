@@ -33,8 +33,9 @@ const GetCapability = () => {
                 <tr >
                     <td>{CapabilityName}</td>
                     <td>{CapabilityLeadID}</td>
-                    <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
-                    <td><Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
+                    <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button>
+                    <a> </a>
+                    <Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
                 </tr>
             )
 
@@ -49,7 +50,7 @@ const GetCapability = () => {
         let confirmed =  window.confirm("Are you sure you want to delete this Capability?");
         if (confirmed) {
             console.log("Deleting Capability with id: " + id);
-            axios.post('http://localhost:5000/deleteCapability', {
+            axios.post('https://my.api:50001/deleteCapability', {
                 CapabilityID: id
               })
               .then(function (response) {

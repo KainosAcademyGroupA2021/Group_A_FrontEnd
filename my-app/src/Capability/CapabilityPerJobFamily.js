@@ -18,7 +18,7 @@ const CapabilityPerJobFamily = () => {
 
   })
   const getCapabilityAndJobFamily = async (e) => {
-      const res = await axios.get(`http://localhost:5000/getCapabilityAndJobFamily`)
+      const res = await axios.get(`https://my.api:50001/getCapabilityAndJobFamily`)
       setCapabilityName(res.data);
 }
 

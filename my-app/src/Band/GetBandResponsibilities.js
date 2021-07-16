@@ -15,7 +15,7 @@ const GetBandResponsibilities = () => {
  useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`https://my.api:5000/getBandResponsibilities`);
+                const res = await axios.get(`https://my.api:50001/getBandResponsibilities`);
                 console.log(res);
                 setResults(res.data);
             }

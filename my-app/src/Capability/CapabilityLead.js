@@ -20,7 +20,7 @@ const list = CapabilityName.map((r) => {
           )
   })
 const getCapabilityLeads = async (e) => {
-const res = await axios.get(`http://localhost:5000/getCapabilityLeads`)
+const res = await axios.get(`https://my.api:50001/getCapabilityLeads`)
 setCapabilityName(res.data);
 }
 getCapabilityLeads();

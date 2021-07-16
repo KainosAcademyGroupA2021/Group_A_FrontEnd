@@ -14,7 +14,7 @@ const GetBandCompetencies = () => {
     useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getBandCompetencies`);
+                const res = await axios.get(`https://my.api:50001/getBandCompetencies`);
                 setResults(res.data);
             }
             fetchResults();

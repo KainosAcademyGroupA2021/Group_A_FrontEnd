@@ -1,8 +1,10 @@
 import { Form, Button, FormLabel } from "react-bootstrap"
+import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from "react"
 import axios from "axios";
 import './Role.css'
 import { Link } from "react-router-dom";
+import ErrorPage from "../shared/ErrorPage";
 
 import { Table } from "react-bootstrap";
 
@@ -10,13 +12,35 @@ const AdminRoleView = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState();
     const [list, setList] = useState();
-
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [error, setError] = useState();
 
     useEffect(() => {
         if (!results) {
-            async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getJobRoles`);
-                setResults(res.data);
+            const fetchResults = async () => {
+                const options = {
+                    audience: 'http://my.api:50001',
+                    scope: 'read:secured'
+                }
+                const token = await getAccessTokenSilently(options);
+                console.log(token)
+
+                try {
+                    const options = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                    const res = await axios.get(`https://my.api:50001/getJobRolesAdmin`, options);
+                    console.log(res.data);
+                    setResults(res.data);
+
+                } catch (error) {
+                    if (error.response.status === 403 || error.response.status === 401) {
+                        setError(error.response.status);
+                    }
+
+                }
             }
             fetchResults();
         } else {
@@ -39,6 +63,9 @@ const AdminRoleView = () => {
         }
     }, [results, searchTerm]);
 
+    if (error) {
+        return( <ErrorPage error={error} />)
+    } else if (results) {
     return (
         <div>
             <FormLabel
@@ -62,7 +89,11 @@ const AdminRoleView = () => {
                 </Table>
             </div>
             </div>
-    )
+    )} else {
+        return (
+            <div>Loading!</div>
+        )
+    }
 }
 
 const AdminButtons = (props) => {
@@ -82,7 +113,7 @@ const handleDeleteRole = (id) => {
     let confirmed =  window.confirm("Are you sure you want to delete this role?");
     if (confirmed) {
         console.log("Deleting role with id: " + id);
-        axios.post('http://localhost:5000/deleteRole', {
+        axios.post('https://my.api:50001/deleteRole', {
             RoleID: id
           })
           .then(function (response) {

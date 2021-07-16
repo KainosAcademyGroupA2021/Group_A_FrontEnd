@@ -18,7 +18,7 @@ const AddJobFamily = () => {
   useEffect(() => {
       if (!capabilities) {
           async function fetchResults() {
-              setCapabilites((await axios.get(`http://localhost:5000/getCapabilities`)).data);
+              setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
           }
           fetchResults();
       } else {
@@ -43,7 +43,7 @@ const AddJobFamily = () => {
       } else {
       setValidated("true");
 
-      axios.post('http://localhost:5000/addNewJobFamily', {
+      axios.post('https://my.api:50001/addNewJobFamily', {
           JobFamilyName: jobFamilyName,
           CapabilityID: selectedCapabilityID
         })

@@ -61,9 +61,8 @@ const App = () => {
         <Route exact path="/role/addRole">
           <AddRole />
         </Route>
-        <Route exact path="/role/adminRoleView">
-          <AdminRoleView />
-        </Route>
+
+        <ProtectedRoute exact path="/role/adminRoleView" component={AdminRoleView} />
 
         <Route path="/role/editRole/:id">
 
@@ -86,17 +85,14 @@ const App = () => {
         </Route>
 
         <Route path="/band/editBand/:id">
-          <NavBar />
           <EditBand />
         </Route>
 
         <Route exact path="/Band/adminBandView">
-          <NavBar />
           <AdminBandView />
         </Route>
 
         <Route exact path="/Capability/CapabilityLead">
-          <NavBar />
           <CapabilityLead />
         </Route>
 

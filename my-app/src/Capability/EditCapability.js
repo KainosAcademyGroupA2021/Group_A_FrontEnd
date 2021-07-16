@@ -25,8 +25,8 @@ const EditCapability = () => {
     useEffect(() => {
         if (!(capabilityLeads && previousData)) {
             async function fetchResults() {
-                setCapabilityLeads((await axios.get(`http://localhost:5000/getCapabilityLeads`)).data);
-                setPreviousData((await axios.get('http://localhost:5000/getCapabilityByID/' + id)).data[0]);
+                setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`)).data);
+                setPreviousData((await axios.get('https://my.api:50001/getCapabilityByID/' + id)).data[0]);
             }
             fetchResults();
         } else if (capabilityLeads && previousData) {
@@ -56,7 +56,7 @@ const EditCapability = () => {
             e.preventDefault();
             e.stopPropagation();
         }else {
-            axios.put('http://localhost:5000/editCapability/' + id, {
+            axios.put('https://my.api:50001/editCapability/' + id, {
                 CapabilityName: capabilityName,
             CapabilityLeadID: selectedCapabilityLeadID
             })

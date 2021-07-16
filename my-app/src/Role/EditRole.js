@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import './Role.css';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
@@ -32,6 +33,9 @@ const EditRole = () => {
     const [jobFamilyValidationMessage, setJobFamilyValidationMessage] = useState("");
     const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
 
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [token, setToken] = useState();
+
     useEffect(() => {
         if (!(bands && capabilities && jobFamilies && previousData)) {
             async function fetchResults() {
@@ -39,6 +43,12 @@ const EditRole = () => {
                 setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
                 setBands((await axios.get(`https://my.api:50001/getBands`)).data)
                 setPreviousData((await axios.get('https://my.api:50001/getRoleWithCapabilityID/' + id)).data[0]);
+                const options = {
+                    audience: 'http://my.api:50001',
+                    scope: 'read:secured write:secured'
+                }
+                const accessToken = await getAccessTokenSilently(options);
+                setToken(accessToken);
             }
             fetchResults();
         } else if (bands && capabilities && jobFamilies && previousData) {
@@ -96,6 +106,13 @@ const EditRole = () => {
 
     const handleSubmit = (e) => {
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ` + token,
+            }
+        };
+
         roleName === "" ? setRoleNameValidationMessage("You must enter a name!") : setRoleNameValidationMessage("");
         roleSpecLink === "" ? setRoleSpecLinkValidationMessage("You must enter a link!") : setRoleSpecLinkValidationMessage("");
         roleSummary === "" ? setRoleSummaryValidationMessage("You must enter a role specification summary!") : setRoleSummaryValidationMessage("");
@@ -112,7 +129,7 @@ const EditRole = () => {
                 RoleSpecSummary: roleSummary,
                 JobFamilyID: selectedJobFamilyID,
                 BandID: bandID
-            })
+            }, config)
                 .then(function (response) {
                     console.log(response);
                     window.location.href = '/role/GetJobRoles'
@@ -157,7 +174,7 @@ const EditRole = () => {
                         type="select"
                         name="capability"
                         id="capability"
-                        defaultValue={selectedCapabilityID}
+                        value={selectedCapabilityID}
                         onChange={e => {
                             setSelectedCapabilityID(e.target.value);
                         }}
@@ -176,7 +193,7 @@ const EditRole = () => {
                         type="select"
                         name="jobfamily"
                         id="jobfamily"
-                        defaultValue={selectedJobFamilyID}
+                        value={selectedJobFamilyID}
                         isInvalid={jobFamilyValidationMessage !== ""}
                         onChange={e => {
                             setSelectedJobFamilyID(e.target.value);

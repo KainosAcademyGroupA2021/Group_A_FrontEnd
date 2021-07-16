@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import './Role.css';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
 const AddRole = () => {
@@ -28,12 +29,23 @@ const AddRole = () => {
     const [jobFamilyValidationMessage, setJobFamilyValidationMessage] = useState("");
     const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
 
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [token, setToken] = useState();
+
     useEffect(() => {
         if (!bands) {
             async function fetchResults() {
                 setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
                 setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
                 setBands((await axios.get(`https://my.api:50001/getBands`)).data)
+
+                const options = {
+                    audience: 'http://my.api:50001',
+                    scope: 'read:secured write:secured'
+                }
+                const accessToken = await getAccessTokenSilently(options);
+                setToken(accessToken);
+                console.log(accessToken)
             }
             fetchResults();
         } else {
@@ -71,6 +83,13 @@ const AddRole = () => {
 
     const handleSubmit = (e) => {
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ` + token,
+            }
+        };
+
         roleName === "" ? setRoleNameValidationMessage("You must enter a name!") : setRoleNameValidationMessage("");
         roleSpecLink === "" ? setRoleSpecLinkValidationMessage("You must enter a link!") : setRoleSpecLinkValidationMessage("");
         roleSummary === "" ? setRoleSummaryValidationMessage("You must enter a role specification summary!") : setRoleSummaryValidationMessage("");
@@ -87,7 +106,7 @@ const AddRole = () => {
                 RoleSpecSummary: roleSummary,
                 JobFamilyID: selectedJobFamilyID,
                 BandID: bandID
-            })
+            }, config)
                 .then(function (response) {
                     console.log(response);
                     window.location.href = '/role/GetJobRoles'

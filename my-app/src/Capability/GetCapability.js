@@ -33,7 +33,8 @@ const GetCapability = () => {
                 <tr >
                     <td>{CapabilityName}</td>
                     <td>{CapabilityLeadID}</td>
-                    <td><Button variant="primary"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
+                    <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
+                    <td><Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
                 </tr>
             )
 
@@ -43,11 +44,28 @@ const GetCapability = () => {
     }, [results, searchTerm]);
 
    
-    
-
-    function editCapability() {
-        //var id = this.CapabilityID;
-        //window.location.href = "/Capability/EditCapability";
+    const handleDeleteCapability = (id) => {
+        console.log(id);
+        let confirmed =  window.confirm("Are you sure you want to delete this Capability?");
+        if (confirmed) {
+            console.log("Deleting Capability with id: " + id);
+            axios.post('http://localhost:5000/deleteCapability', {
+                CapabilityID: id
+              })
+              .then(function (response) {
+                  console.log(id);
+                console.log(response);
+                console.log(response.data);
+                if (response.data !== "success") {
+                    alert("Unable to delete this Capability. Ensure all job families under this capability have been deleted first.")
+                } else {
+                    window.location.reload()
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
     }
 
     return (

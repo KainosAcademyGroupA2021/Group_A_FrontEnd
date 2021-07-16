@@ -33,8 +33,8 @@ const GetCapability = () => {
                 <tr >
                     <td>{CapabilityName}</td>
                     <td>{CapabilityLeadID}</td>
-                    <td><Button variant="primary"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
-                    <td><Button variant="primary" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
+                    <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button></td>
+                    <td><Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
                 </tr>
             )
 

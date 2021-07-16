@@ -152,7 +152,7 @@ const AddBand = () => {
 
                 <Form.Group controlId="formAddBandLevel">
                     <Form.Label>Band Level</Form.Label>
-                    <Form.Control isInvalid={state.bandLevelError || state.bandLevelTakenError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
+                    <Form.Control  autoComplete="off" isInvalid={state.bandLevelError || state.bandLevelTakenError} type="bandLevel" placeholder="Enter the band level" value={state.bandLevel} onChange={(e) => dispatch({ type: 'SET_BAND_LEVEL', data: e.target.value })} />
                     <Form.Control.Feedback type="invalid">{state.bandLevelTakenError ? BAND_LEVEL_TAKEN_ERROR_MESSAGE : BAND_LEVEL_EMPTY_ERROR_MESSAGE}</Form.Control.Feedback>
                 </Form.Group>
 

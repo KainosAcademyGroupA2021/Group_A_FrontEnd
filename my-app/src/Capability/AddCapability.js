@@ -20,7 +20,7 @@ const AddCapability = () => {
     useEffect(() => {
         if (!capabilityLeads) {
             async function fetchResults() {
-                setCapabilityLeads((await axios.get(`https://my.api:500011/getCapabilityLeads`)).data);
+                setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`)).data);
             }
             fetchResults();
         } else {

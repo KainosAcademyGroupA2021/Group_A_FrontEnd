@@ -31,9 +31,9 @@ const AddRole = () => {
     useEffect(() => {
         if (!bands) {
             async function fetchResults() {
-                setCapabilites((await axios.get(`http://localhost:5000/getCapabilities`)).data);
-                setJobFamilies((await axios.get(`http://localhost:5000/getJobFamilies`)).data);
-                setBands((await axios.get(`http://localhost:5000/getBands`)).data)
+                setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
+                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
+                setBands((await axios.get(`https://my.api:50001/getBands`)).data)
             }
             fetchResults();
         } else {
@@ -81,7 +81,7 @@ const AddRole = () => {
             e.preventDefault();
             e.stopPropagation();
         } else {
-            axios.post('http://localhost:5000/addRole', {
+            axios.post('https://my.api:50001/addRole', {
                 RoleName: roleName,
                 RoleSpec: roleSpecLink,
                 RoleSpecSummary: roleSummary,

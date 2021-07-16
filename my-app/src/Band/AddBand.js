@@ -91,9 +91,9 @@ const AddBand = () => {
     useEffect(() => {
         if (!state.loadedData) {
             async function fetchData() {
-                dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`http://localhost:5000/getCompetencies`)).data });
-                dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getTrainings`)).data });
-                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`http://localhost:5000/getTakenBandLevels`)).data });
+                dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`https://my.api:50001/getCompetencies`)).data });
+                dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`https://my.api:50001/getTrainings`)).data });
+                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`https://my.api:50001/getTakenBandLevels`)).data });
                 dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
             fetchData();
@@ -121,7 +121,7 @@ const AddBand = () => {
             e.preventDefault();
             console.log("error")
         } else {
-            axios.post('http://localhost:5000/addBand', {
+            axios.post('https://my.api:50001/addBand', {
                 BandName: state.bandName,
                 BandLevel: state.bandLevel,
                 Responsibilities: state.responsibilityText,

@@ -15,7 +15,7 @@ const AdminBandView = () => {
     useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getBands`);
+                const res = await axios.get(`https://my.api:50001/getBands`);
                 setResults(res.data);
             }
             fetchResults();

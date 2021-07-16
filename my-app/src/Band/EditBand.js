@@ -116,12 +116,12 @@ const EditBand = () => {
     useEffect(() => {
         if (!state.loadedData) {
             async function fetchData() {
-                dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`http://localhost:5000/getCompetencies`)).data });
-                dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getTrainings`)).data });
-                dispatch({ type: 'LOAD_PREVIOUS_BAND_DATA', data: (await axios.get(`http://localhost:5000/getBand/` + id)).data[0] });
-                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedCompetenciesIDsWithBand/` + id)).data });
-                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA', data: (await axios.get(`http://localhost:5000/getAssociatedTrainingIDsWithBand/` + id)).data });
-                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`http://localhost:5000/getTakenBandLevels`)).data });
+                dispatch({ type: 'LOAD_COMPETENCY_DATA', data: (await axios.get(`https://my.api:50001/getCompetencies`)).data });
+                dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`https://my.api:50001/getTrainings`)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_BAND_DATA', data: (await axios.get(`https://my.api:50001/getBand/` + id)).data[0] });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_COMPETENCIES_DATA', data: (await axios.get(`https://my.api:50001/getAssociatedCompetenciesIDsWithBand/` + id)).data });
+                dispatch({ type: 'LOAD_PREVIOUS_SELECTED_TRAINING_DATA', data: (await axios.get(`https://my.api:50001/getAssociatedTrainingIDsWithBand/` + id)).data });
+                dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`https://my.api:50001/getTakenBandLevels`)).data });
                 dispatch({ type: 'TOGGLE_LOADED_DATA' });
             }
             fetchData();
@@ -149,7 +149,7 @@ const EditBand = () => {
             e.preventDefault();
             console.log("error")
         } else {
-            axios.put('http://localhost:5000/editBand/' + id, {
+            axios.put('https://my.api:50001/editBand/' + id, {
                 BandName: state.bandName,
                 BandLevel: state.bandLevel,
                 Responsibilities: state.responsibilityText,

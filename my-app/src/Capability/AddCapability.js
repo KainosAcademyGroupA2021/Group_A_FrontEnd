@@ -20,7 +20,7 @@ const AddCapability = () => {
     useEffect(() => {
         if (!capabilityLeads) {
             async function fetchResults() {
-                setCapabilityLeads((await axios.get(`http://localhost:50001/getCapabilityLeads`)).data);
+                setCapabilityLeads((await axios.get(`https://my.api:500011/getCapabilityLeads`)).data);
             }
             fetchResults();
         } else {
@@ -49,7 +49,7 @@ const AddCapability = () => {
         }else{
         
 
-        axios.post('http://localhost:50001/addCapability', {
+        axios.post('https://my.api:50001/addCapability', {
             CapabilityName: capabilityName,
             CapabilityLeadID: selectedCapabilityLeadID
           })

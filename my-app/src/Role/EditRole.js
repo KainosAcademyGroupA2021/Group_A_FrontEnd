@@ -35,10 +35,10 @@ const EditRole = () => {
     useEffect(() => {
         if (!(bands && capabilities && jobFamilies && previousData)) {
             async function fetchResults() {
-                setCapabilites((await axios.get(`http://localhost:5000/getCapabilities`)).data);
-                setJobFamilies((await axios.get(`http://localhost:5000/getJobFamilies`)).data);
-                setBands((await axios.get(`http://localhost:5000/getBands`)).data)
-                setPreviousData((await axios.get('http://localhost:5000/getRoleWithCapabilityID/' + id)).data[0]);
+                setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
+                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
+                setBands((await axios.get(`https://my.api:50001/getBands`)).data)
+                setPreviousData((await axios.get('https://my.api:50001/getRoleWithCapabilityID/' + id)).data[0]);
             }
             fetchResults();
         } else if (bands && capabilities && jobFamilies && previousData) {
@@ -106,7 +106,7 @@ const EditRole = () => {
             e.preventDefault();
             e.stopPropagation();
         } else {
-            axios.put('http://localhost:5000/editRole/' + id, {
+            axios.put('https://my.api:50001/editRole/' + id, {
                 RoleName: roleName,
                 RoleSpec: roleSpecLink,
                 RoleSpecSummary: roleSummary,

@@ -16,7 +16,7 @@ const GetCapability = () => {
     useEffect(() => {
         if (!results) {
             async function fetchResults() {
-                const res = await axios.get(`http://localhost:5000/getCapabilities`);
+                const res = await axios.get(`https://my.api:50001/getCapabilities`);
                 setResults(res.data);
             }
             fetchResults();

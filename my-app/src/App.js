@@ -33,6 +33,7 @@ const App = () => {
     return <h1>Loading...</h1>;
   }
   return (
+    
     <Router history={history}>
       <NavBar />
       <Switch>
@@ -102,6 +103,7 @@ const App = () => {
       </Switch>
       <Footer />
     </Router>
+  
 
   );
 }

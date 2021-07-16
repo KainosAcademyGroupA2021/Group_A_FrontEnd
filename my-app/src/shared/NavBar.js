@@ -1,8 +1,7 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import LoginButton from "../Buttons/LoginButton";
 import LogoutButton from "../Buttons/LogoutButton";
-import "./NavBar.css"
-import Logo from './Images/thumbnail.png'
+import Logo from '../Images/thumbnail.png'
 
 const NavBar = () => {
     return (

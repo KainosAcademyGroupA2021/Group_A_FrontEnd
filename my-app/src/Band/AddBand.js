@@ -13,6 +13,9 @@ const AddBand = () => {
     const RESPONSIBILITIES_ERROR_MESSAGE = "Enter the responsibilities of the band";
 
     const initialState = {
+        competencyData: [],
+        trainingData: [],
+        takenBandLevels: [],
         loadedData: false,
         bandName: "",
         bandLevel: "",
@@ -21,7 +24,11 @@ const AddBand = () => {
         bandLevelError: false,
         bandLevelTakenError: false,
         competencyError: false,
-        responsibilityError: false
+        responsibilityError: false,
+        competencySelectorDropdowns: [],
+        trainingSelectorDropdowns: [],
+        selectedCompetencies: [],
+        selectedTrainings: []
     }
 
     function reducer(state, action) {
@@ -107,9 +114,12 @@ const AddBand = () => {
                     dispatch({ type: 'LOAD_TRAINING_DATA', data: (await axios.get(`https://my.api:50001/getTrainings`, config)).data });
                     dispatch({ type: 'LOAD_TAKEN_BAND_LEVELS', data: (await axios.get(`https://my.api:50001/getTakenBandLevels`, config)).data });
                     dispatch({ type: 'TOGGLE_LOADED_DATA' });
-                } catch (error) {
-                    if (error.response.status === 403 || error.response.status === 401) {
-                        setError(error.response.status);
+                } catch (e) {
+                    console.log(e)
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
                     }
 
                 }
@@ -164,7 +174,7 @@ const AddBand = () => {
 
     if (error) {
         return (<ErrorPage error={error} />)
-    } else if (state.takenBandLevels) {
+    } else if (state.loadedData) {
         return (
             <div className="AddBandContainer">
                 <h1>Add a band</h1>

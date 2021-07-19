@@ -2,17 +2,22 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import LoginButton from "../Buttons/LoginButton";
 import LogoutButton from "../Buttons/LogoutButton";
 import Logo from '../Images/thumbnail.png'
+import "./NavBar.css"
+import noUser from "../Images/noUser.png"
+import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = () => {
+    const {user} = useAuth0()
+    const profilePicture = (user) ? user.picture : noUser
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand>
                 <img
-                src = {Logo}
-                width = "240"
-                height = "70"
+                    src={Logo}
+                    width="240"
+                    height="70"
                 />
-            </Navbar.Brand>    
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navbar">
@@ -37,9 +42,12 @@ const NavBar = () => {
                         <NavDropdown.Item href="/band/adminBandView">Admin Band View</NavDropdown.Item>
                     </NavDropdown>
                     <div className="auth-buttons">
-                    <LoginButton/>
-                    <LogoutButton/>
+                        <LoginButton />
+                        <LogoutButton />
                     </div>
+                </Nav>
+                <Nav>
+                    <img src={profilePicture} className="profile-picture" />
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

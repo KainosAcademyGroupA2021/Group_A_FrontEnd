@@ -28,14 +28,14 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 const history = createBrowserHistory();
 
 const App = () => {
-  const { isLoading } = useAuth0();
+  const { isLoading, user } = useAuth0();
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   return (
     
     <Router history={history}>
-      <NavBar />
+      <NavBar/>
       <Switch>
         <Route exact path="/">
           <Home />

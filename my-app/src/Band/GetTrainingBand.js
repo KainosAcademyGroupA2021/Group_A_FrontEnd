@@ -70,19 +70,13 @@ const GetTrainingBand = () => {
     }
 
 
-    let data = null;
-    const renderData = async () => {
-        if (error) {
-            data = <ErrorPage error={error} />
-        } else {
-            data = <EmpTable list={list}  setSearchTerm={setSearchTerm}  columns={columns} />
-
-        }
+    if (error) {
+        return <ErrorPage error={error} />
+    } else if (results) {
+        return <EmpTable list={list} setSearchTerm={setSearchTerm} columns={columns} />
+    } else {
+        return <div></div>
     }
-    renderData();
-    return (
-        <div>{data}</div>
-    )
     
 }
 

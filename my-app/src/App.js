@@ -43,16 +43,12 @@ const App = () => {
         <Route exact path="/Capability/CapabilityPerJobFamily">
           <CapabilityPerJobFamily />
         </Route>
-        <Route exact path="/Capability/AddCapability">
-          <AddCapability />
-        </Route>
+        <ProtectedRoute exact path="/Capability/AddCapability" component={AddCapability} />
         <Route exact path="/Capability/GetCapability" component={GetCapability}>
 
         </Route>
-        <Route exact path="/Capability/EditCapability/:id">
-
-          <EditCapability />
-        </Route>
+        
+        <ProtectedRoute exact path="/Capability/EditCapability/:id" component={EditCapability}/>
 
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />

@@ -1,0 +1,45 @@
+.insert-form {
+    width: 500px;
+    margin: auto;
+}
+
+
+.emp-table {
+    padding: 40px;
+}
+
+
+.searchBar {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    min-width: 30%;
+
+}
+
+.job-family-form{
+    width: 800px;
+    margin: auto;
+    padding-top: 60px;
+}
+
+.emp-table {
+    padding: 40px;
+
+}
+.table {
+    table-layout: fixed;
+}
+.td {
+    width: 10px;
+}
+
+
+.AddJobFamilyContainer{
+    padding: 40px;
+}
+
+.indentedField {
+    margin-left: 20px;
+    margin-top: 20px;
+}

@@ -5,7 +5,7 @@ import GetJobRoles from "./Role/GetJobRoles";
 import GetBandResponsibilities from "./Band/GetBandResponsibilities";
 import CapabilityPerJobFamily from "./Capability/CapabilityPerJobFamily";
 import GetTrainingBand from "./Band/GetTrainingBand";
-import Band from "./Band/GetBandCompetencies";
+import BandCompetencies from "./Band/GetBandCompetencies";
 import AddRole from "./Role/AddRole";
 import Home from "./Home/Home";
 //import GlobalStyle from "./GlobalStyles";
@@ -53,10 +53,14 @@ const App = () => {
           <EditCapability />
         </Route>
 
+        <ProtectedRoute exact path="/Capability/AddCapability" component={AddCapability} />     
+        <ProtectedRoute exact path="/Capability/EditCapability/:id" component={EditCapability}/>
+        <ProtectedRoute exact path="/Capability/CapabilityPerJobFamily" component={CapabilityPerJobFamily}/>
+        <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
-        <Route exact path="/band/GetBandCompetencies" component={Band}>
-        </Route>
+        <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
+
         <Route exact path="/role/addRole">
           <AddRole />
         </Route>
@@ -68,28 +72,20 @@ const App = () => {
           <EditRole />
         </Route>
 
-        <Route exact path="/Band/GetBandResponsibilities">
-
-          <GetBandResponsibilities />
-        </Route>
+        <ProtectedRoute exact path="/Band/GetBandResponsibilities" component={GetBandResponsibilities}/>
 
         <Route exact path="/Capability/AddJobFamily" >
 
           <AddJobFamily />
         </Route>
 
-        <Route exact path="/Band/addBand">
-
-          <AddBand />
-        </Route>
+        <ProtectedRoute exact path="/Band/addBand" component={AddBand}/>
 
         <Route path="/band/editBand/:id">
           <EditBand />
         </Route>
 
-        <Route exact path="/Band/adminBandView">
-          <AdminBandView />
-        </Route>
+        <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
 
         <Route exact path="/Capability/CapabilityLead">
           <CapabilityLead />

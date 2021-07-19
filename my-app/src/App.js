@@ -45,12 +45,9 @@ const App = () => {
         </Route>
         <Route exact path="/Capability/AddCapability">
           <AddCapability />
-        </Route>
-        <Route exact path="/Capability/GetCapability" component={GetCapability}>
-
-        </Route>
+          </Route>
+        <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
         <Route exact path="/Capability/EditCapability/:id">
-
           <EditCapability />
         </Route>
 

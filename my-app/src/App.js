@@ -28,27 +28,22 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 const history = createBrowserHistory();
 
 const App = () => {
-  const { isLoading } = useAuth0();
+  const { isLoading, user } = useAuth0();
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   return (
     
     <Router history={history}>
-      <NavBar />
+      <NavBar/>
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/Capability/CapabilityPerJobFamily">
-          <CapabilityPerJobFamily />
-        </Route>
-        <ProtectedRoute exact path="/Capability/AddCapability" component={AddCapability} />
-        <Route exact path="/Capability/GetCapability" component={GetCapability}>
-
-        </Route>
-        
+        <ProtectedRoute exact path="/Capability/AddCapability" component={AddCapability} />     
         <ProtectedRoute exact path="/Capability/EditCapability/:id" component={EditCapability}/>
+        <ProtectedRoute exact path="/Capability/CapabilityPerJobFamily" component={CapabilityPerJobFamily}/>
+        <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
 
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />

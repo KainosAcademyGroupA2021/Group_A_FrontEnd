@@ -23,16 +23,16 @@ const GetCapability = () => {
         } else {
             
             let tempList = results.filter((r) => {
-                const { CapabilityID, CapabilityName, CapabilityLeadID} = r
+                const { CapabilityID, CapabilityName, CapabilityLeadID, CapabilityLeadName} = r
                 
-                return (CapabilityName.includes(searchTerm) || searchTerm === "");
+                return (CapabilityName.includes(searchTerm) || CapabilityLeadName.includes(searchTerm) || searchTerm === "");
             }).map((r) => {
                 
-                const { CapabilityID, CapabilityName, CapabilityLeadID} = r
+                const { CapabilityID, CapabilityName, CapabilityLeadID, CapabilityLeadName} = r
             return (
                 <tr >
                     <td>{CapabilityName}</td>
-                    <td>{CapabilityLeadID}</td>
+                    <td>{CapabilityLeadName}</td>
                     <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/"+CapabilityID}>Edit</Link></Button>
                     <a> </a>
                     <Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
@@ -75,14 +75,14 @@ const GetCapability = () => {
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for a capability" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    <Form.Control type="search" placeholder="Search for a capability or capability lead" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </FormLabel>
             <div className="emp-table">
                 <Table >
                     <thead>
                         <tr>
                             <th>Capability Name</th>
-                            <th>Capability Lead ID</th>
+                            <th>Capability Lead</th>
                         </tr>
                     </thead>
                     <tbody>

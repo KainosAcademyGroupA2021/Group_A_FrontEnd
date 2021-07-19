@@ -2,7 +2,7 @@
   "id": "476e0f41-8791-40d2-8878-768acdf69a5e",
   "version": "2.0",
   "name": "GroupA-Frontend",
-  "url": "http://localhost:3000/Home/Home",
+  "url": "http://localhost:3000/",
   "tests": [{
     "id": "5d4c6109-1788-4011-ba6b-1b81222d404a",
     "name": "Add a role",
@@ -10,7 +10,7 @@
       "id": "a89fdbd3-20d1-4bc6-95a1-848c0c0883cc",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:3000/Home/Home",
+      "target": "https://localhost:3000/Home/Home",
       "targets": [],
       "value": ""
     }, {
@@ -167,7 +167,7 @@
       "id": "0a2a6cfc-e77c-4eab-9e65-d904a8914f27",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:3000/Home/Home",
+      "target": "https://localhost:3000/",
       "targets": [],
       "value": ""
     }, {

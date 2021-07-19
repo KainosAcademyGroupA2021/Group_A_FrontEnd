@@ -49,20 +49,35 @@ const GetTrainingBand = () => {
                     const { BandName, TrainingType, TrainingName, BandLevel} = r
                     const bandLev = String(BandLevel)
                     return (BandName.includes(searchTerm) || TrainingType.includes(searchTerm) || bandLev.includes(searchTerm) || TrainingName.includes(searchTerm) || searchTerm === "");
-                }).map((r) => {
-                    const {  BandLevel, BandName, TrainingType, TrainingName, TrainingLink } = r
+                })
+
+                let groupedDict = {}
+                
+                for (let item of tempList) {
+                    const {  BandLevel, BandName, TrainingType, TrainingName, TrainingLink } = item
+                    if (groupedDict[TrainingName]) {
+                        groupedDict[TrainingName] = {...groupedDict[TrainingName], bandNames: groupedDict[TrainingName].bandNames + ", " + BandName, bandLevels: groupedDict[TrainingName].bandLevels + ", " + BandLevel}
+                    } else {
+                        groupedDict[TrainingName] = { bandNames: BandName, bandLevels: BandLevel, TrainingType: TrainingType, TrainingLink: TrainingLink}
+                    }
+                    console.log(item)
+                }
+
+                let tempItems = Object.entries(groupedDict).map((r) => {
+                    console.log(r)
+                    const {  bandLevels, bandNames, TrainingType, TrainingLink } = r[1]
                     return (
                         <tr >
-                            <td>{BandLevel}</td>
+                            <td>{bandLevels}</td>
                             <td>{TrainingType}</td>
-                            <td>{BandName}</td>
-                            <td>{TrainingName}</td>
+                            <td>{bandNames}</td>
+                            <td>{r[0]}</td>
                             <td><a href={TrainingLink}>Link to training</a></td>
                         </tr>
                     )
 
                 })
-                setList(tempList);
+                setList(tempItems);
             }
         }, [searchTerm, results]);
     } catch (e) {

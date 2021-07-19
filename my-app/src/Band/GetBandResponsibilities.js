@@ -2,7 +2,6 @@ import { Form, FormLabel } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import './Band.css'
-import ErrorPage from "../shared/ErrorPage";
 
 import { Table } from "react-bootstrap";
 

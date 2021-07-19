@@ -4,6 +4,9 @@ import './Capability.css';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
+import { useAuth0 } from '@auth0/auth0-react';
+import ErrorPage from '../shared/ErrorPage';
+
 const EditCapability = () => {
     let { id } = useParams();
     const [capabilityLeads, setCapabilityLeads] = useState();
@@ -22,13 +25,39 @@ const EditCapability = () => {
     const [capabilityNameValidationMessage, setCapabilityNameValidationMessage] = useState("");
     const [capabilityLeadValidationMessage, setCapabilityLeadValidationMessage] = useState("");
 
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [error, setError] = useState();
+    const [token, setToken] = useState();
+
     useEffect(() => {
         if (!(capabilityLeads && previousData)) {
-            async function fetchResults() {
-                setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`)).data);
-                setPreviousData((await axios.get('https://my.api:50001/getCapabilityByID/' + id)).data[0]);
+            async function fetchData() {
+                const options = {
+                    audience: 'http://my.api:50001',
+                    scope: 'read:secured write:secured'
+                }
+                const accessToken = await getAccessTokenSilently(options);
+                setToken(accessToken);
+
+                try {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    }
+                    setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`, config)).data);
+                    setPreviousData((await axios.get('https://my.api:50001/getCapabilityByID/' + id, config)).data[0]);
+                } catch (e) {
+                    console.log(e)
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
+                    }
+
+                }
             }
-            fetchResults();
+            fetchData();
         } else if (capabilityLeads && previousData) {
             if (!loadedPreviousData) {
                 const { CapabilityID, CapabilityName, CapabilityLeadID } = previousData;
@@ -48,6 +77,11 @@ const EditCapability = () => {
     }, [capabilityLeads, previousData, selectedCapabilityLeadID]);
 
     const handleSubmit = (e) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }
 
         capabilityName === "" ? setCapabilityNameValidationMessage("You must enter a name!") : setCapabilityNameValidationMessage("");
         selectedCapabilityLeadID === "" ? setCapabilityLeadValidationMessage("You must select a capability lead!") : setCapabilityLeadValidationMessage("");
@@ -55,11 +89,11 @@ const EditCapability = () => {
         if (capabilityName === "" || selectedCapabilityLeadID === "") {
             e.preventDefault();
             e.stopPropagation();
-        }else {
+        } else {
             axios.put('https://my.api:50001/editCapability/' + id, {
                 CapabilityName: capabilityName,
-            CapabilityLeadID: selectedCapabilityLeadID
-            })
+                CapabilityLeadID: selectedCapabilityLeadID
+            }, config)
                 .then(function (response) {
                     console.log(response);
                     window.location.href = '/Capability/GetCapability'
@@ -72,44 +106,50 @@ const EditCapability = () => {
         setValidated("true");
     }
 
-    return (
-        <div className="EditCapabilityContainer">
-            <h1>Edit Capability</h1>
-            <br />
-            <Form onSubmit={handleSubmit} validiated={validated}>
-                <Form.Group controlId="formAddCapability">
-                    <Form.Label>Capability Name</Form.Label>
-                    <Form.Control isInvalid={capabilityNameValidationMessage !== ""} type="capabilityName" placeholder="Enter capability name" value={capabilityName} onChange={(e) => setCapabilityName(e.target.value)} />
-                    <Form.Control.Feedback type="invalid">{capabilityNameValidationMessage}</Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>
-                        Capability Lead
-                    </Form.Label>
-                    <Form.Control
-                        as="select"
-                        type="select"
-                        value={selectedCapabilityLeadID}
-                        isInvalid={capabilityLeadValidationMessage !== ""}
-                        name="capabilityLeads"
-                        onChange={e => {
-                            setSelectedCapabilityLeadID(e.target.value);
-                        }}
-                    >
-                        <option value="" >Select capability lead</option>
-                        {capabilityLeadsItems}
-                    </Form.Control>
-                    <Form.Control.Feedback type="invalid">{capabilityLeadValidationMessage}</Form.Control.Feedback>
-                </Form.Group>
-
+    if (error) {
+        return (<ErrorPage error={error} />)
+    } else if (capabilityLeads) {
+        return (
+            <div className="EditCapabilityContainer">
+                <h1>Edit Capability</h1>
                 <br />
-                <Button variant="primary" type="submit">
-                    Update
+                <Form onSubmit={handleSubmit} validiated={validated}>
+                    <Form.Group controlId="formAddCapability">
+                        <Form.Label>Capability Name</Form.Label>
+                        <Form.Control isInvalid={capabilityNameValidationMessage !== ""} type="capabilityName" placeholder="Enter capability name" value={capabilityName} onChange={(e) => setCapabilityName(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">{capabilityNameValidationMessage}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>
+                            Capability Lead
+                    </Form.Label>
+                        <Form.Control
+                            as="select"
+                            type="select"
+                            value={selectedCapabilityLeadID}
+                            isInvalid={capabilityLeadValidationMessage !== ""}
+                            name="capabilityLeads"
+                            onChange={e => {
+                                setSelectedCapabilityLeadID(e.target.value);
+                            }}
+                        >
+                            <option value="" >Select capability lead</option>
+                            {capabilityLeadsItems}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">{capabilityLeadValidationMessage}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <br />
+                    <Button variant="primary" type="submit">
+                        Update
                 </Button>
-            </Form>
-        </div>
-    )
+                </Form>
+            </div>
+        )
+    } else {
+        return (<div>Loading Data!</div>)
+    }
 
 
 

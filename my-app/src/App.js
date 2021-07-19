@@ -40,9 +40,8 @@ const App = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/Capability/CapabilityPerJobFamily">
-          <CapabilityPerJobFamily />
-        </Route>
+        <ProtectedRoute exact path="/Capability/CapabilityPerJobFamily" component={CapabilityPerJobFamily}/>
+     
         <Route exact path="/Capability/AddCapability">
           <AddCapability />
         </Route>
@@ -74,7 +73,7 @@ const App = () => {
           <GetBandResponsibilities />
         </Route>
 
-        <Route exact path="/Capability/AddJobFamily">
+        <Route exact path="/Capability/AddJobFamily" >
 
           <AddJobFamily />
         </Route>

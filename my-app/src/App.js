@@ -70,7 +70,10 @@ const App = () => {
           <EditBand />
         </Route>
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
+
         <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
+
+
       </Switch>
       <Footer />
     </Router>

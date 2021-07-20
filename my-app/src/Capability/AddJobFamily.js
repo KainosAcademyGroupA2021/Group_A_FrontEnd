@@ -18,7 +18,6 @@ const AddJobFamily = () => {
     const [error, setError] = useState();
     const [token, setToken] = useState();
 
-
     useEffect(() => {
         if (!capabilities) {
             async function fetchResults() {
@@ -30,7 +29,6 @@ const AddJobFamily = () => {
                 console.log(token)
                 setToken(token)
                 const decodedToken = jwt_decode(token)
-                console.log(decodedToken.permissions)
                 const checkToken = (decodedToken) => {
                     if (decodedToken.permissions.length < 2) {
                         setError(403)

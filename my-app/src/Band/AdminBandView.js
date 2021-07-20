@@ -56,7 +56,7 @@ const AdminBandView = () => {
                     <tr key={BandID}>
                         <td>{BandName}</td>
                         <td>{BandLevel}</td>
-                        <td><AdminButtons bandID={BandID} token={token}/></td>
+                        <td><AdminButtons bandID={BandID} token={token} setResults={setResults} setError={setError}/></td>
                     </tr>
                 )
 
@@ -99,13 +99,13 @@ const AdminButtons = (props) => {
     return (
         <div>
             <Button variant="warning" className="mr-3"><Link className="linkButton" to={"/band/editBand/" + props.bandID}>Edit</Link></Button>
-            <Button variant="danger" onClick={() => handleDeleteBand(props.bandID, props.token)}>Delete</Button>
+            <Button variant="danger" onClick={() => handleDeleteBand(props.bandID, props.token, props.setResults, props.setError)}>Delete</Button>
         </div>
     );
 }
 
 
-const handleDeleteBand = (id, token) => {
+const handleDeleteBand = (id, token, setResults, setError) => {
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -124,8 +124,28 @@ const handleDeleteBand = (id, token) => {
                 if (response.data !== "success") {
                     alert("Unable to delete this band. Ensure all roles under this band have been deleted first.")
                 } else {
-                    window.location.reload()
+                    async function refreshBands() {
+                    try {
+                        const options = {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        }
+                        const res = await axios.get(`https://my.api:50001/getBandsAdmin`, options);
+                        console.log(res.data);
+                        setResults(res.data);
+    
+                    } catch (error) {
+                        if (error.response.status === 403 || error.response.status === 401) {
+                            console.log(error)
+                            setError(error.response.status);
+                        }
+    
+                    }
                 }
+                refreshBands();
+                }
+
             })
             .catch(function (error) {
                 console.log(error);

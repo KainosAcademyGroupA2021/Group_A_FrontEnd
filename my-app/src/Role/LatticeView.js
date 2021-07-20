@@ -13,6 +13,8 @@ const LatticeView = () => {
     const [capabilityID, setCapabilityID] = useState();
     const [capabilities, setCapabilities] = useState();
 
+    const [jobRoles, setJobRoles] = useState();
+
     const [jobFamilies, setJobFamilies] = useState([]);
 
     const { getAccessTokenSilently, user } = useAuth0();
@@ -24,7 +26,7 @@ const LatticeView = () => {
             async function fetchData() {
                 const options = {
                     audience: 'http://my.api:50001',
-                    scope: 'read:secured write:secured'
+                    scope: 'read:secured'
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
@@ -37,6 +39,7 @@ const LatticeView = () => {
                     }
 
                     setCapabilities((await axios.get(`https://my.api:50001/getCapabilities`, config)).data);
+                    setJobRoles((await axios.get(`https://my.api:50001/getJobRoles`, config)).data);
                     setBands((await axios.get(`https://my.api:50001/getBands`, config)).data)
                 } catch (e) {
                     if (e.response) {
@@ -99,24 +102,39 @@ const LatticeView = () => {
                 <br />
 
                 { capabilityID &&
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th>Band Level</th>
-                            {jobFamilies.length > 0 ? jobFamilies.filter((item) => { return (item.CapabilityID == capabilityID) }).map((item) => {
-                                console.log(item)
-                                return (<th key={item.JobFamilyID} lassName="columnName">{item.JobFamilyName}</th>)
-                            }) : ""}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td>t</td>
-                        {jobFamilies.length > 0 ? jobFamilies.filter((item) => { return (item.CapabilityID == capabilityID) }).map((item) => {
-                                console.log(item)
-                                return (<td className="columnName">{item.JobFamilyName}</td>)
-                            }) : ""}
-                    </tbody>
-                </Table>}
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>Band Level</th>
+                                {jobFamilies.length > 0 ? jobFamilies.filter((item) => { return (item.CapabilityID == capabilityID) }).map((item) => {
+                                    console.log(item)
+                                    return (<th key={item.JobFamilyID} lassName="columnName">{item.JobFamilyName}</th>)
+                                }) : ""}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {bands.length > 0 ? bands
+                                .map((bandItem) => {
+                                    return (
+                                        <tr>
+                                            <td>{bandItem.BandName}</td>
+                                            {jobFamilies
+                                                .filter((jobFamilyItem) => {
+                                                    return (jobFamilyItem.CapabilityID == capabilityID)
+                                                })
+                                                .map((jobFamilyItem) => {
+                                                    return (<td>{jobRoles
+                                                        .filter((jobRoleItem) => {
+                                                            return (jobFamilyItem.JobFamilyID == jobRoleItem.JobFamilyID && jobRoleItem.BandLevel == bandItem.BandLevel)
+                                                        })
+                                                        .map((jobRoleItem) => {
+                                                            return (<div><a href={jobRoleItem.RoleSpec}>{jobRoleItem.RoleName}</a> <br /><br/></div>)
+                                                        })}</td>)
+                                                })}
+                                        </tr>)
+                                }) : ""}
+                        </tbody>
+                    </Table>}
             </div>
         )
     } else {

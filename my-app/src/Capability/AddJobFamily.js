@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import './Capability.css';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const AddJobFamily = () => {
 
@@ -14,10 +15,21 @@ const AddJobFamily = () => {
   const [capabilityValidationMessage, setCapabilityValidationMessage] = useState("");
 
   const [validated, setValidated] = useState("false");
+  
+  const { getAccessTokenSilently, user } = useAuth0();
+    const [token, setToken] = useState();
+    const [error, setError] = useState();
 
   useEffect(() => {
+
       if (!capabilities) {
           async function fetchResults() {
+            const options = {
+                audience: 'http://my.api:50001',
+                scope: 'read:secured write:secured'
+            }
+            const accessToken = await getAccessTokenSilently(options);
+            setToken(accessToken);
               setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
           }
           fetchResults();
@@ -33,6 +45,12 @@ const AddJobFamily = () => {
   }, [capabilities, validated, selectedCapabilityID]);
 
   const handleSubmit = (e) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ` + token,
+        }
+    };
 
       jobFamilyName === "" ? setJobFamilyValidationMessage("You must enter a name!") : setJobFamilyValidationMessage("");
       selectedCapabilityID === "" ? setCapabilityValidationMessage("You must select a capability!") : setCapabilityValidationMessage("");
@@ -46,7 +64,7 @@ const AddJobFamily = () => {
       axios.post('https://my.api:50001/addNewJobFamily', {
           JobFamilyName: jobFamilyName,
           CapabilityID: selectedCapabilityID
-        })
+        }, config)
         .then(function (response) {
           console.log(response);
           window.location.href = '/Capability/CapabilityPerJobFamily'

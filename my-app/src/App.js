@@ -59,9 +59,7 @@ const App = () => {
         <ProtectedRoute exact path="/Band/GetBandResponsibilities" component={GetBandResponsibilities}/>
         <ProtectedRoute exact path="/Capability/AddJobFamily" component={AddJobFamily}/>
         <ProtectedRoute exact path="/JobFamily/AdminJobFamilyView" component={AdminJobFamilyView} />
-        <Route path="/JobFamily/EditJobFamily/:id">
-          <EditJobFamily />
-        </Route>
+        <ProtectedRoute path="/JobFamily/EditJobFamily/:id" component={EditJobFamily}/>
         <Route exact path="/Band/addBand">
           <AddBand />
         </Route>
@@ -70,10 +68,7 @@ const App = () => {
           <EditBand />
         </Route>
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
-
         <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
-
-
       </Switch>
       <Footer />
     </Router>

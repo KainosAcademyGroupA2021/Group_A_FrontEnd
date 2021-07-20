@@ -1,46 +1,77 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios";
 import './Capability.css'
-
-import { Table } from "react-bootstrap";
+import ErrorPage from "../shared/ErrorPage";
+import EmpTable from "../shared/EmpTable"
+import { useAuth0 } from '@auth0/auth0-react';
 
 const CapabilityLead = () => {
-  const [CapabilityName, setCapabilityName] = useState([]);
+    const [CapabilityName, setCapabilityName] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const { getAccessTokenSilently} = useAuth0();
+    const [results, setResults] = useState();
+    const [error, setError] = useState();
+    const columns = ["Job Family Name", "Capability Name", "Capability Lead Photo", "Capability Lead Message"]
+
+    useEffect(() => {
+        const fetchResults = async (e) => {
+            const options = {
+                audience: 'http://my.api:50001',
+                scope: 'read:secured'
+            }
+            const token = await getAccessTokenSilently(options);
+            console.log(token)
 
 
-const list = CapabilityName.map((r) => {
-          const { CapabilityName, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage} = r
-          return (
-              <tr >
-                  <td>{CapabilityName}</td>
-                  <td>{CapabilityLeadName}</td>
-                  <td>{CapabilityLeadPhoto}</td>
-                  <td>{CapabilityLeadMessage}</td>
-              </tr>
-          )
-  })
-const getCapabilityLeads = async (e) => {
-const res = await axios.get(`https://my.api:50001/getCapabilityLeads`)
-setCapabilityName(res.data);
+            try {
+                const options = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+                const res = await axios.get(`https://my.api:50001/getCapabilityLeads`, options)
+                console.log(res)
+      
+                setCapabilityName(res.data);
+                setResults(res.data)
+
+            } catch (error) {
+                if (error.response.status === 403 || error.response.status === 401 || error.response.status === 500 ) {
+                    setError(error.response.status);
+
+                }
+
+            }
+        }
+        fetchResults();
+    }, [CapabilityName])
+
+    const list = CapabilityName.filter((r) => {
+        const { CapabilityName, CapabilityLeadName, CapabilityLeadMessage } = r
+        return (CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadMessage.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm == "")
+    }).map((r) => {
+        const { CapabilityID, CapabilityName, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage } = r
+        return (
+            <tr key={CapabilityID}>
+                <td>{CapabilityName}</td>
+                <td>{CapabilityLeadName}</td>
+                <td><img src={CapabilityLeadPhoto}/></td>
+                <td>{CapabilityLeadMessage}/</td>
+            </tr>
+        )
+
+    })
+
+    if (error) {
+        return (<ErrorPage error={error} />)
+    } else if (results) {
+        return <EmpTable list={list} setSearchTerm={setSearchTerm} columns={columns} />
+    } else {
+        return <div></div>
+    }
 }
-getCapabilityLeads();
-      return (
-              <div className="caplead-table">
-                  <Table >
-                      <thead>
-                          <tr>
-                              <th>Capability Name</th>
-                              <th>Capability Lead Name</th>
-                              <th>Capability Lead Photo</th>
-                              <th>Capability Lead Message</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {list}
-                      </tbody>
-                  </Table>
-              </div>
-      )
-  }
 
-  export default CapabilityLead;
+
+
+
+export default CapabilityLead;

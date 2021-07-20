@@ -46,11 +46,9 @@ const App = () => {
         <ProtectedRoute exact path="/Capability/EditCapability/:id" component={EditCapability}/>
         <ProtectedRoute exact path="/Capability/CapabilityPerJobFamily" component={CapabilityPerJobFamily}/>
         <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
-
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
         <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
-
         <Route exact path="/role/addRole">
           <AddRole />
         </Route>
@@ -89,9 +87,7 @@ const App = () => {
 
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
 
-        <Route exact path="/Capability/CapabilityLead">
-          <CapabilityLead />
-        </Route>
+        <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
 
       </Switch>
       <Footer />

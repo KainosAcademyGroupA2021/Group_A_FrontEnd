@@ -19,3 +19,4 @@ before_script:
 script:
 - npm test
 - selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
+- eslint src/

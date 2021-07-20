@@ -2,25 +2,19 @@ import { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import './Capability.css';
 import axios from 'axios';
-
+import jwt_decode from "jwt-decode";
 import { useAuth0 } from '@auth0/auth0-react';
 import ErrorPage from '../shared/ErrorPage';
 
 const AddCapability = () => {
     const [capabilityLeads, setCapabilityLeads] = useState();
-
     const [capabilityLeadsItems, setCapabilityLeadsItems] = useState();
-
     const [selectedCapabilityLeadID, setSelectedCapabilityLeadID] = useState("");
-
     const [capabilityName, setCapabilityName] = useState("");
-    //const [selectedCapabilityLeadID, setSelectedCapabilityLeadID] = useState("");
     const [validated, setValidated] = useState("false");
-
     const [capabilityNameValidationMessage, setCapabilityNameValidationMessage] = useState("");
     const [capabilityLeadValidationMessage, setCapabilityLeadValidationMessage] = useState("");
-
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [error, setError] = useState();
     const [token, setToken] = useState();
 
@@ -33,7 +27,14 @@ const AddCapability = () => {
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
-
+                const decodedToken = jwt_decode(accessToken)
+                const checkToken = (decodedToken) => {
+                    if(decodedToken.permissions.length < 2) {
+                        setError(403)
+                        return
+                    }
+                }
+                checkToken(decodedToken)
                 try {
                     const config = {
                         headers: {

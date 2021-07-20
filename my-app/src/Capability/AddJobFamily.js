@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import ErrorPage from '../shared/ErrorPage';
 import jwt_decode from "jwt-decode";
+
 const AddJobFamily = () => {
     const [capabilities, setCapabilites] = useState();
     const [capabilityItems, setCapabilityItems] = useState();

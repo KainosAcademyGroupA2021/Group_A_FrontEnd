@@ -24,6 +24,8 @@ import CapabilityLead from "./Capability/CapabilityLead";
 import { createBrowserHistory } from 'history';
 import { useAuth0 } from '@auth0/auth0-react';
 import ProtectedRoute from "./shared/ProtectedRoute";
+import AdminJobFamilyView from "./JobFamily/AdminJobFamilyView";
+import EditJobFamily from "./JobFamily/EditJobFamily";
 
 const history = createBrowserHistory();
 
@@ -50,31 +52,25 @@ const App = () => {
         <Route exact path="/role/addRole">
           <AddRole />
         </Route>
-
         <ProtectedRoute exact path="/role/adminRoleView" component={AdminRoleView} />
-
         <Route path="/role/editRole/:id">
-
           <EditRole />
         </Route>
-
         <ProtectedRoute exact path="/Band/GetBandResponsibilities" component={GetBandResponsibilities}/>
-
-        <Route exact path="/Capability/AddJobFamily">
-
-          <AddJobFamily />
+        <ProtectedRoute exact path="/Capability/AddJobFamily" component={AddJobFamily}/>
+        <ProtectedRoute exact path="/JobFamily/AdminJobFamilyView" component={AdminJobFamilyView} />
+        <Route path="/JobFamily/EditJobFamily/:id">
+          <EditJobFamily />
         </Route>
-
+        <Route exact path="/Band/addBand">
+          <AddBand />
+        </Route>
         <ProtectedRoute exact path="/Band/addBand" component={AddBand}/>
-
         <Route path="/band/editBand/:id">
           <EditBand />
         </Route>
-
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
-
         <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
-
       </Switch>
       <Footer />
     </Router>

@@ -24,6 +24,8 @@ import CapabilityLead from "./Capability/CapabilityLead";
 import { createBrowserHistory } from 'history';
 import { useAuth0 } from '@auth0/auth0-react';
 import ProtectedRoute from "./shared/ProtectedRoute";
+import AdminJobFamilyView from "./JobFamily/AdminJobFamilyView";
+import EditJobFamily from "./JobFamily/EditJobFamily";
 
 const history = createBrowserHistory();
 
@@ -65,6 +67,18 @@ const App = () => {
         <Route exact path="/Capability/AddJobFamily">
 
           <AddJobFamily />
+        </Route>
+
+        <ProtectedRoute exact path="/JobFamily/AdminJobFamilyView" component={AdminJobFamilyView} />
+
+        <Route path="/JobFamily/EditJobFamily/:id">
+
+          <EditJobFamily />
+        </Route>
+
+        <Route exact path="/Band/addBand">
+
+          <AddBand />
         </Route>
 
         <ProtectedRoute exact path="/Band/addBand" component={AddBand}/>

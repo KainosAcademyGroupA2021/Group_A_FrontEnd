@@ -26,8 +26,11 @@ const NavBar = () => {
                         <NavDropdown.Item href="/Capability/CapabilityPerJobFamily">Capability Relation With Job Family</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/AddJobFamily">Add Job Family</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/AddCapability">Add Capability</NavDropdown.Item>
-                        <NavDropdown.Item href="/Capability/GetCapability">Edit Capability</NavDropdown.Item>
+                        <NavDropdown.Item href="/Capability/GetCapability">Admin Capability View</NavDropdown.Item>
                         <NavDropdown.Item href="/Capability/CapabilityLead">View Capability Leads</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Job Family" id="basic-nav-dropdown-jobfamily">
+                        <NavDropdown.Item href="/JobFamily/AdminJobFamilyView">Admin Job Family View</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Role" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/role/GetJobRoles">Job Views Roles</NavDropdown.Item>

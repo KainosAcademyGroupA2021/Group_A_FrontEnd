@@ -30,7 +30,6 @@ const GetBandCompetencies = () => {
                     console.log(e)
                 }
 
-
                 try {
                     const options = {
                         headers: {

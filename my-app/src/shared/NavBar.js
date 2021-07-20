@@ -33,6 +33,7 @@ const NavBar = () => {
                         <NavDropdown.Item href="/JobFamily/AdminJobFamilyView">Admin Job Family View</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Role" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/role/LatticeView">Lattice View</NavDropdown.Item>
                         <NavDropdown.Item href="/role/GetJobRoles">Job Views Roles</NavDropdown.Item>
                         <NavDropdown.Item href="/role/addRole">Add a role</NavDropdown.Item>
                         <NavDropdown.Item href="/role/adminRoleView">Admin Role View</NavDropdown.Item>

@@ -26,6 +26,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import ProtectedRoute from "./shared/ProtectedRoute";
 import AdminJobFamilyView from "./JobFamily/AdminJobFamilyView";
 import EditJobFamily from "./JobFamily/EditJobFamily";
+import LatticeView from "./Role/LatticeView";
 
 const history = createBrowserHistory();
 
@@ -48,8 +49,10 @@ const App = () => {
         <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
 
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
+        <ProtectedRoute exact path="/role/LatticeView" component={LatticeView}/>
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
         <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
+        
 
         <Route exact path="/role/addRole">
           <AddRole />

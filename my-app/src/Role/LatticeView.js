@@ -98,6 +98,7 @@ const LatticeView = () => {
 
                 <br />
 
+                { capabilityID &&
                 <Table responsive>
                     <thead>
                         <tr>
@@ -115,7 +116,7 @@ const LatticeView = () => {
                                 return (<td className="columnName">{item.JobFamilyName}</td>)
                             }) : ""}
                     </tbody>
-                </Table>
+                </Table>}
             </div>
         )
     } else {

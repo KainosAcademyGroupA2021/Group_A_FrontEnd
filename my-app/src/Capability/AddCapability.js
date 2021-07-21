@@ -17,6 +17,7 @@ const AddCapability = () => {
     const { getAccessTokenSilently } = useAuth0();
     const [error, setError] = useState();
     const [token, setToken] = useState();
+    
 
     useEffect(() => {
         if (!capabilityLeads) {
@@ -27,11 +28,12 @@ const AddCapability = () => {
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
+
                 const decodedToken = jwt_decode(accessToken)
                 const checkToken = (decodedToken) => {
                     if(decodedToken.permissions.length < 2) {
                         setError(403)
-                        return
+                        return <ErrorPage error={error} />
                     }
                 }
                 checkToken(decodedToken)
@@ -42,6 +44,8 @@ const AddCapability = () => {
                         }
                     }
                     setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`, config)).data);
+        
+                
                 } catch (e) {
                     console.log(e)
                     if (e.response) {
@@ -103,7 +107,7 @@ const AddCapability = () => {
 
     if (error) {
         return (<ErrorPage error={error} />)
-    } else if (setCapabilityLeads) {
+    } else if (capabilityLeads) {
         return (
             <div className="AddCapabilityContainer">
                 <h1>Add a capability</h1>
@@ -143,7 +147,7 @@ const AddCapability = () => {
         )
     }
     else {
-        return (<div>Loading Data!</div>)
+        return <div></div>
     }
 
 

@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import './Capability.css';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-
+import jwt_decode from "jwt-decode";
 import { useAuth0 } from '@auth0/auth0-react';
 import ErrorPage from '../shared/ErrorPage';
 
@@ -25,7 +25,7 @@ const EditCapability = () => {
     const [capabilityNameValidationMessage, setCapabilityNameValidationMessage] = useState("");
     const [capabilityLeadValidationMessage, setCapabilityLeadValidationMessage] = useState("");
 
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [error, setError] = useState();
     const [token, setToken] = useState();
 
@@ -38,7 +38,17 @@ const EditCapability = () => {
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
+                console.log(accessToken)
 
+                const decodedToken = jwt_decode(accessToken)
+                const checkToken = (decodedToken) => {
+                    if (decodedToken.permissions.length < 2) {
+                        setError(403)
+                        return <ErrorPage error={error} />
+                    }
+                }
+                checkToken(decodedToken)
+        
                 try {
                     const config = {
                         headers: {
@@ -77,12 +87,11 @@ const EditCapability = () => {
     }, [capabilityLeads, previousData, selectedCapabilityLeadID]);
 
     const handleSubmit = (e) => {
-        const config = {
+        const options = {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         }
-
         capabilityName === "" ? setCapabilityNameValidationMessage("You must enter a name!") : setCapabilityNameValidationMessage("");
         selectedCapabilityLeadID === "" ? setCapabilityLeadValidationMessage("You must select a capability lead!") : setCapabilityLeadValidationMessage("");
 
@@ -93,7 +102,7 @@ const EditCapability = () => {
             axios.put('https://my.api:50001/editCapability/' + id, {
                 CapabilityName: capabilityName,
                 CapabilityLeadID: selectedCapabilityLeadID
-            }, config)
+            }, options)
                 .then(function (response) {
                     console.log(response);
                     window.location.href = '/Capability/GetCapability'
@@ -107,7 +116,7 @@ const EditCapability = () => {
     }
 
     if (error) {
-        return (<ErrorPage error={error} />)
+        return <ErrorPage error={error} />
     } else if (capabilityLeads) {
         return (
             <div className="EditCapabilityContainer">
@@ -123,7 +132,7 @@ const EditCapability = () => {
                     <Form.Group>
                         <Form.Label>
                             Capability Lead
-                    </Form.Label>
+                        </Form.Label>
                         <Form.Control
                             as="select"
                             type="select"
@@ -143,12 +152,12 @@ const EditCapability = () => {
                     <br />
                     <Button variant="primary" type="submit">
                         Update
-                </Button>
+                    </Button>
                 </Form>
             </div>
         )
     } else {
-        return (<div>Loading Data!</div>)
+        return <div></div>
     }
 
 

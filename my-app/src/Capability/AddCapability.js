@@ -107,7 +107,7 @@ const AddCapability = () => {
 
     if (error) {
         return (<ErrorPage error={error} />)
-    } else if (capabilityLeads) {
+    } else if (setCapabilityLeads) {
         return (
             <div className="AddCapabilityContainer">
                 <h1>Add a capability</h1>

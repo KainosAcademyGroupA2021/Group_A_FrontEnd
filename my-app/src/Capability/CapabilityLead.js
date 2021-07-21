@@ -11,9 +11,11 @@ const CapabilityLead = () => {
     const { getAccessTokenSilently} = useAuth0();
     const [results, setResults] = useState();
     const [error, setError] = useState();
+    const [list, setList] = useState();
     const columns = ["Job Family Name", "Capability Name", "Capability Lead Photo", "Capability Lead Message"]
 
     useEffect(() => {
+        if (!results) {
         const fetchResults = async (e) => {
             const options = {
                 audience: 'http://my.api:50001',
@@ -44,23 +46,27 @@ const CapabilityLead = () => {
             }
         }
         fetchResults();
-    }, [CapabilityName])
+    }else {
+        const list = CapabilityName.filter((r) => {
+            const { CapabilityName, CapabilityLeadName, CapabilityLeadMessage } = r
+            return (CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadMessage.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm == "")
+        }).map((r) => {
+            const { CapabilityID, CapabilityName, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage } = r
+            return (
+                <tr key={CapabilityID}>
+                    <td>{CapabilityName}</td>
+                    <td>{CapabilityLeadName}</td>
+                    <td><img src={CapabilityLeadPhoto}/></td>
+                    <td>{CapabilityLeadMessage}/</td>
+                </tr>
+            )
+           
+        })
+        setList(list)
+    }
+    }, [results, searchTerm])
 
-    const list = CapabilityName.filter((r) => {
-        const { CapabilityName, CapabilityLeadName, CapabilityLeadMessage } = r
-        return (CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadMessage.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm == "")
-    }).map((r) => {
-        const { CapabilityID, CapabilityName, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage } = r
-        return (
-            <tr key={CapabilityID}>
-                <td>{CapabilityName}</td>
-                <td>{CapabilityLeadName}</td>
-                <td><img src={CapabilityLeadPhoto}/></td>
-                <td>{CapabilityLeadMessage}/</td>
-            </tr>
-        )
-
-    })
+   
 
     if (error) {
         return (<ErrorPage error={error} />)

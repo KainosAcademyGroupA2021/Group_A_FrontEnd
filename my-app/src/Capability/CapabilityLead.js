@@ -12,7 +12,7 @@ const CapabilityLead = () => {
     const [results, setResults] = useState();
     const [error, setError] = useState();
     const [list, setList] = useState();
-    const columns = ["Job Family Name", "Capability Name", "Capability Lead Photo", "Capability Lead Message"]
+    const columns = ["Job Family Name", "Capability Lead Name", "Capability Lead Photo", "Capability Lead Message"]
 
     useEffect(() => {
         if (!results) {

@@ -49,9 +49,8 @@ const App = () => {
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
         <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
-        <Route exact path="/role/addRole">
-          <AddRole />
-        </Route>
+        <ProtectedRoute exact path="/role/addRole" component={AddRole}/>
+         
         <ProtectedRoute exact path="/role/adminRoleView" component={AdminRoleView} />
         <Route path="/role/editRole/:id">
           <EditRole />

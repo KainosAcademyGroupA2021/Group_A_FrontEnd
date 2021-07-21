@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ErrorPage from "../shared/ErrorPage";
 import { Table } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
 
 const GetCapability = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,14 @@ const GetCapability = () => {
                 }
                 const token = await getAccessTokenSilently(options);
                 console.log(token)
+                const decodedToken = jwt_decode(token)
+                const checkToken = (decodedToken) => {
+                    if(decodedToken.permissions.length < 2) {
+                        setError(403)
+                        return <ErrorPage error={error} />
+                    }
+                }
+                checkToken(decodedToken)
                 try {
                     const options = {
                         headers: {

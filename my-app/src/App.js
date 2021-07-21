@@ -47,55 +47,30 @@ const App = () => {
         <ProtectedRoute exact path="/Capability/EditCapability/:id" component={EditCapability}/>
         <ProtectedRoute exact path="/Capability/CapabilityPerJobFamily" component={CapabilityPerJobFamily}/>
         <ProtectedRoute exact path="/Capability/GetCapability" component={GetCapability}/>
-
         <ProtectedRoute exact path="/role/GetJobRoles" component={GetJobRoles} />
         <ProtectedRoute exact path="/role/LatticeView" component={LatticeView}/>
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
         <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
-        
-
         <Route exact path="/role/addRole">
           <AddRole />
         </Route>
-
         <ProtectedRoute exact path="/role/adminRoleView" component={AdminRoleView} />
-
         <Route path="/role/editRole/:id">
-
           <EditRole />
         </Route>
-
         <ProtectedRoute exact path="/Band/GetBandResponsibilities" component={GetBandResponsibilities}/>
-
-        <Route exact path="/Capability/AddJobFamily">
-
-          <AddJobFamily />
-        </Route>
-
+        <ProtectedRoute exact path="/Capability/AddJobFamily" component={AddJobFamily}/>
         <ProtectedRoute exact path="/JobFamily/AdminJobFamilyView" component={AdminJobFamilyView} />
-
-        <Route path="/JobFamily/EditJobFamily/:id">
-
-          <EditJobFamily />
-        </Route>
-
+        <ProtectedRoute path="/JobFamily/EditJobFamily/:id" component={EditJobFamily}/>
         <Route exact path="/Band/addBand">
-
           <AddBand />
         </Route>
-
         <ProtectedRoute exact path="/Band/addBand" component={AddBand}/>
-
         <Route path="/band/editBand/:id">
           <EditBand />
         </Route>
-
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
-
-        <Route exact path="/Capability/CapabilityLead">
-          <CapabilityLead />
-        </Route>
-
+        <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
       </Switch>
       <Footer />
     </Router>

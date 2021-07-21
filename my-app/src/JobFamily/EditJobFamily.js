@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import './JobFamily.css';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
+import ErrorPage from '../shared/ErrorPage';
 
 const EditJobFamily = () => {
     let { id } = useParams();
@@ -21,17 +23,41 @@ const EditJobFamily = () => {
 
     const [jobFamilyNameValidationMessage, setJobFamilyNameValidationMessage] = useState("");
     const [capabilityValidationMessage, setCapabilityValidationMessage] = useState("");
+    const { getAccessTokenSilently, user } = useAuth0();
+    const [error, setError] = useState();
+    const [token, setToken] = useState();
 
     useEffect(() => {
         if (!(capabilities && previousData)) {
             async function fetchResults() {
-                setCapabilities((await axios.get(`https://my.api:50001/getCapabilities`)).data);
-                setPreviousData((await axios.get('https://my.api:50001/getJobFamilyByID/' + id)).data[0]);
+                const options = {
+                    audience: 'http://my.api:50001',
+                    scope: 'read:secured write:secured'
+                }
+                const accessToken = await getAccessTokenSilently(options);
+                setToken(accessToken);
+                try {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    }
+                    setCapabilities((await axios.get(`https://my.api:50001/getCapabilities`, config)).data);
+                    setPreviousData((await axios.get('https://my.api:50001/getJobFamilyByID/' + id, config)).data[0]);
+                } catch (e) {
+                    console.log(e)
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
+                    }
+
+                }
             }
             fetchResults();
         } else if (capabilities && previousData) {
             if (!loadedPreviousData) {
-                const { JobFamilyID, JobFamilyName, CapabilityID } = previousData;
+                const { JobFamilyName, CapabilityID } = previousData;
                 setJobFamilyName(JobFamilyName);
                 setSelectedCapabilityID(CapabilityID);
             }
@@ -48,6 +74,11 @@ const EditJobFamily = () => {
     }, [capabilities, previousData, selectedCapabilityID]);
 
     const handleSubmit = (e) => {
+        const options = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }
 
         jobFamilyName === "" ? setJobFamilyNameValidationMessage("You must enter a name!") : setJobFamilyNameValidationMessage("");
         selectedCapabilityID === "" ? setCapabilityValidationMessage("You must select a capability!") : setCapabilityValidationMessage("");
@@ -55,11 +86,11 @@ const EditJobFamily = () => {
         if (jobFamilyName === "" || selectedCapabilityID === "") {
             e.preventDefault();
             e.stopPropagation();
-        }else {
+        } else {
             axios.put('https://my.api:50001/editJobFamily/' + id, {
                 JobFamilyName: jobFamilyName,
-            CapabilityID: selectedCapabilityID
-            })
+                CapabilityID: selectedCapabilityID
+            }, options)
                 .then(function (response) {
                     console.log(response);
                     window.location.href = '/JobFamily/AdminJobFamilyView'
@@ -72,44 +103,52 @@ const EditJobFamily = () => {
         setValidated("true");
     }
 
-    return (
-        <div className="EditJobFamilyContainer">
-            <h1>Edit Job Family</h1>
-            <br />
-            <Form onSubmit={handleSubmit} validiated={validated}>
-                <Form.Group controlId="formAddJobFamily">
-                    <Form.Label>Job Family Name</Form.Label>
-                    <Form.Control isInvalid={jobFamilyNameValidationMessage !== ""} type="jobFamilyName" placeholder="Enter job family name" value={jobFamilyName} onChange={(e) => setJobFamilyName(e.target.value)} />
-                    <Form.Control.Feedback type="invalid">{jobFamilyNameValidationMessage}</Form.Control.Feedback>
-                </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>
-                        Capability
-                    </Form.Label>
-                    <Form.Control
-                        as="select"
-                        type="select"
-                        value={selectedCapabilityID}
-                        isInvalid={capabilityValidationMessage !== ""}
-                        name="capabilities"
-                        onChange={e => {
-                            setSelectedCapabilityID(e.target.value);
-                        }}
-                    >
-                        <option value="" >Select capability</option>
-                        {capabilitiesItems}
-                    </Form.Control>
-                    <Form.Control.Feedback type="invalid">{capabilityValidationMessage}</Form.Control.Feedback>
-                </Form.Group>
-
+    if (error) {
+        return <ErrorPage error={error} />
+    } else if (capabilities) {
+        return (
+            <div className="EditJobFamilyContainer">
+                <h1>Edit Job Family</h1>
                 <br />
-                <Button variant="primary" type="submit">
-                    Update
-                </Button>
-            </Form>
-        </div>
-    )
+                <Form onSubmit={handleSubmit} validiated={validated}>
+                    <Form.Group controlId="formAddJobFamily">
+                        <Form.Label>Job Family Name</Form.Label>
+                        <Form.Control isInvalid={jobFamilyNameValidationMessage !== ""} type="jobFamilyName" placeholder="Enter job family name" value={jobFamilyName} onChange={(e) => setJobFamilyName(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">{jobFamilyNameValidationMessage}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>
+                            Capability
+                        </Form.Label>
+                        <Form.Control
+                            as="select"
+                            type="select"
+                            value={selectedCapabilityID}
+                            isInvalid={capabilityValidationMessage !== ""}
+                            name="capabilities"
+                            onChange={e => {
+                                setSelectedCapabilityID(e.target.value);
+                            }}
+                        >
+                            <option value="" >Select capability</option>
+                            {capabilitiesItems}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">{capabilityValidationMessage}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <br />
+                    <Button variant="primary" type="submit">
+                        Update
+                    </Button>
+                </Form>
+            </div>
+        )
+    } else {
+        return <div></div>
+    }
+
 
 
 

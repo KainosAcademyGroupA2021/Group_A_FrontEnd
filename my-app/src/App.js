@@ -50,22 +50,14 @@ const App = () => {
         <ProtectedRoute exact path="/band/getTrainingBand" component={GetTrainingBand} />
         <ProtectedRoute exact path="/band/GetBandCompetencies" component={BandCompetencies}/>
         <ProtectedRoute exact path="/role/addRole" component={AddRole}/>
-         
         <ProtectedRoute exact path="/role/adminRoleView" component={AdminRoleView} />
-        <Route path="/role/editRole/:id">
-          <EditRole />
-        </Route>
+        <ProtectedRoute path="/role/editRole/:id" component={EditRole}/>
         <ProtectedRoute exact path="/Band/GetBandResponsibilities" component={GetBandResponsibilities}/>
         <ProtectedRoute exact path="/Capability/AddJobFamily" component={AddJobFamily}/>
         <ProtectedRoute exact path="/JobFamily/AdminJobFamilyView" component={AdminJobFamilyView} />
         <ProtectedRoute path="/JobFamily/EditJobFamily/:id" component={EditJobFamily}/>
-        <Route exact path="/Band/addBand">
-          <AddBand />
-        </Route>
         <ProtectedRoute exact path="/Band/addBand" component={AddBand}/>
-        <Route path="/band/editBand/:id">
-          <EditBand />
-        </Route>
+        <ProtectedRoute path="/band/editBand/:id" component={EditBand}/>
         <ProtectedRoute exact path="/Band/adminBandView" component={AdminBandView}/>
         <ProtectedRoute exact path="/Capability/CapabilityLead" component={CapabilityLead}></ProtectedRoute>
       </Switch>

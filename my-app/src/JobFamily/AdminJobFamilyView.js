@@ -103,16 +103,16 @@ const AdminButtons = (props) => {
 
 
 const handleDeleteJobFamily = (id) => {
-    /*let confirmed =  window.confirm("Are you sure you want to delete this band?");
+    let confirmed =  window.confirm("Are you sure you want to delete this job family?");
     if (confirmed) {
-        console.log("Deleting band with id: " + id);
-        axios.post('https://my.api:50001/deleteBand', {
-            BandID: id
+        console.log("Deleting job family with id: " + id);
+        axios.post('https://my.api:50001/deleteJobFamily', {
+            JobFamilyID: id
           })
           .then(function (response) {
             console.log(response);
             if (response.data !== "success") {
-                alert("Unable to delete this band. Ensure all roles under this band have been deleted first.")
+                alert("Unable to delete this job family. Ensure all roles under this job family have been deleted first.")
             } else {
                 window.location.reload()
             }
@@ -120,7 +120,7 @@ const handleDeleteJobFamily = (id) => {
           .catch(function (error) {
             console.log(error);
           });
-    }*/
+    }
 }
 
 export default AdminJobFamilyView;

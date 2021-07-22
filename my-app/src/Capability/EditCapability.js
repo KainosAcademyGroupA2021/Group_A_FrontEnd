@@ -83,6 +83,13 @@ const EditCapability = () => {
             });
             setCapabilityLeadsItems(tempItems);
         }
+        if (capabilityLeadsItems) {
+            if (!loadedPreviousData) {
+                const { CapabilityLeadID } = previousData;
+                document.getElementById("capabilityLead").value = CapabilityLeadID;
+                setLoadedPreviousData(true);
+            }
+        }
 
     }, [capabilityLeads, previousData, selectedCapabilityLeadID]);
 
@@ -136,6 +143,7 @@ const EditCapability = () => {
                         <Form.Control
                             as="select"
                             type="select"
+                            id="capabilityLead"
                             value={selectedCapabilityLeadID}
                             isInvalid={capabilityLeadValidationMessage !== ""}
                             name="capabilityLeads"

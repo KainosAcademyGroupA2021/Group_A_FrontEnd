@@ -30,7 +30,7 @@ const AddRole = () => {
 
     const { getAccessTokenSilently } = useAuth0();
     const [token, setToken] = useState();
-    const [error, setError] = useState();
+
 
     useEffect(() => {
         if (!bands || !capabilities || !jobFamilies) {

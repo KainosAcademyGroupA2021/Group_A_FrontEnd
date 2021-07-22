@@ -122,7 +122,7 @@ const handleDeleteRole = (id, token, setResults, setError) => {
         console.log("Deleting role with id: " + id);
         axios.post('https://my.api:50001/deleteRole', {
             RoleID: id,
-        }, options)
+        }, config)
             .then(function (response) {
                 async function updateRoles() {
                     try {

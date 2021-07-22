@@ -43,3 +43,6 @@
     margin-left: 20px;
     margin-top: 20px;
 }
+.emp-table {
+    overflow-wrap: break-word;
+}

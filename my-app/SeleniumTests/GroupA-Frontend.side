@@ -488,84 +488,43 @@
     "id": "8d253bd5-47f5-489d-a096-05026bb743c1",
     "name": "Add, edit and delete a band",
     "commands": [{
-      "id": "2cab95c7-b45e-4393-b8c0-e6058ff825e2",
+      "id": "0eedd4a6-16ca-47a3-8697-bf94dc63923e",
       "comment": "",
       "command": "open",
-      "target": "https://my.api:3000/",
+      "target": "https://my.api:3000/band/addBand",
       "targets": [],
       "value": ""
     }, {
-      "id": "966ccb8b-9a3c-4fa4-bb8b-5797677ff71d",
+      "id": "0e7fb936-ee23-4c14-9d76-7a85df595bb2",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1080",
+      "target": "1920x1057",
       "targets": [],
       "value": ""
     }, {
-      "id": "68c89d57-a73f-4432-a487-8007ada71f43",
+      "id": "054c9dd9-cd80-4517-812d-8eaefaca65e8",
       "comment": "",
       "command": "click",
-      "target": "linkText=Band",
+      "target": "css=.form-group:nth-child(1)",
       "targets": [
-        ["linkText=Band", "linkText"],
-        ["css=.nav-item:nth-child(5) > #basic-nav-dropdown", "css:finder"],
-        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
-        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
-        ["xpath=//div[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+        ["css=.form-group:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "4d784b0a-6471-4304-909f-f6b0b6b934e0",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "linkText=Band",
-      "targets": [
-        ["linkText=Band", "linkText"],
-        ["css=.nav-item:nth-child(5) > #basic-nav-dropdown", "css:finder"],
-        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
-        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
-        ["xpath=//div[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "9aa77a46-fcad-4b9d-95ab-2532928fae7d",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "linkText=Band",
-      "targets": [
-        ["linkText=Band", "linkText"],
-        ["css=.show > #basic-nav-dropdown", "css:finder"],
-        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
-        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
-        ["xpath=//div[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "48b0225f-da6a-4900-b966-a504fa0aec9d",
+      "id": "727f8659-6af7-4dac-a3f3-6238abc8f2eb",
       "comment": "",
       "command": "click",
-      "target": "linkText=Add a band",
+      "target": "css=.form-group:nth-child(1)",
       "targets": [
-        ["linkText=Add a band", "linkText"],
-        ["css=.dropdown-item:nth-child(4)", "css:finder"],
-        ["xpath=//a[contains(text(),'Add a band')]", "xpath:link"],
-        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/div/a[4]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/band/addBand')]", "xpath:href"],
-        ["xpath=//a[4]", "xpath:position"],
-        ["xpath=//a[contains(.,'Add a band')]", "xpath:innerText"]
+        ["css=.form-group:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "be65b503-6655-4cdd-8782-a3d894502771",
+      "id": "77a8239e-f979-426a-8fea-015f3aef7bd8",
       "comment": "",
       "command": "click",
       "target": "id=formAddBandName",
@@ -578,7 +537,7 @@
       ],
       "value": ""
     }, {
-      "id": "3e6883cb-3e63-45e2-8565-6b5bfceeafd6",
+      "id": "50a57c19-2409-4b3b-987f-5e5ef58cad95",
       "comment": "",
       "command": "type",
       "target": "id=formAddBandName",
@@ -591,18 +550,7 @@
       ],
       "value": "Selenium test band"
     }, {
-      "id": "3dfa3f5c-4f44-49bc-9100-93cf3241e359",
-      "comment": "",
-      "command": "click",
-      "target": "css=.AddBandContainer",
-      "targets": [
-        ["css=.AddBandContainer", "css:finder"],
-        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
-        ["xpath=//body/div/div", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "0f9adfb7-a418-481b-b785-b9f808cfd9a9",
+      "id": "e2651f88-92ee-4797-8de2-4b5a1d39171f",
       "comment": "",
       "command": "click",
       "target": "id=formAddBandLevel",
@@ -615,46 +563,7 @@
       ],
       "value": ""
     }, {
-      "id": "5bf5189b-97ed-4527-8703-9802bce71423",
-      "comment": "",
-      "command": "click",
-      "target": "id=formResponsibilities",
-      "targets": [
-        ["id=formResponsibilities", "id"],
-        ["css=#formResponsibilities", "css:finder"],
-        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/form/div[3]/textarea", "xpath:idRelative"],
-        ["xpath=//textarea", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "c13f8583-9354-4a19-8c76-a90326addd33",
-      "comment": "",
-      "command": "type",
-      "target": "id=formResponsibilities",
-      "targets": [
-        ["id=formResponsibilities", "id"],
-        ["css=#formResponsibilities", "css:finder"],
-        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/form/div[3]/textarea", "xpath:idRelative"],
-        ["xpath=//textarea", "xpath:position"]
-      ],
-      "value": "Selenium test band"
-    }, {
-      "id": "329be679-9ea9-4562-8d72-d3809ff773e2",
-      "comment": "",
-      "command": "click",
-      "target": "id=formAddBandLevel",
-      "targets": [
-        ["id=formAddBandLevel", "id"],
-        ["css=#formAddBandLevel", "css:finder"],
-        ["xpath=//input[@id='formAddBandLevel']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/form/div[2]/input", "xpath:idRelative"],
-        ["xpath=//div[2]/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "790449eb-fd46-415f-b47c-a326a9b7586d",
+      "id": "6dee90cc-2f8f-40f5-9e29-1aabfea0b222",
       "comment": "",
       "command": "type",
       "target": "id=formAddBandLevel",
@@ -667,18 +576,57 @@
       ],
       "value": "1000"
     }, {
-      "id": "b8cc4f86-b892-4a36-82e8-fe095ebbdc9b",
+      "id": "22b3fb44-9acb-4804-aed1-19113f756dfb",
       "comment": "",
       "command": "click",
-      "target": "css=form",
+      "target": "id=formResponsibilities",
       "targets": [
-        ["css=form", "css:finder"],
-        ["xpath=//div[@id='root']/div/form", "xpath:idRelative"],
-        ["xpath=//form", "xpath:position"]
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "0c5b3d2f-4855-4983-b2a7-48db06cf426c",
+      "id": "2593ccc1-311f-4c07-a20c-9a0b1f0ed08f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.AddBandContainer",
+      "targets": [
+        ["css=.AddBandContainer", "css:finder"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//body/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "770d2fa1-9c7e-49f7-9704-6d509f5b8de6",
+      "comment": "",
+      "command": "click",
+      "target": "id=formResponsibilities",
+      "targets": [
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e604876-228a-4928-9343-26182d238a48",
+      "comment": "",
+      "command": "type",
+      "target": "id=formResponsibilities",
+      "targets": [
+        ["id=formResponsibilities", "id"],
+        ["css=#formResponsibilities", "css:finder"],
+        ["xpath=//textarea[@id='formResponsibilities']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Selenium test band"
+    }, {
+      "id": "c3332379-7cf2-4a92-97b7-4531db126c29",
       "comment": "",
       "command": "click",
       "target": "css=.btn:nth-child(10)",
@@ -691,7 +639,23 @@
       ],
       "value": ""
     }, {
-      "id": "87b7ab54-0121-4c8d-9030-00ee85ac0884",
+      "id": "e3562ea6-c07d-46d2-8b39-c5824dc7b0f7",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(5) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f5a82cb-4736-4f7c-9a3b-a0ba23f0bb51",
       "comment": "",
       "command": "click",
       "target": "linkText=Band",
@@ -707,7 +671,66 @@
       ],
       "value": ""
     }, {
-      "id": "09d2fb68-ff59-4c64-af3c-df906071ddd8",
+      "id": "bc2ed2e6-f6a7-41cb-ad6c-bd6b615ec0b7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Band",
+      "targets": [
+        ["linkText=Band", "linkText"],
+        ["css=.nav-item:nth-child(5) > #basic-nav-dropdown", "css:finder"],
+        ["xpath=//a[contains(text(),'Band')]", "xpath:link"],
+        ["xpath=(//a[@id='basic-nav-dropdown'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//div[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f756b5c-f99d-4510-976d-508114520474",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Add a band",
+      "targets": [
+        ["linkText=Add a band", "linkText"],
+        ["css=.dropdown-item:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Add a band')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/div/a[4]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/addBand')]", "xpath:href"],
+        ["xpath=//a[4]", "xpath:position"],
+        ["xpath=//a[contains(.,'Add a band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b18b0db-3962-437c-a4b5-8316add0106c",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(10) .linkButton",
+      "targets": [
+        ["css=tr:nth-child(10) .linkButton", "css:finder"],
+        ["xpath=(//a[contains(text(),'Edit')])[10]", "xpath:link"],
+        ["xpath=//div[@id='root']/div/div/table/tbody/tr[10]/td[3]/div/button/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/editBand/449')]", "xpath:href"],
+        ["xpath=//tr[10]/td[3]/div/button/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a11b47d3-f2bb-4911-9125-aef697575638",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Add a band",
+      "targets": [
+        ["linkText=Add a band", "linkText"],
+        ["css=.dropdown-item:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Add a band')]", "xpath:link"],
+        ["xpath=//div[@id='basic-navbar-nav']/div/div[4]/div/a[4]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/band/addBand')]", "xpath:href"],
+        ["xpath=//a[4]", "xpath:position"],
+        ["xpath=//a[contains(.,'Add a band')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "92f59a93-f7a9-4ae3-8f47-7720978a83a5",
       "comment": "",
       "command": "click",
       "target": "linkText=Admin Band View",
@@ -722,61 +745,7 @@
       ],
       "value": ""
     }, {
-      "id": "47f5b386-643b-4c61-9246-b622d315061b",
-      "comment": "",
-      "command": "click",
-      "target": "css=.form-control",
-      "targets": [
-        ["css=.form-control", "css:finder"],
-        ["xpath=//input[@type='search']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/label/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "2c8aa943-2537-4c49-94a6-1b6f1f0ecb92",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "linkText=Edit",
-      "targets": [
-        ["linkText=Edit", "linkText"],
-        ["css=.linkButton", "css:finder"],
-        ["xpath=//a[contains(text(),'Edit')]", "xpath:link"],
-        ["xpath=//div[@id='root']/div/div/table/tbody/tr/td[3]/div/button/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/band/editBand/446')]", "xpath:href"],
-        ["xpath=//button/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Edit')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "9e97f389-13fe-40dc-b31f-a41ede408af0",
-      "comment": "",
-      "command": "type",
-      "target": "css=.form-control",
-      "targets": [
-        ["css=.form-control", "css:finder"],
-        ["xpath=//input[@type='search']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/label/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "Selenium test band"
-    }, {
-      "id": "537b2170-f843-4b6c-ba6b-e005fc36021d",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Edit",
-      "targets": [
-        ["linkText=Edit", "linkText"],
-        ["css=.linkButton", "css:finder"],
-        ["xpath=//a[contains(text(),'Edit')]", "xpath:link"],
-        ["xpath=//div[@id='root']/div/div/table/tbody/tr/td[3]/div/button/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/band/editBand/446')]", "xpath:href"],
-        ["xpath=//button/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Edit')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "4e8b153d-4170-41f5-b983-44b5887b162e",
+      "id": "43c52227-d2c8-4176-b030-f91141b75a3b",
       "comment": "",
       "command": "click",
       "target": "id=formAddBandName",
@@ -789,7 +758,7 @@
       ],
       "value": ""
     }, {
-      "id": "c86a23b6-20cb-432b-a637-8a31eca964ea",
+      "id": "0e2f8c3b-91f2-4b15-9883-cc508b1b0a34",
       "comment": "",
       "command": "type",
       "target": "id=formAddBandName",
@@ -802,7 +771,7 @@
       ],
       "value": "Selenium test band edited"
     }, {
-      "id": "a26b1279-5142-4ca7-b969-b5c8e9245ecf",
+      "id": "eb632205-2a68-4ab5-b75f-9e6bfddb4592",
       "comment": "",
       "command": "click",
       "target": "css=.btn:nth-child(10)",
@@ -815,7 +784,22 @@
       ],
       "value": ""
     }, {
-      "id": "ebd5021b-5102-4de9-aa8d-2dc1fea93c52",
+      "id": "17f5dabe-027a-4b62-a874-b2162c339872",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=About us",
+      "targets": [
+        ["linkText=About us", "linkText"],
+        ["css=.sc-dlnjwi:nth-child(2) > .sc-eCApnc:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'About us')]", "xpath:link"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://www.kainos.com/about-us')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'About us')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0bc3ad83-fab5-47f9-ba74-2df13cc386a2",
       "comment": "",
       "command": "click",
       "target": "linkText=Band",
@@ -831,7 +815,7 @@
       ],
       "value": ""
     }, {
-      "id": "a2cde6e2-9b7c-498e-b90b-ddf02636cc5c",
+      "id": "16d3d384-706c-4415-99d2-0702d6f154f4",
       "comment": "",
       "command": "click",
       "target": "linkText=Admin Band View",
@@ -846,27 +830,22 @@
       ],
       "value": ""
     }, {
-      "id": "8938b0a1-87c1-4cf7-ae62-aba08b187d4f",
+      "id": "3bda79da-c3ef-4d7f-83f2-95285622424d",
       "comment": "",
-      "command": "click",
-      "target": "css=.form-control",
-      "targets": [
-        ["css=.form-control", "css:finder"],
-        ["xpath=//input[@type='search']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/label/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
       "value": ""
     }, {
-      "id": "710fa6ab-0dbd-42c2-91d2-992ba767b628",
+      "id": "b9d3b776-dcd4-478d-b9d0-273e8ddd4858",
       "comment": "",
-      "command": "type",
-      "target": "css=.form-control",
+      "command": "click",
+      "target": "css=tr:nth-child(10) .btn-danger",
       "targets": [
-        ["css=.form-control", "css:finder"],
-        ["xpath=//input[@type='search']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/label/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
+        ["css=tr:nth-child(10) .btn-danger", "css:finder"],
+        ["xpath=(//button[@type='button'])[21]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/table/tbody/tr[10]/td[3]/div/button[2]", "xpath:idRelative"],
+        ["xpath=//tr[10]/td[3]/div/button[2]", "xpath:position"]
       ],
       "value": "Selenium test band edited"
     }, {
@@ -909,6 +888,20 @@
       "value": ""
     }, {
       "id": "bafe7e97-cb44-49bf-a3eb-eb097a0da1d0",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88088608-d84c-449f-aa93-261a85fa06e8",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "Are you sure you want to delete this band?",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "26389e61-a894-47c7-b817-22e51de02e9d",
       "comment": "",
       "command": "webdriverChooseOkOnVisibleConfirmation",
       "target": "",

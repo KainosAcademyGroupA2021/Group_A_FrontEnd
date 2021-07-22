@@ -2,15 +2,17 @@
 
 ### How to run 
 To run application
-    1. in /etc/hosts map 127.0.0.1 to my.api
-    2. to start use script start-https
-
+    <ol>
+    <li>in /etc/hosts map 127.0.0.1 to my.api</li>
+    <li> to start use script start-https</li>
+    </ol>
 ### Technologies
 Technologies used in the project:
-    1. React.js
-    2. Bootstrap.js
-    3. Redux.js
-
+    <ol>
+    <li>React.js</li>
+    <li>Bootstrap.js</li>
+    <li>Redux.js</li>
+    </ol>
 ### Authentication
 Authentication was implemented using platform Auth0 and linked libraries.
 

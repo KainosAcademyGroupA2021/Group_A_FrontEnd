@@ -33,7 +33,7 @@ const CapabilityLead = () => {
                 }
                 const res = await axios.get(`https://my.api:50001/getCapabilityLeads`, options)
                 console.log(res)
-      
+
                 setCapabilityName(res.data);
                 setResults(res.data)
 
@@ -47,26 +47,30 @@ const CapabilityLead = () => {
         }
         fetchResults();
     }else {
+
         const list = CapabilityName.filter((r) => {
             const { CapabilityName, CapabilityLeadName, CapabilityLeadMessage } = r
             return (CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadName.toLowerCase().includes(searchTerm.toLowerCase()) || CapabilityLeadMessage.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm == "")
         }).map((r) => {
             const { CapabilityID, CapabilityName, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage } = r
+            const PhotoUrl = JSON.stringify(process.env.PUBLIC_URL + CapabilityLeadPhoto)
+            const PhotoUrl_Parsing = PhotoUrl.replace('"','');
+            const PhotoUrl_Parsed = PhotoUrl_Parsing.replace('"','');
             return (
                 <tr key={CapabilityID}>
                     <td>{CapabilityName}</td>
                     <td>{CapabilityLeadName}</td>
-                    <td><img src={CapabilityLeadPhoto}/></td>
+                    <td><img src={PhotoUrl_Parsed} width = "175"/></td>
                     <td>{CapabilityLeadMessage}/</td>
                 </tr>
             )
-           
+
         })
         setList(list)
     }
     }, [results, searchTerm])
 
-   
+
 
     if (error) {
         return (<ErrorPage error={error} />)

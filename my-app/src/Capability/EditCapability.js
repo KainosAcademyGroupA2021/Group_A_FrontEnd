@@ -55,7 +55,7 @@ const EditCapability = () => {
                             Authorization: `Bearer ${accessToken}`,
                         }
                     }
-                    setCapabilityLeads((await axios.get(`https://my.api:50001/getCapabilityLeads`, config)).data);
+                    setCapabilityLeads((await axios.get(`https://my.api:50001/getDistinctCapabilityLeads`, config)).data);
                     setPreviousData((await axios.get('https://my.api:50001/getCapabilityByID/' + id, config)).data[0]);
                 } catch (e) {
                     console.log(e)

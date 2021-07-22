@@ -8,8 +8,9 @@ import ErrorPage from "../shared/ErrorPage";
 const CapabilityPerJobFamily = () => {
     const [CapabilityName, setCapabilityName] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [error, setError] = useState();
+    const [results, setResults] = useState();
 
     useEffect(() => {
         const getCapabilityAndJobFamily = async (e) => {
@@ -29,7 +30,7 @@ const CapabilityPerJobFamily = () => {
                 }
                 const res = await axios.get(`https://my.api:50001/getCapabilityAndJobFamily`, config)
                 setCapabilityName(res.data);
-
+                setResults(res.data)
             } catch (error) {
                 if (error.response.status === 403 || error.response.status === 401 || error.response.status === 500) {
                     setError(error.response.status);
@@ -41,12 +42,12 @@ const CapabilityPerJobFamily = () => {
     }, [])
 
     const list = CapabilityName.filter((r) => {
-        const { CapabilityID, CapabilityName, JobFamilyName } = r
+        const {CapabilityName, JobFamilyName } = r
         return (CapabilityName.toLowerCase().includes(searchTerm.toLowerCase()) || JobFamilyName.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm == "")
     }).map((r) => {
         const { CapabilityID, CapabilityName, JobFamilyName } = r
         return (
-            <tr >
+            <tr key={CapabilityID}>
                 <td>{JobFamilyName}</td>
                 <td>{CapabilityName}</td>
             </tr>
@@ -55,8 +56,8 @@ const CapabilityPerJobFamily = () => {
     })
 
     if (error) {
-        return (<ErrorPage error={error} />)
-    } else if (CapabilityName) {
+        return <ErrorPage error={error} />
+    } else if (results) {
         return (
             <div>
                 <FormLabel
@@ -81,7 +82,7 @@ const CapabilityPerJobFamily = () => {
             </div>
         )
     } else {
-        return (<div>Loading Data!</div>)
+        return <div></div>
     }
 }
 

@@ -3,49 +3,75 @@ import { Form, Button } from "react-bootstrap";
 import './Role.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import ErrorPage from '../shared/ErrorPage';
+import jwt_decode from 'jwt-decode';
+import { validate } from 'json-schema';
 
 const AddRole = () => {
     const [capabilities, setCapabilites] = useState();
     const [jobFamilies, setJobFamilies] = useState();
     const [bands, setBands] = useState();
-
     const [capabilityItems, setCapabilityItems] = useState();
     const [jobFamilyItems, setJobFamilyItems] = useState();
     const [bandItems, setBandItems] = useState();
-
     const [selectedCapabilityID, setSelectedCapabilityID] = useState();
-
     const [roleName, setRoleName] = useState("");
     const [roleSpecLink, setRoleSpecLink] = useState("");
     const [roleSummary, setRoleSummary] = useState("");
     const [selectedJobFamilyID, setSelectedJobFamilyID] = useState("");
     const [bandID, setBandID] = useState("");
-
     const [validated, setValidated] = useState("false");
-
+    const [error, setError] = useState()
     const [roleNameValidationMessage, setRoleNameValidationMessage] = useState("");
     const [roleSpecLinkValidationMessage, setRoleSpecLinkValidationMessage] = useState("");
     const [roleSummaryValidationMessage, setRoleSummaryValidationMessage] = useState("");
     const [jobFamilyValidationMessage, setJobFamilyValidationMessage] = useState("");
     const [bandLevelValidationMessage, setBandLevelValidationMessage] = useState("");
 
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const [token, setToken] = useState();
 
     useEffect(() => {
-        if (!bands) {
+        if (!bands || !capabilities || !jobFamilies) {
             async function fetchResults() {
-                setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
-                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
-                setBands((await axios.get(`https://my.api:50001/getBands`)).data)
-
                 const options = {
                     audience: 'http://my.api:50001',
                     scope: 'read:secured write:secured'
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
-                console.log(accessToken)
+
+                try {
+                    const options = {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    }
+
+                    const decodedToken = jwt_decode(accessToken)
+                    const checkToken = (decodedToken) => {
+                        if (decodedToken.permissions.length < 2) {
+                            setError(403)
+                            return <ErrorPage error={error} />
+                        }
+                    }
+                    checkToken(decodedToken)
+                    if (!error) {
+                        setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`, options)).data);
+                        setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`, options)).data);
+                        setBands((await axios.get(`https://my.api:50001/getBands`, options)).data)
+                    }
+
+                } catch (e) {
+                    console.log(e)
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
+                    }
+
+                }
+
             }
             fetchResults();
         } else {
@@ -83,13 +109,6 @@ const AddRole = () => {
 
     const handleSubmit = (e) => {
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ` + token,
-            }
-        };
-
         roleName === "" ? setRoleNameValidationMessage("You must enter a name!") : setRoleNameValidationMessage("");
         roleSpecLink === "" ? setRoleSpecLinkValidationMessage("You must enter a link!") : setRoleSpecLinkValidationMessage("");
         roleSummary === "" ? setRoleSummaryValidationMessage("You must enter a role specification summary!") : setRoleSummaryValidationMessage("");
@@ -100,33 +119,47 @@ const AddRole = () => {
             e.preventDefault();
             e.stopPropagation();
         } else {
-            axios.post('https://my.api:50001/addRole', {
-                RoleName: roleName,
-                RoleSpec: roleSpecLink,
-                RoleSpecSummary: roleSummary,
-                JobFamilyID: selectedJobFamilyID,
-                BandID: bandID
-            }, config)
-                .then(function (response) {
-                    console.log(response);
-                    window.location.href = '/role/GetJobRoles'
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            e.preventDefault();
+            const options = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+            setValidated("true");
+            try {
+                axios.post('https://my.api:50001/addRole', {
+                    RoleName: roleName,
+                    RoleSpec: roleSpecLink,
+                    RoleSpecSummary: roleSummary,
+                    JobFamilyID: selectedJobFamilyID,
+                    BandID: bandID
+                }, options)
+                    .then(function (response) {
+                        console.log(response);
+                        window.location.href = '/role/GetJobRoles'
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                e.preventDefault();
+            } catch (error) {
+                if (error.response.status === 403 || error.response.status === 401 || error.response.status === 500) {
+                    setError(error.response.status);
+                }
+            }
         }
-        setValidated("true");
+
     }
 
-    return (
-        <div className="AddRoleContainer">
+    if (error) {
+        return <ErrorPage error={error} />
+    } else if (bands) {
+        return <div className="AddRoleContainer">
             <h1>Add a role</h1>
             <br />
             <Form onSubmit={handleSubmit} validiated={validated}>
                 <Form.Group controlId="formAddRole">
                     <Form.Label>Role Name</Form.Label>
-                    <Form.Control isInvalid={roleNameValidationMessage !== ""} type="roleName" placeholder="Enter role name" value={roleName} onChange={(e) => { if (e.target.value.length < 128)  setRoleName(e.target.value)  }} />
+                    <Form.Control isInvalid={roleNameValidationMessage !== ""} type="roleName" placeholder="Enter role name" value={roleName} onChange={(e) => { if (e.target.value.length < 128) setRoleName(e.target.value) }} />
                     <Form.Control.Feedback type="invalid">{roleNameValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
@@ -138,7 +171,7 @@ const AddRole = () => {
 
                 <Form.Group controlId="formRoleSpecLink">
                     <Form.Label>Role Specification Summary</Form.Label>
-                    <Form.Control as="textarea" rows={2} isInvalid={roleSummaryValidationMessage !== ""} type="roleSpecSummary" placeholder="Enter the specification summary for the role" value={roleSummary} onChange={(e) => { if (e.target.value.length < 255) setRoleSummary(e.target.value)}} />
+                    <Form.Control as="textarea" rows={2} isInvalid={roleSummaryValidationMessage !== ""} type="roleSpecSummary" placeholder="Enter the specification summary for the role" value={roleSummary} onChange={(e) => { if (e.target.value.length < 255) setRoleSummary(e.target.value) }} />
                     <Form.Control.Feedback type="invalid">{roleSummaryValidationMessage}</Form.Control.Feedback>
                 </Form.Group>
 
@@ -208,7 +241,10 @@ const AddRole = () => {
                 </Button>
             </Form>
         </div>
-    )
+    } else {
+        return <div></div>
+    }
+
 
 
 

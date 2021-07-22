@@ -21,7 +21,6 @@ const AddRole = () => {
     const [selectedJobFamilyID, setSelectedJobFamilyID] = useState("");
     const [bandID, setBandID] = useState("");
     const [validated, setValidated] = useState("false");
-    const [error, setError] = useState()
     const [roleNameValidationMessage, setRoleNameValidationMessage] = useState("");
     const [roleSpecLinkValidationMessage, setRoleSpecLinkValidationMessage] = useState("");
     const [roleSummaryValidationMessage, setRoleSummaryValidationMessage] = useState("");

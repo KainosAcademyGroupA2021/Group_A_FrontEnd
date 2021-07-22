@@ -13,7 +13,7 @@ const EditJobFamily = () => {
     const [previousData, setPreviousData] = useState();
     const [loadedPreviousData, setLoadedPreviousData] = useState(false);
 
-    const [capabilitiesItems, setCapabilitiesItems] = useState();
+    const [capabilityItems, setCapabilityItems] = useState();
 
     const [selectedCapabilityID, setSelectedCapabilityID] = useState("");
 
@@ -68,9 +68,15 @@ const EditJobFamily = () => {
                     <option key={CapabilityID} value={CapabilityID}>{CapabilityName}</option>
                 );
             });
-            setCapabilitiesItems(tempItems);
+            setCapabilityItems(tempItems);
         }
-
+        if (capabilityItems) {
+            if (!loadedPreviousData) {
+                const { CapabilityID } = previousData;
+                document.getElementById("capability").value = CapabilityID;
+                setLoadedPreviousData(true);
+            }
+        }
     }, [capabilities, previousData, selectedCapabilityID]);
 
     const handleSubmit = (e) => {
@@ -127,13 +133,14 @@ const EditJobFamily = () => {
                             type="select"
                             value={selectedCapabilityID}
                             isInvalid={capabilityValidationMessage !== ""}
-                            name="capabilities"
+                            name="capability"
+                            id="capability"
                             onChange={e => {
                                 setSelectedCapabilityID(e.target.value);
                             }}
                         >
                             <option value="" >Select capability</option>
-                            {capabilitiesItems}
+                            {capabilityItems}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">{capabilityValidationMessage}</Form.Control.Feedback>
                     </Form.Group>

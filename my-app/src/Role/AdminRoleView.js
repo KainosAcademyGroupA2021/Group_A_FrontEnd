@@ -119,10 +119,6 @@ const handleDeleteRole = (id, token, setResults, setError) => {
     };
     let confirmed = window.confirm("Are you sure you want to delete this role?");
     if (confirmed) {
-      const options = {
-          audience: 'http://my.api:50001',
-          scope: 'read:secured write:secured'
-      }
         console.log("Deleting role with id: " + id);
         axios.post('https://my.api:50001/deleteRole', {
             RoleID: id,

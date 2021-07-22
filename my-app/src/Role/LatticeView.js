@@ -54,24 +54,26 @@ const LatticeView = () => {
     }, []);
 
     useEffect(() => {
-        async function updateJobFamilies() {
-            try {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
+        if (token) {
+            async function updateJobFamilies() {
+                try {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
                     }
-                }
-                console.log(jobFamilies)
-                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`, config)).data);
-            } catch (e) {
-                if (e.response) {
-                    if (e.response.status === 403 || e.response.status === 401) {
-                        setError(e.response.status);
+                    console.log(jobFamilies)
+                    setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`, config)).data);
+                } catch (e) {
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
                     }
                 }
             }
+            updateJobFamilies();
         }
-        updateJobFamilies();
     }, [capabilityID])
 
     if (error) {
@@ -128,7 +130,7 @@ const LatticeView = () => {
                                                             return (jobFamilyItem.JobFamilyID == jobRoleItem.JobFamilyID && jobRoleItem.BandLevel == bandItem.BandLevel)
                                                         })
                                                         .map((jobRoleItem) => {
-                                                            return (<div><a href={jobRoleItem.RoleSpec}>{jobRoleItem.RoleName}</a> <br /><br/></div>)
+                                                            return (<div><a href={jobRoleItem.RoleSpec}>{jobRoleItem.RoleName}</a> <br /><br /></div>)
                                                         })}</td>)
                                                 })}
                                         </tr>)

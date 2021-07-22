@@ -45,7 +45,6 @@ const Home = () => {
               <Card.Body>   
               <Card.Title>Job Family</Card.Title>
               <ListGroupItem><Button href="/JobFamily/AdminJobFamilyView" variant="outline-primary" size="lg" style={{width: "15rem"}}>Admin Job Family View</Button></ListGroupItem>
-              <ListGroupItem><Button href="/JobFamily/EditJobFamily" variant="outline-primary" size="lg" style={{width: "15rem"}}>Edit Job Family</Button></ListGroupItem>
               </Card.Body>
             </Card>
           </Col>

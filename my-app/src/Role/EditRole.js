@@ -35,20 +35,37 @@ const EditRole = () => {
 
     const { getAccessTokenSilently, user } = useAuth0();
     const [token, setToken] = useState();
+    const [error, setError] = useState();
 
     useEffect(() => {
         if (!(bands && capabilities && jobFamilies && previousData)) {
             async function fetchResults() {
-                setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`)).data);
-                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`)).data);
-                setBands((await axios.get(`https://my.api:50001/getBands`)).data)
-                setPreviousData((await axios.get('https://my.api:50001/getRoleWithCapabilityID/' + id)).data[0]);
                 const options = {
                     audience: 'http://my.api:50001',
                     scope: 'read:secured write:secured'
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
+
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ` + accessToken,
+                    }
+                };
+
+                try {
+                setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`, config)).data);
+                setJobFamilies((await axios.get(`https://my.api:50001/getJobFamilies`, config)).data);
+                setBands((await axios.get(`https://my.api:50001/getBands`, config)).data)
+                setPreviousData((await axios.get('https://my.api:50001/getRoleWithCapabilityID/' + id, config)).data[0]);
+                } catch (e) {
+                    if (e.response) {
+                        if (e.response.status === 403 || e.response.status === 401) {
+                            setError(e.response.status);
+                        }
+                    }
+                }
             }
             fetchResults();
         } else if (bands && capabilities && jobFamilies && previousData) {

@@ -34,7 +34,6 @@ const AdminRoleView = () => {
                         }
                     }
                     const res = await axios.get(`https://my.api:50001/getJobRolesAdmin`, options);
-                    console.log(res.data);
                     setResults(res.data);
 
                 } catch (error) {
@@ -56,7 +55,7 @@ const AdminRoleView = () => {
                         <td>{RoleName}</td>
                         <td>{CapabilityName}</td>
                         <td>{BandName}</td>
-                        <td><AdminButtons roleID={RoleID} token={token} /></td>
+                        <td><AdminButtons roleID={RoleID} token={token} setResults={setResults} setError={setError}/></td>
                     </tr>
                 )
 
@@ -103,7 +102,7 @@ const AdminButtons = (props) => {
     return (
         <div>
             <Button variant="warning" className="mr-3"><Link className="linkButton" to={"/role/editRole/" + props.roleID}>Edit</Link></Button>
-            <Button variant="danger" onClick={() => handleDeleteRole(props.roleID, props.token)}>Delete</Button>
+            <Button variant="danger" onClick={() => handleDeleteRole(props.roleID, props.token, props.setResults, props.setError)}>Delete</Button>
         </div>
     );
 }
@@ -112,8 +111,8 @@ const handleEditRole = (id) => {
 
 }
 
-const handleDeleteRole = (id, token) => {
-    const options = {
+const handleDeleteRole = (id, token, setResults, setError) => {
+    const config = {
         headers: {
             'Authorization': `Bearer ` + token,
         }
@@ -125,8 +124,24 @@ const handleDeleteRole = (id, token) => {
             RoleID: id,
         }, options)
             .then(function (response) {
-                console.log(response);
-                window.location.reload()
+                async function updateRoles() {
+                    try {
+                        const options = {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        }
+                        const res = await axios.get(`https://my.api:50001/getJobRolesAdmin`, options);
+                        setResults(res.data);
+
+                    } catch (error) {
+                        if (error.response.status === 403 || error.response.status === 401) {
+                            setError(error.response.status);
+                        }
+
+                    }
+                }
+                updateRoles();
             })
             .catch(function (error) {
                 console.log(error);

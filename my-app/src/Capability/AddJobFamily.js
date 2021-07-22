@@ -42,7 +42,6 @@ const AddJobFamily = () => {
                             Authorization: `Bearer ${token}`,
                         }
                     }
-
                     setCapabilites((await axios.get(`https://my.api:50001/getCapabilities`, options)).data);
                 } catch (e) {
                     console.log(e)
@@ -99,7 +98,6 @@ const AddJobFamily = () => {
                     setError(error.response.status);
                 }
             }
-
         }
     }
     if (error) {

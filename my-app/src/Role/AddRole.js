@@ -30,6 +30,7 @@ const AddRole = () => {
 
     const { getAccessTokenSilently } = useAuth0();
     const [token, setToken] = useState();
+    const [error, setError] = useState();
 
     useEffect(() => {
         if (!bands || !capabilities || !jobFamilies) {
@@ -40,7 +41,6 @@ const AddRole = () => {
                 }
                 const accessToken = await getAccessTokenSilently(options);
                 setToken(accessToken);
-
                 try {
                     const options = {
                         headers: {
@@ -69,9 +69,7 @@ const AddRole = () => {
                             setError(e.response.status);
                         }
                     }
-
                 }
-
             }
             fetchResults();
         } else {

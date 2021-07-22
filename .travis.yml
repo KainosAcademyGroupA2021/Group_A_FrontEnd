@@ -7,16 +7,16 @@ node_js:
 install:
   - # start your web application and listen on `localhost`
   - cd my-app
-  - npm install -g add selenium-side-runner
-  - npm install -g chromedriver
-  - npm install -g serve
+ # - npm install -g add selenium-side-runner
+  #- npm install -g chromedriver
+  #- npm install -g serve
   - npm install
 
 before_script:
-  - npm run build
-  - serve -s build -p 3000 &
+  #- npm run build
+  #- serve -s build -p 3000 &
 
 script:
 - npm test
-- selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
+#- selenium-side-runner -c "goog:chromeOptions.args=[disable-infobars, headless] browserName=chrome" ./SeleniumTests/GroupA-Frontend.side;
 - eslint src/

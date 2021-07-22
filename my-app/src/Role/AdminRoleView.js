@@ -112,7 +112,7 @@ const handleEditRole = (id) => {
 }
 
 const handleDeleteRole = (id, token, setResults, setError) => {
-    const config = {
+    const options = {
         headers: {
             'Authorization': `Bearer ` + token,
         }

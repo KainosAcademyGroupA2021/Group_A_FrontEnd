@@ -5,7 +5,6 @@ import axios from "axios";
 import './Role.css'
 import { Link } from "react-router-dom";
 import ErrorPage from "../shared/ErrorPage";
-
 import { Table } from "react-bootstrap";
 
 const AdminRoleView = () => {
@@ -115,7 +114,6 @@ const handleEditRole = (id) => {
 const handleDeleteRole = (id, token, setResults, setError) => {
     const config = {
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': `Bearer ` + token,
         }
     };
@@ -124,7 +122,7 @@ const handleDeleteRole = (id, token, setResults, setError) => {
         console.log("Deleting role with id: " + id);
         axios.post('https://my.api:50001/deleteRole', {
             RoleID: id,
-        }, config)
+        }, options)
             .then(function (response) {
                 async function updateRoles() {
                     try {

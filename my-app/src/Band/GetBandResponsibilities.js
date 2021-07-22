@@ -11,7 +11,7 @@ const GetBandResponsibilities = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState();
     const [list, setList] = useState();
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently} = useAuth0();
     const [error, setError] = useState();
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const GetBandResponsibilities = () => {
                     label="Search Term"
                     className="searchBar"
                 >
-                    <Form.Control type="search" placeholder="Search for a Band Name" onChange={(e) => setSearchTerm(e.target.value)} />
+                    <Form.Control type="search" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
                 </FormLabel>
                 <div className="emp-table">
                     <Table >

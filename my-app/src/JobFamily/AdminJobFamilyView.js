@@ -53,7 +53,7 @@ const AdminJobFamilyView = () => {
                 <tr key={JobFamilyID}>
                     <td>{JobFamilyName}</td>
                     <td>{CapabilityName}</td>
-                    <td><AdminButtons JobFamilyID={JobFamilyID}/></td>
+                    <td><AdminButtons JobFamilyID={JobFamilyID} token={token}/></td>
                 </tr>
             )
 
@@ -61,6 +61,8 @@ const AdminJobFamilyView = () => {
             setList(tempList);
         }
     }, [results, searchTerm]);
+
+    
 
     if(error) {
         return <ErrorPage error={error} />
@@ -96,19 +98,26 @@ const AdminButtons = (props) => {
     return (
         <div>
         <Button variant="warning" className="mr-3"><Link className="linkButton" to={"/jobfamily/editJobFamily/"+props.JobFamilyID}>Edit</Link></Button>
-        <Button variant="danger" onClick={() => handleDeleteJobFamily(props.JobFamilyID)}>Delete</Button>
+        <Button variant="danger" onClick={() => handleDeleteJobFamily(props.JobFamilyID, props.token)}>Delete</Button>
         </div>
     );
 }
+//
 
 
-const handleDeleteJobFamily = (id) => {
+const handleDeleteJobFamily = (id, token) => {
     let confirmed =  window.confirm("Are you sure you want to delete this job family?");
     if (confirmed) {
         console.log("Deleting job family with id: " + id);
+        
+        const options = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }
         axios.post('https://my.api:50001/deleteJobFamily', {
             JobFamilyID: id
-          })
+          }, options)
           .then(function (response) {
             console.log(response);
             if (response.data !== "success") {
@@ -122,5 +131,7 @@ const handleDeleteJobFamily = (id) => {
           });
     }
 }
+
+
 
 export default AdminJobFamilyView;

@@ -126,7 +126,7 @@ const EditCapability = () => {
         return <ErrorPage error={error} />
     } else if (capabilityLeads) {
         return (
-            <div className="EditCapabilityContainer">
+            <div className="AddCapabilityContainer">
                 <h1>Edit Capability</h1>
                 <br />
                 <Form onSubmit={handleSubmit} validiated={validated}>

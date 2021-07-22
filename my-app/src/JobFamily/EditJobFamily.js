@@ -114,7 +114,7 @@ const EditJobFamily = () => {
         return <ErrorPage error={error} />
     } else if (capabilities) {
         return (
-            <div className="EditJobFamilyContainer">
+            <div className="AddJobFamilyContainer">
                 <h1>Edit Job Family</h1>
                 <br />
                 <Form onSubmit={handleSubmit} validiated={validated}>

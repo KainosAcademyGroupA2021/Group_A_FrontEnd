@@ -62,9 +62,7 @@ const GetCapability = () => {
                     <tr >
                         <td>{CapabilityName}</td>
                         <td>{CapabilityLeadName}</td>
-                        <td><Button variant="warning"><Link className="linkButton" to={"/Capability/EditCapability/" + CapabilityID}>Edit</Link></Button>
-                            <a> </a>
-                            <Button variant="danger" onClick={() => handleDeleteCapability(CapabilityID)}>Delete</Button></td>
+                        <td><AdminButtons CapabilityID={CapabilityID}/></td>
                     </tr>
                 )
 
@@ -73,6 +71,14 @@ const GetCapability = () => {
         }
     }, [results, searchTerm]);
 
+    const AdminButtons = (props) => {
+        return (
+            <div>
+            <Button variant="warning" className="mr-3"><Link className="linkButton" to={"/Capability/editCapability/"+props.CapabilityID}>Edit</Link></Button>
+            <Button variant="danger" onClick={() => handleDeleteCapability(props.CapabilityID)}>Delete</Button>
+            </div>
+        );
+    }
 
     const handleDeleteCapability = async (id) => {
 

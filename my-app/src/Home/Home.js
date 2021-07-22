@@ -15,7 +15,7 @@ import "./Home.css";
 import capabilityImg from "../Images/capability.png";
 import bandImg from "../Images/band.png";
 import roleImg from "../Images/role.png";
-import jobImg from "../Images/job.png";
+import jobFamily from "../Images/jobFamily.png";
 
 const Home = () => {
   return (
@@ -30,19 +30,32 @@ const Home = () => {
               <Card.Body>
               <Card.Title>Capability</Card.Title>
               <ListGroupItem><Button href="/Capability/CapabilityPerJobFamily" variant="outline-primary" size="lg" style={{width: "15rem"}}>Capability Relation with Job Family</Button></ListGroupItem>
-              <ListGroupItem><Button href="/Capability/AddJobFamily" variant="outline-primary" size="lg" style={{width: "15rem"}}>View Capability Leads</Button></ListGroupItem>
-              <ListGroupItem><Button href="/Capability/AddCapability" variant="outline-primary" size="lg" style={{width: "15rem"}}>Add Job Family</Button></ListGroupItem>
-              <ListGroupItem><Button href="/Capability/GetCapability" variant="outline-primary" size="lg" style={{width: "15rem"}}>Add Capability</Button></ListGroupItem>
-              <ListGroupItem><Button href="/Capability/CapabilityLead" variant="outline-primary" size="lg" style={{width: "15rem"}}>Edit Capability</Button></ListGroupItem>    
+              <ListGroupItem><Button href="/Capability/AddJobFamily" variant="outline-primary" size="lg" style={{width: "15rem"}}>Add Job Family</Button></ListGroupItem>
+              <ListGroupItem><Button href="/Capability/AddCapability" variant="outline-primary" size="lg" style={{width: "15rem"}}>Add Capability</Button></ListGroupItem>
+              <ListGroupItem><Button href="/Capability/CapabilityLead" variant="outline-primary" size="lg" style={{width: "15rem"}}>View Capability Leads</Button></ListGroupItem>             
+              <ListGroupItem><Button href="/Capability/GetCapability" variant="outline-primary" size="lg" style={{width: "15rem"}}>Admin View</Button></ListGroupItem>    
+              </Card.Body>
+            </Card>
+          </Col>
+
+
+          <Col style={{maxWidth: "400px"}}>
+            <Card style={{ width: "20rem" }}>
+            <Card.Img as={Image} src={jobFamily} fluid={true} alt="Card image" />
+              <Card.Body>   
+              <Card.Title>Job Family</Card.Title>
+              <ListGroupItem><Button href="/JobFamily/AdminJobFamilyView" variant="outline-primary" size="lg" style={{width: "15rem"}}>Admin Job Family View</Button></ListGroupItem>
+              <ListGroupItem><Button href="/JobFamily/EditJobFamily" variant="outline-primary" size="lg" style={{width: "15rem"}}>Edit Job Family</Button></ListGroupItem>
               </Card.Body>
             </Card>
           </Col>
 
           <Col style={{maxWidth: "400px"}}>
             <Card style={{ width: "20rem" }}>
-            <Card.Img as={Image} src={bandImg} fluid={true} alt="Card image" />
+            <Card.Img as={Image} src={roleImg} fluid={true} alt="Card image" />
               <Card.Body>   
               <Card.Title>Roles</Card.Title>
+              <ListGroupItem><Button href="/role/LatticeView" variant="outline-primary" size="lg" style={{width: "15rem"}}>Lattice View</Button></ListGroupItem>
               <ListGroupItem><Button href="/role/GetJobRoles" variant="outline-primary" size="lg" style={{width: "15rem"}}>Job View Roles</Button></ListGroupItem>
               <ListGroupItem><Button href="/role/addRole" variant="outline-primary" size="lg" style={{width: "15rem"}}>Add a Role</Button></ListGroupItem>
               <ListGroupItem><Button href="/role/adminRoleView" variant="outline-primary" size="lg" style={{width: "15rem"}}>Admin Role View</Button></ListGroupItem>
@@ -52,7 +65,7 @@ const Home = () => {
 
           <Col style={{maxWidth: "400px"}}>
             <Card style={{ width: "20rem" }}>
-            <Card.Img as={Image} src={roleImg} fluid={true} alt="Card image" />
+            <Card.Img as={Image} src={bandImg} fluid={true} alt="Card image" />
             <Card.Body>   
               <Card.Title>Band</Card.Title>
               <ListGroupItem><Button href="/Band/GetBandResponsibilities" variant="outline-primary" size="lg" style={{width: "15rem"}}>View Band Responsibilties</Button></ListGroupItem>
